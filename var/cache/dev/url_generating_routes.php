@@ -8,6 +8,7 @@ return [
     'ctrl_logout' => [[], ['_controller' => 'App\\Controller\\HomeController::logout'], [], [['text', '/logout']], [], [], []],
     'app_after_login' => [[], ['_controller' => 'App\\Controller\\HomeController::completeApp'], [], [['text', '/app']], [], [], []],
     'test' => [[], ['_controller' => 'App\\Controller\\HomeController::test'], [], [['text', '/test']], [], [], []],
+    'metroplans' => [[], ['_controller' => 'App\\Controller\\HomeController::sendPlans'], [], [['text', '/plans']], [], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\HomeController::crearConsulta'], [], [['text', '/register']], [], [], []],
     'home' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
 ];

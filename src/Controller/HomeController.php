@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Plans;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,7 +40,7 @@ class HomeController extends AbstractController
     }
 
 
-    #[Route('/test', name: 'test')]
+    #[Route('/userData', name: 'userData')]
     public function test(Request $request)
     {
         $data = [];
@@ -49,6 +50,23 @@ class HomeController extends AbstractController
         // Use the 'app.path.profile_pictures' parameter to get the correct path to your pictures
         return new JsonResponse($data);
     }
+
+    #[Route('/plans', name: 'metroplans')]
+    public function sendPlans(ManagerRegistry $doctrine): JsonResponse
+    {
+        $entityManager = $doctrine->getManager();
+        $plansAvailable=$entityManager->getRepository(Plans::class)->findAll();
+        $data = [];
+
+        if ($plansAvailable !== null) {
+            foreach ($plansAvailable as $plan) {
+                $data[ $plan->getTitle()] = $this->getParameter('metroPlans'). $plan->getPath();
+            }
+        }
+
+        return new JsonResponse($data);
+    }
+
 
 
     #[Route('/register', name: 'register')]
