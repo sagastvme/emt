@@ -51,22 +51,70 @@ class HomeController extends AbstractController
         return new JsonResponse($data);
     }
 
+
+    #[Route('/checkPassword', name: 'checkPassword')]
+    public function check(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $passwordAttempt = $data['password'];
+
+
+        $isPasswordCorrect = password_verify($passwordAttempt, $this->getUser()->getPassword());
+
+        return new JsonResponse([
+            'isPasswordCorrect' => $isPasswordCorrect,
+        ]);
+    }
+
+    #[Route('/checkFavourite', name: 'checkFavourite')]
+    public function checkFavourite(Request $request,ManagerRegistry $doctrine)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $busCode = $data['busCode'];
+
+    }
+
+
+    #[Route('/changeP', name: 'change')]
+    public function change(Request $request, ManagerRegistry $doctrine)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $password = $data['password'];
+
+        $user = $this->getUser();
+
+        $user->setPassword($password);
+
+
+        $entityManager = $doctrine->getManager();
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return new JsonResponse([
+            'isPasswordCorrect' => $this->getUser()->getPassword(),
+            'cambio' => $data['password']
+        ]);
+    }
+
+
     #[Route('/plans', name: 'metroplans')]
     public function sendPlans(ManagerRegistry $doctrine): JsonResponse
     {
         $entityManager = $doctrine->getManager();
-        $plansAvailable=$entityManager->getRepository(Plans::class)->findAll();
+        $plansAvailable = $entityManager->getRepository(Plans::class)->findAll();
         $data = [];
 
         if ($plansAvailable !== null) {
             foreach ($plansAvailable as $plan) {
-                $data[ $plan->getTitle()] = $this->getParameter('metroPlans'). $plan->getPath();
+                $data[$plan->getTitle()] = $this->getParameter('metroPlans') . $plan->getPath();
             }
         }
 
         return new JsonResponse($data);
     }
-
 
 
     #[Route('/register', name: 'register')]
@@ -87,7 +135,7 @@ class HomeController extends AbstractController
 
         $entityManager->persist($user);
         $entityManager->flush();
-        return $this->json(['message' => 'User registered successfully', 'user'=>$data]);
+        return $this->json(['message' => 'User registered successfully', 'user' => $data]);
 
     }
 

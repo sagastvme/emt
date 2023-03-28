@@ -80,7 +80,7 @@
         </div>
       </div>
         <div class="p-5">
-        <h2 class="text-2xl font-bold mb-3">Buses en camino</h2>
+        <h2 class="text-2xl font-bold mb-3">Buses en camino <svg-star-empty @click="addFavourite"/> </h2>
         <ul >
           <li v-for="buses in dataArray['Arrive']" :key="buses" class="  text-sm mr-3 mb-3">
             <span class="bg-blue-200 rounded-full py-1 px-3"> {{ buses.line }}   </span> {{ buses.destination }}  Tiempo estimado: {{ displayArrivingTime(buses.estimateArrive) }}
@@ -104,6 +104,8 @@ import axios from 'axios';
 import SvgEyeOpened from "./SvgIcons/SvgEyeOpened.vue";
 import SvgEyeClosed from "./SvgIcons/SvgEyeClosed.vue";
 import ErrorMessage from "./ErrorMessage.vue";
+import SvgStar from "./SvgIcons/SvgStarEmpty.vue";
+import SvgStarEmpty from "./SvgIcons/SvgStarEmpty.vue";
 
 
 export default {
@@ -223,10 +225,13 @@ export default {
       } else {
         return translatedTime + ' minutos';
       }
+    },
+    addFavourite(){
+      console.log('a');
     }
 
   },
-  components: {ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
+  components: {SvgStarEmpty, SvgStar, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
 }
 </script>
 

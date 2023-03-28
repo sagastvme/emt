@@ -52,7 +52,7 @@
 
 <script>
 import SvgBus from "./SvgIcons/SvgBus.vue";
-import SvgStar from "./SvgIcons/SvgStar.vue";
+import SvgStar from "./SvgIcons/SvgStarEmpty.vue";
 import SvgForum from "./SvgIcons/SvgForum.vue";
 import SvgUser from "./SvgIcons/SvgUser.vue";
 import SvgLogout from "./SvgIcons/SvgLogout.vue";
