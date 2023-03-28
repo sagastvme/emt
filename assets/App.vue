@@ -12,7 +12,7 @@ import TheMenu from "./components/TheMenu.vue";
 import BusTime from "./components/BusTime.vue";
 import TheUserData from "./components/TheUserData.vue";
 import ThePlans from "./components/ThePlans.vue";
-import TransportPrices from "./TransportPrices.vue";
+import TransportPrices from "./components/TransportPrices.vue";
 import BikeTime from "./components/BikeTime.vue";
 export default {
   components: {BusTime, TheMenu, TheHeader, TheUserData, ThePlans, TransportPrices, BikeTime},

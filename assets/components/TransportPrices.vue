@@ -1,7 +1,8 @@
 <template>
-  <div class="flex justify-center space-x-8 mb-10">
+  <div class="flex">
+  <div class="w-1/2 p-4 mb-10">
 
-  <table>
+  <table  class="w-full border">
     <thead class="bg-gray-200">
     <tr>
       <th  class="border border-gray-400 py-2 px-4">Abono</th>
@@ -77,9 +78,9 @@
   </table>
   </div>
 
-  <div class="flex justify-center space-x-8 mb-10">
+  <div class="w-1/2 p-4 mb-10">
 
-  <table >
+  <table class="w-full border">
     <thead class="bg-gray-200">
     <tr>
       <th  class="border border-gray-400 py-2 px-4">Billete/Metro/EMT</th>
@@ -153,6 +154,7 @@
     </tr>
     </tbody>
   </table>
+  </div>
   </div>
 </template>
 
