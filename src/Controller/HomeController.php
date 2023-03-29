@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Plans;
+use App\Entity\Stops;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +32,7 @@ class HomeController extends AbstractController
     public function completeApp()
     {
         try {
-            $this->denyAccessUnlessGranted('ROLE_USER_VERIFICADO');
+            $this->denyAccessUnlessGranted('ROLE_USER');
             //le devuelvo el twig donde voy a usar todo spa
             $test = $this->getUser()->getPassword();
             return $this->render('home/index.html.twig');
@@ -46,7 +48,7 @@ class HomeController extends AbstractController
         $data = [];
         $data['username'] = $this->getUser()->getUsername();
         $data['password'] = $this->getUser()->getPassword();
-        $data['profilePicture'] = $this->getParameter('fotosDePerfil') . '/68Gregorio.png';
+        $data['profilePicture'] = $this->getUser()->getProfilePic();
         // Use the 'app.path.profile_pictures' parameter to get the correct path to your pictures
         return new JsonResponse($data);
     }
@@ -67,14 +69,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/checkFavourite', name: 'checkFavourite')]
-    public function checkFavourite(Request $request,ManagerRegistry $doctrine)
-    {
-        $data = json_decode($request->getContent(), true);
 
-        $busCode = $data['busCode'];
-
-    }
 
 
     #[Route('/changeP', name: 'change')]
@@ -123,12 +118,12 @@ class HomeController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $username = $data['username'];
         $password = $data['password'];
-        $status = $data['confirmedStatus'];
+
 
         $user = new User();
         $user->setPassword($password);
         $user->setUsername($username);
-        $user->setConfirmedStatus($status);
+        $user->setProfilePic('profilePictures/null.jpg');
 
 
         $entityManager = $doctrine->getManager();
@@ -140,4 +135,85 @@ class HomeController extends AbstractController
     }
 
 
+    #[Route('/profile', name: 'change_picture')]
+    public function uploadAction(Request $request, ManagerRegistry $doctrine)
+    {
+        $entityManager = $doctrine->getManager();
+        $file = $request->files->get('profilePic');
+
+        if ($file) {
+            $username = $this->getUser()->getUsername();
+            $newName = $username . '.' . $file->guessExtension();
+            $targetDir = $this->getParameter('profilePictures');
+            $targetFile = $targetDir . '/' . $newName;
+
+            // Check if a file with the same name exists
+            $existingFiles = glob($targetDir . '/' . $username . '.*');
+            foreach ($existingFiles as $existingFile) {
+                if (is_file($existingFile)) {
+                    unlink($existingFile);
+                }
+            }
+
+            $file = new File($file);
+            $file->move($targetDir, $newName);
+            $this->getUser()->setProfilePic('profilePictures/' . $newName);
+            $entityManager->persist($this->getUser());
+            $entityManager->flush();
+
+            return $this->json(['success' => true, 'newPicture' => $this->getUser()->getProfilePic()]);
+        } else {
+            return $this->json(['success' => false]);
+        }
+    }
+
+
+    #[Route('/saveFavourite', name: 'saveFavourite')]
+    public function saveFavourite(Request $request, ManagerRegistry $doctrine): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $entityManager = $doctrine->getManager();
+        $busCode = $data['busCode'];
+
+
+        $stopExists = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
+
+        if (!$stopExists) {
+            $stop = new Stops();
+            $stop->setStopId($busCode);
+            $stop->setTimesVisited(0);
+            $stop->setUsername($this->getUser());
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($stop);
+            $entityManager->flush();
+            return $this->json(['isFavourite' =>false]);
+        }
+        return $this->json(['isFavourite' =>true]);
+
+    }
+
+
+
+
+    #[Route('/checkFavourite', name: 'checkFavourite')]
+    public function checkFavourite(Request $request, ManagerRegistry $doctrine): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $entityManager = $doctrine->getManager();
+        $busCode = $data['busCode'];
+        $stopExists = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
+
+
+        if($stopExists){
+            return $this->json(['isFavourite' =>true]);
+        }else{
+            return $this->json(['isFavourite' =>false]);
+        }
+    }
+
+
+
+
+
 }
+

@@ -79,11 +79,17 @@
           </div>
         </div>
       </div>
-        <div class="p-5">
-        <h2 class="text-2xl font-bold mb-3">Buses en camino <svg-star-empty @click="addFavourite"/> </h2>
-        <ul >
+      <div class="p-5">
+        <h2 class="text-2xl font-bold mb-3">Buses en camino
+
+
+          <svg-star-empty v-if="!isFavourite" @click="addFavourite"/>
+          <svg-star-full v-else/>
+        </h2>
+        <ul>
           <li v-for="buses in dataArray['Arrive']" :key="buses" class="  text-sm mr-3 mb-3">
-            <span class="bg-blue-200 rounded-full py-1 px-3"> {{ buses.line }}   </span> {{ buses.destination }}  Tiempo estimado: {{ displayArrivingTime(buses.estimateArrive) }}
+            <span class="bg-blue-200 rounded-full py-1 px-3"> {{ buses.line }}   </span> {{ buses.destination }} Tiempo
+            estimado: {{ displayArrivingTime(buses.estimateArrive) }}
           </li>
         </ul>
       </div>
@@ -106,6 +112,7 @@ import SvgEyeClosed from "./SvgIcons/SvgEyeClosed.vue";
 import ErrorMessage from "./ErrorMessage.vue";
 import SvgStar from "./SvgIcons/SvgStarEmpty.vue";
 import SvgStarEmpty from "./SvgIcons/SvgStarEmpty.vue";
+import SvgStarFull from "./SvgIcons/SvgStarFull.vue";
 
 
 export default {
@@ -121,7 +128,8 @@ export default {
       showStopDetailsVariable: false,
       loading: false,
       showErrorMessage: false,
-      stopDoesntExist: false
+      stopDoesntExist: false,
+      isFavourite: true
     }
   },
   computed: {
@@ -211,9 +219,15 @@ export default {
     async submitData() {
       if (await this.login()) {
         await this.getBusesArrival();
-
+        await this.checkIsFavourite();
 
       }
+    },
+    async checkIsFavourite() {
+      const response = await axios.post('/checkFavourite', {
+        'busCode': this.busCode
+      })
+      this.isFavourite = response.data.isFavourite
     },
     showStopDetails() {
       this.showStopDetailsVariable = !this.showStopDetailsVariable
@@ -226,12 +240,16 @@ export default {
         return translatedTime + ' minutos';
       }
     },
-    addFavourite(){
-      console.log('a');
+    async addFavourite() {
+      const response = await axios.post('/saveFavourite', {
+        'busCode': this.busCode
+      })
+      console.log(response)
+      this.isFavourite = true
     }
 
   },
-  components: {SvgStarEmpty, SvgStar, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
+  components: {SvgStarFull, SvgStarEmpty, SvgStar, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
 }
 </script>
 

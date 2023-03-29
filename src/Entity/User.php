@@ -17,50 +17,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $username;
 
-    /**
-     * @return mixed
-     */
     public function getUsername()
     {
         return $this->username;
     }
 
-    /**
-     * @param mixed $username
-     */
     public function setUsername($username): void
     {
         $this->username = $username;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getConfirmedStatus()
-    {
-        return $this->confirmedStatus;
-    }
-
-    /**
-     * @param mixed $confirmedStatus
-     */
-    public function setConfirmedStatus($confirmedStatus): void
-    {
-        $this->confirmedStatus = $confirmedStatus;
     }
     /**
      * @ORM\Column(type="string", name = "password")
      */
     private $password;
     /**
-     * @ORM\Column(type="integer", name = "confirmedStatus")
+     * @ORM\Column(type="string", name = "profilePic")
      */
-    private $confirmedStatus;
+    private $profilePic;
+
+    public function getProfilePic()
+    {
+        return $this->profilePic;
+    }
+    public function setProfilePic($profilePic): void
+    {
+        $this->profilePic = $profilePic;
+    }
 
     public function getRoles(): array
     {
 
-        return array('ROLE_USER_VERIFICADO');
+        return array('ROLE_USER');
     }
 
     public function eraseCredentials()
@@ -77,7 +64,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword(): ?string
     {
         return $this->password;
-        // TODO: Implement getPassword() method.
     }
     public function setPassword(string $password)
     {

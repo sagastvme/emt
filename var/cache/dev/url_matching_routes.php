@@ -16,6 +16,9 @@ return [
         '/changeP' => [[['_route' => 'change', '_controller' => 'App\\Controller\\HomeController::change'], null, null, null, false, false, null]],
         '/plans' => [[['_route' => 'metroplans', '_controller' => 'App\\Controller\\HomeController::sendPlans'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'register', '_controller' => 'App\\Controller\\HomeController::crearConsulta'], null, null, null, false, false, null]],
+        '/profile' => [[['_route' => 'change_picture', '_controller' => 'App\\Controller\\HomeController::uploadAction'], null, null, null, false, false, null]],
+        '/saveFavourite' => [[['_route' => 'saveFavourite', '_controller' => 'App\\Controller\\HomeController::saveFavourite'], null, null, null, false, false, null]],
+        '/checkFavourite' => [[['_route' => 'checkFavourite', '_controller' => 'App\\Controller\\HomeController::checkFavourite'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
