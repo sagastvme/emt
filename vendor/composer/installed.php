@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'f1a88d7369e0a2b74ea5c8810d90f5fcb3b86915',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '98661747f5622010423ce589029810830dbc1cd5',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'f1a88d7369e0a2b74ea5c8810d90f5fcb3b86915',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '98661747f5622010423ce589029810830dbc1cd5',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -454,6 +454,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'symfony/mime' => array(
+            'pretty_version' => 'v6.0.19',
+            'version' => '6.0.19.0',
+            'reference' => 'd7052547a0070cbeadd474e172b527a00d657301',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/mime',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'symfony/password-hasher' => array(
             'pretty_version' => 'v6.0.19',
             'version' => '6.0.19.0',
@@ -481,6 +490,15 @@
             'reference' => '511a08c03c1960e08a883f4cffcacd219b758354',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-intl-grapheme',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-intl-idn' => array(
+            'pretty_version' => 'v1.27.0',
+            'version' => '1.27.0.0',
+            'reference' => '639084e360537a19f9ee352433b84ce831f3d2da',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-intl-idn',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

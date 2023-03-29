@@ -9,8 +9,10 @@ return [
     'app_after_login' => [[], ['_controller' => 'App\\Controller\\HomeController::completeApp'], [], [['text', '/app']], [], [], []],
     'userData' => [[], ['_controller' => 'App\\Controller\\HomeController::test'], [], [['text', '/userData']], [], [], []],
     'checkPassword' => [[], ['_controller' => 'App\\Controller\\HomeController::check'], [], [['text', '/checkPassword']], [], [], []],
+    'checkFavourite' => [[], ['_controller' => 'App\\Controller\\HomeController::checkFavourite'], [], [['text', '/checkFavourite']], [], [], []],
     'change' => [[], ['_controller' => 'App\\Controller\\HomeController::change'], [], [['text', '/changeP']], [], [], []],
     'metroplans' => [[], ['_controller' => 'App\\Controller\\HomeController::sendPlans'], [], [['text', '/plans']], [], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\HomeController::crearConsulta'], [], [['text', '/register']], [], [], []],
+    'change_picture' => [[], ['_controller' => 'App\\Controller\\HomeController::uploadAction'], [], [['text', '/profile']], [], [], []],
     'home' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
 ];
