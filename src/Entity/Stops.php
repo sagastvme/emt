@@ -96,5 +96,68 @@ class Stops
      * @ORM\Column(type="integer", name="timesVisited")
      */
     private $timesVisited;
+    /**
+     * @ORM\Column(type="string", name="stopName")
+     */
+    private $stopName;
+
+    /**
+     * @ORM\Column(type="string", name="buses")
+     */
+    private $buses;
+
+    /**
+     * @return mixed
+     */
+    public function getStopName()
+    {
+        return $this->stopName;
+    }
+
+    /**
+     * @param mixed $stopName
+     */
+    public function setStopName($stopName): void
+    {
+        $this->stopName = $stopName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBuses()
+    {
+        return $this->buses;
+    }
+
+    /**
+     * @param mixed $buses
+     */
+    public function setBuses($buses): void
+    {
+        $this->buses = $buses;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getCustomName()
+    {
+        return $this->customName;
+    }
+
+    /**
+     * @param mixed $customName
+     */
+    public function setCustomName($customName): void
+    {
+        $this->customName = $customName;
+    }
+    /**
+     * @ORM\Column(type="string", name="customName")
+     */
+    private $customName;
 
 }

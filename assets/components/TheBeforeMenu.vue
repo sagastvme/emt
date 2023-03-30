@@ -1,25 +1,25 @@
 <template>
-  <menu>
-    <table class="flex justify-center  " >
-      <tr >
-        <td class="border-2 border-black hover:border-red-400 mr-1.5">
-          <button @click="changeTab('bus-time')">Consulta tu parada de autobus urbano
-            <svg-bus />
-          </button>
-        </td>
+  <menu class="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+    <div class="flex w-full">
 
-        <td class="border-2 border-black hover:border-red-400  mr-1.5">
-          <button @click="changeTab('the-login')">Iniciar sesion
-            <svg-login />
-          </button>
-        </td>
-        <td class="border-2 border-black hover:border-red-400  mr-1.5">
-          <button @click="changeTab('the-register')">Registrate
-            <svg-user />
-          </button>
-        </td>
-      </tr>
-    </table>
+    <button
+        class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-4 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline"
+        @click="changeTab('bus-time')">Consulta tu parada de autobus urbano
+      <svg-bus/>
+    </button>
+
+    <button
+        class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-4 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline"
+        @click="changeTab('the-login')">Iniciar sesion
+      <svg-login/>
+    </button>
+
+    <button
+        class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-4 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline"
+        @click="changeTab('the-register')">Registrate
+      <svg-user/>
+    </button>
+    </div>
   </menu>
 
 </template>
@@ -33,8 +33,8 @@ import SvgLogin from "./SvgIcons/SvgLogin.vue";
 
 
 export default {
-  props:['status'],
-  components: { SvgLogin, SvgUser, SvgForum, SvgStar, SvgBus},
+  props: ['status'],
+  components: {SvgLogin, SvgUser, SvgForum, SvgStar, SvgBus},
   methods: {
     changeTab(tab) {
       this.$emit('change-tab', tab)

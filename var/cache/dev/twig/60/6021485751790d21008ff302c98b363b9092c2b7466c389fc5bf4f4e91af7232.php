@@ -27,7 +27,6 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
         $this->parent = false;
 
         $this->blocks = [
-            'title' => [$this, 'block_title'],
             'stylesheets' => [$this, 'block_stylesheets'],
             'javascripts' => [$this, 'block_javascripts'],
             'body' => [$this, 'block_body'],
@@ -45,11 +44,8 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
 <html>
     <head>
         <meta charset=\"UTF-8\">
-        <title>";
-        // line 5
-        $this->displayBlock('title', $context, $blocks);
-        echo "</title>
-        <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>\">
+        <title>Rastro</title>
+        <link rel=\"icon\" href=\"../../metroPlans/logo.svg\" type=\"image/svg+xml\">
         ";
         // line 8
         echo "        ";
@@ -69,19 +65,6 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
         echo "    </body>
 </html>
 ";
-        
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
-
-    }
-
-    // line 5
-    public function block_title($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
-
-        echo "Welcome!";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -140,7 +123,7 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
 
     public function getDebugInfo()
     {
-        return array (  125 => 17,  115 => 13,  108 => 12,  98 => 9,  91 => 8,  78 => 5,  69 => 18,  67 => 17,  63 => 15,  61 => 12,  58 => 11,  55 => 8,  50 => 5,  44 => 1,);
+        return array (  108 => 17,  98 => 13,  91 => 12,  81 => 9,  74 => 8,  65 => 18,  63 => 17,  59 => 15,  57 => 12,  54 => 11,  51 => 8,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -149,8 +132,8 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
 <html>
     <head>
         <meta charset=\"UTF-8\">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>\">
+        <title>Rastro</title>
+        <link rel=\"icon\" href=\"../../metroPlans/logo.svg\" type=\"image/svg+xml\">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -164,6 +147,6 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
         {% block body %}{% endblock %}
     </body>
 </html>
-", "base.html.twig", "C:\\Users\\Edu\\Documents\\propiointento\\templates\\base.html.twig");
+", "base.html.twig", "C:\\Users\\Edu\\Documents\\emt\\templates\\base.html.twig");
     }
 }

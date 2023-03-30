@@ -1,7 +1,7 @@
 <template>
   <the-header></the-header>
   <the-menu @change-tab="changeTab"></the-menu>
-  <component :is="selectedTab"></component>
+  <component :is="selectedTab" ></component>
 
 </template>
 
@@ -14,8 +14,9 @@ import TheUserData from "./components/TheUserData.vue";
 import ThePlans from "./components/ThePlans.vue";
 import TransportPrices from "./components/TransportPrices.vue";
 import BikeTime from "./components/BikeTime.vue";
+import FavouriteStops from "./components/FavouriteStops.vue";
 export default {
-  components: {BusTime, TheMenu, TheHeader, TheUserData, ThePlans, TransportPrices, BikeTime},
+  components: {BusTime, TheMenu, TheHeader, TheUserData, ThePlans, TransportPrices, BikeTime, FavouriteStops},
 
   data() {
     return {

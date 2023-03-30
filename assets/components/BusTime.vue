@@ -10,8 +10,16 @@
           <button v-if="!isBusCodeNegative" class="flex-row">
             <svg-search v-if="!loading"/>
           </button>
-          <error-message v-else v-if="showErrorMessage" message="El numero debe ser mayor que 1"
-                         @close-error="showErrorMessage=false"></error-message>
+          <teleport v-if="askConfirm" to="body">
+            <confirm-message :message="'Estás seguro de que quieres borrar la parada ' +this.busCode"
+                             @close-error="this.askConfirm=false" v-if="this.askConfirm">
+              <button @click="removeFavourite">SI</button>
+              <button class="ml-8" @click="this.askConfirm=false">NO</button>
+            </confirm-message>
+            <error-message v-else v-if="showErrorMessage" message="El numero debe ser mayor que 1"
+                           @close-error="showErrorMessage=false"></error-message>
+
+          </teleport>
 
 
           <div class="parent">
@@ -24,7 +32,7 @@
 
       <button @click="showStopDetails">
         <h2> Info de la parada
-          <svg-eye-closed v-if="showStopDetailsVariable"/>
+          <svg-eye-closed v-if="showStopDetailsVariable "/>
           <svg-eye-opened v-else/>
         </h2>
 
@@ -82,9 +90,17 @@
       <div class="p-5">
         <h2 class="text-2xl font-bold mb-3">Buses en camino
 
+<div v-if="loggedIn">
+<div v-if="wantsToAdd">
+  <form @submit.prevent="addFavourite">
+  <input required type="text" ref="customName"   placeholder="Nombre que le quiera poner a la parada">
+  <button>Anadir a favoritos</button>
+  </form>
+</div>
 
-          <svg-star-empty v-if="!isFavourite" @click="addFavourite"/>
-          <svg-star-full v-else/>
+  <svg-star-empty v-if="!isFavourite" @click="this.wantsToAdd=true"/>
+  <svg-star-full v-else @click="this.askConfirm=true" />
+</div>
         </h2>
         <ul>
           <li v-for="buses in dataArray['Arrive']" :key="buses" class="  text-sm mr-3 mb-3">
@@ -101,6 +117,7 @@
     <div v-if="stopDoesntExist" class="select-none">
       <h3>La parada que ha introducido no existe</h3>
     </div>
+
   </div>
 </template>
 
@@ -113,6 +130,7 @@ import ErrorMessage from "./ErrorMessage.vue";
 import SvgStar from "./SvgIcons/SvgStarEmpty.vue";
 import SvgStarEmpty from "./SvgIcons/SvgStarEmpty.vue";
 import SvgStarFull from "./SvgIcons/SvgStarFull.vue";
+import ConfirmMessage from "./ConfirmMessage.vue";
 
 
 export default {
@@ -129,7 +147,11 @@ export default {
       loading: false,
       showErrorMessage: false,
       stopDoesntExist: false,
-      isFavourite: true
+      isFavourite: null,
+      loggedIn:null,
+      wantsToAdd:false,
+      askConfirm:false
+
     }
   },
   computed: {
@@ -227,7 +249,19 @@ export default {
       const response = await axios.post('/checkFavourite', {
         'busCode': this.busCode
       })
-      this.isFavourite = response.data.isFavourite
+      console.log(response)
+      if(response.data.isFavourite=='notLoggedIn'){
+        this.loggedIn=false
+      }else{
+        this.loggedIn=true
+        this.isFavourite = response.data.isFavourite
+        if(this.isFavourite){
+          await axios.post('/addOneVisit', {
+            'busCode': this.busCode
+          })
+        }
+      }
+
     },
     showStopDetails() {
       this.showStopDetailsVariable = !this.showStopDetailsVariable
@@ -241,15 +275,31 @@ export default {
       }
     },
     async addFavourite() {
+
       const response = await axios.post('/saveFavourite', {
-        'busCode': this.busCode
+        'busCode': this.busCode,
+        'stopName':this.busStopInfo.stops[0].name,
+        'buses':this.busStopInfo.stops[0].dataLine,
+        'customName':this.$refs.customName.value
       })
+      this.wantsToAdd=false
       console.log(response)
       this.isFavourite = true
+
+      console.log(this.wantsToAdd)
+    },
+   async removeFavourite(){
+
+      const response = await axios.post('/removeFavourite', {
+        'busCode': this.busCode
+      })
+     this.isFavourite = false
+      console.log(response)
+
     }
 
   },
-  components: {SvgStarFull, SvgStarEmpty, SvgStar, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
+  components: {ConfirmMessage, SvgStarFull, SvgStarEmpty, SvgStar, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
 }
 </script>
 

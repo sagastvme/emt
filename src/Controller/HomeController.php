@@ -70,8 +70,6 @@ class HomeController extends AbstractController
     }
 
 
-
-
     #[Route('/changeP', name: 'change')]
     public function change(Request $request, ManagerRegistry $doctrine)
     {
@@ -173,7 +171,21 @@ class HomeController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $entityManager = $doctrine->getManager();
+
         $busCode = $data['busCode'];
+        $stopName = $data['stopName'];
+        $buses = $data['buses'];
+        $customName = $data['customName'];
+        $linesToString = '';
+        $first = true;
+        foreach ($buses as $bus) {
+            if (!$first) {
+                $linesToString .= ',';
+            } else {
+                $first = false;
+            }
+            $linesToString .= $bus['label'];
+        }
 
 
         $stopExists = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
@@ -183,16 +195,71 @@ class HomeController extends AbstractController
             $stop->setStopId($busCode);
             $stop->setTimesVisited(0);
             $stop->setUsername($this->getUser());
+            $stop->setCustomName($customName);
+            $stop->setBuses($linesToString);
+            $stop->setStopName($stopName);
             $entityManager = $doctrine->getManager();
             $entityManager->persist($stop);
             $entityManager->flush();
-            return $this->json(['isFavourite' =>false]);
+            return $this->json(['isFavourite' => $linesToString]);
         }
-        return $this->json(['isFavourite' =>true]);
+        return $this->json(['isFavourite' => true]);
 
     }
 
 
+    #[Route('/removeFavourite', name: 'removeFavourite')]
+    public function removeFavourite(Request $request, ManagerRegistry $doctrine): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $busCode = $data['busCode'];
+        $entityManager = $doctrine->getManager();
+        $stop = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
+        $entityManager->remove($stop);
+        $entityManager->flush();
+        return $this->json(['isFavourite' => false]);
+    }
+
+
+
+    #[Route('/addOneVisit', name: 'addOneVisit')]
+    public function addOneVisit(Request $request, ManagerRegistry $doctrine): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $busCode = $data['busCode'];
+        $entityManager = $doctrine->getManager();
+        $stop = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
+       $stop->setTimesVisited($stop->getTimesVisited()+1);
+        $entityManager->persist($stop);
+        $entityManager->flush();
+        return $this->json(['isFavourite' => false]);
+    }
+
+
+
+
+    #[Route('/askForUserFavourites', name: 'askForUserFavourites')]
+    public function askForUserFavourites(ManagerRegistry $doctrine): JsonResponse
+    {
+        $entityManager = $doctrine->getManager();
+        $stops = $entityManager->getRepository(Stops::class)->findBy(array('username' => $this->getUser()));
+        if ($stops) {
+            $stopsTransformed = [];
+            foreach ($stops as $stop) {
+
+
+                $stopsTransformed[$stop->getStopId()]['stopId'] = $stop->getStopId();
+                $stopsTransformed[$stop->getStopId()]['timesVisited'] = $stop->getTimesVisited();
+                $stopsTransformed[$stop->getStopId()]['stopName'] = $stop->getStopName();
+                $stopsTransformed[$stop->getStopId()]['customName'] = $stop->getCustomName();
+                $stopsTransformed[$stop->getStopId()]['buses'] = explode(',', $stop->getBuses());
+
+            }
+            return $this->json(['stopsArray' => $stopsTransformed]);
+        }else{
+            return $this->json(['stopsArray' => 'Empty']);
+        }
+    }
 
 
     #[Route('/checkFavourite', name: 'checkFavourite')]
@@ -202,18 +269,15 @@ class HomeController extends AbstractController
         $entityManager = $doctrine->getManager();
         $busCode = $data['busCode'];
         $stopExists = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
-
-
-        if($stopExists){
-            return $this->json(['isFavourite' =>true]);
-        }else{
-            return $this->json(['isFavourite' =>false]);
+        if (!$this->getUser()) {
+            return $this->json(['isFavourite' => 'notLoggedIn']);
+        }
+        if ($stopExists) {
+            return $this->json(['isFavourite' => true]);
+        } else {
+            return $this->json(['isFavourite' => false]);
         }
     }
-
-
-
-
 
 }
 

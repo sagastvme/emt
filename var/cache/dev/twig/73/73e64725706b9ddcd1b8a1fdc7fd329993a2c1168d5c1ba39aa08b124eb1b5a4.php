@@ -27,7 +27,6 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
         $this->parent = false;
 
         $this->blocks = [
-            'title' => [$this, 'block_title'],
             'stylesheets' => [$this, 'block_stylesheets'],
             'javascripts' => [$this, 'block_javascripts'],
             'body' => [$this, 'block_body'],
@@ -45,26 +44,25 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 <html>
 <head>
     <meta charset=\"UTF-8\">
-    <title>";
-        // line 5
-        $this->displayBlock('title', $context, $blocks);
-        echo "</title>
+    <title>Rastro</title>
+    <link rel=\"icon\" href=\"../../metroPlans/logo.svg\" type=\"image/svg+xml\">
+
+
     ";
-        // line 7
-        echo "    ";
+        // line 9
         $this->displayBlock('stylesheets', $context, $blocks);
-        // line 10
+        // line 12
         echo "
     ";
-        // line 11
+        // line 13
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 14
+        // line 16
         echo "</head>
 <body>
 ";
-        // line 16
+        // line 18
         $this->displayBlock('body', $context, $blocks);
-        // line 22
+        // line 24
         echo "
 </body>
 </html>";
@@ -73,27 +71,14 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 
     }
 
-    // line 5
-    public function block_title($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
-
-        echo "Welcome!";
-        
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
-
-    }
-
-    // line 7
+    // line 9
     public function block_stylesheets($context, array $blocks = [])
     {
         $macros = $this->macros;
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "stylesheets"));
 
-        // line 8
+        // line 10
         echo "        ";
         echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension']->renderWebpackLinkTags("appTwo");
         echo "
@@ -103,14 +88,14 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 
     }
 
-    // line 11
+    // line 13
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 12
+        // line 14
         echo "        ";
         echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension']->renderWebpackScriptTags("appTwo");
         echo "
@@ -120,15 +105,15 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 
     }
 
-    // line 16
+    // line 18
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 17
-        echo "
+        // line 19
+        echo "    <img src=\"../../public/metroPlans/logo.svg\" type=\"image/svg+xml\" alt=\"\">
     <div id=\"before\" class=\"select-none\">
 
     </div>
@@ -145,7 +130,7 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 
     public function getDebugInfo()
     {
-        return array (  131 => 17,  124 => 16,  114 => 12,  107 => 11,  97 => 8,  90 => 7,  77 => 5,  68 => 22,  66 => 16,  62 => 14,  60 => 11,  57 => 10,  54 => 7,  50 => 5,  44 => 1,);
+        return array (  116 => 19,  109 => 18,  99 => 14,  92 => 13,  82 => 10,  75 => 9,  66 => 24,  64 => 18,  60 => 16,  58 => 13,  55 => 12,  53 => 9,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -154,8 +139,10 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 <html>
 <head>
     <meta charset=\"UTF-8\">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    <title>Rastro</title>
+    <link rel=\"icon\" href=\"../../metroPlans/logo.svg\" type=\"image/svg+xml\">
+
+
     {% block stylesheets %}
         {{ encore_entry_link_tags('appTwo') }}
     {% endblock %}
@@ -166,13 +153,13 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 </head>
 <body>
 {% block body %}
-
+    <img src=\"../../public/metroPlans/logo.svg\" type=\"image/svg+xml\" alt=\"\">
     <div id=\"before\" class=\"select-none\">
 
     </div>
 {% endblock %}
 
 </body>
-</html>", "home/indexTwo.html.twig", "C:\\Users\\Edu\\Documents\\propiointento\\templates\\home\\indexTwo.html.twig");
+</html>", "home/indexTwo.html.twig", "C:\\Users\\Edu\\Documents\\emt\\templates\\home\\indexTwo.html.twig");
     }
 }
