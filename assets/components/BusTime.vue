@@ -242,10 +242,13 @@ export default {
       if (await this.login()) {
         await this.getBusesArrival();
         await this.checkIsFavourite();
-
+        await axios.post('/addOneGlobalVisit', {
+          'busCode': this.busCode
+        })
       }
     },
     async checkIsFavourite() {
+
       const response = await axios.post('/checkFavourite', {
         'busCode': this.busCode
       })
@@ -259,6 +262,7 @@ export default {
           await axios.post('/addOneVisit', {
             'busCode': this.busCode
           })
+
         }
       }
 

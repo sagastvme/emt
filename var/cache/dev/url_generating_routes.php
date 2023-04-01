@@ -4,6 +4,13 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
+    'saveFavourite' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::saveFavourite'], [], [['text', '/saveFavourite']], [], [], []],
+    'removeFavourite' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::removeFavourite'], [], [['text', '/removeFavourite']], [], [], []],
+    'addOneVisit' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::addOneVisit'], [], [['text', '/addOneVisit']], [], [], []],
+    'addOneGlobalVisit' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::addOneGlobalVisit'], [], [['text', '/addOneGlobalVisit']], [], [], []],
+    'getMostVisited' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::getMostVisited'], [], [['text', '/getMostVisited']], [], [], []],
+    'askForUserFavourites' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::askForUserFavourites'], [], [['text', '/askForUserFavourites']], [], [], []],
+    'checkFavourite' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::checkFavourite'], [], [['text', '/checkFavourite']], [], [], []],
     'ctrl_login' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/home']], [], [], []],
     'ctrl_logout' => [[], ['_controller' => 'App\\Controller\\HomeController::logout'], [], [['text', '/logout']], [], [], []],
     'app_after_login' => [[], ['_controller' => 'App\\Controller\\HomeController::completeApp'], [], [['text', '/app']], [], [], []],
@@ -12,11 +19,9 @@ return [
     'change' => [[], ['_controller' => 'App\\Controller\\HomeController::change'], [], [['text', '/changeP']], [], [], []],
     'metroplans' => [[], ['_controller' => 'App\\Controller\\HomeController::sendPlans'], [], [['text', '/plans']], [], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\HomeController::crearConsulta'], [], [['text', '/register']], [], [], []],
+    'confirm_account' => [['user'], ['_controller' => 'App\\Controller\\HomeController::confirmAccount'], [], [['variable', '/', '[^/]++', 'user', true], ['text', '/confirmAccount']], [], [], []],
     'change_picture' => [[], ['_controller' => 'App\\Controller\\HomeController::uploadAction'], [], [['text', '/profile']], [], [], []],
-    'saveFavourite' => [[], ['_controller' => 'App\\Controller\\HomeController::saveFavourite'], [], [['text', '/saveFavourite']], [], [], []],
-    'removeFavourite' => [[], ['_controller' => 'App\\Controller\\HomeController::removeFavourite'], [], [['text', '/removeFavourite']], [], [], []],
-    'addOneVisit' => [[], ['_controller' => 'App\\Controller\\HomeController::addOneVisit'], [], [['text', '/addOneVisit']], [], [], []],
-    'askForUserFavourites' => [[], ['_controller' => 'App\\Controller\\HomeController::askForUserFavourites'], [], [['text', '/askForUserFavourites']], [], [], []],
-    'checkFavourite' => [[], ['_controller' => 'App\\Controller\\HomeController::checkFavourite'], [], [['text', '/checkFavourite']], [], [], []],
+    'sendDeleteEmail' => [[], ['_controller' => 'App\\Controller\\HomeController::sendDeleteEmail'], [], [['text', '/sendDeleteEmail']], [], [], []],
+    'delete_account' => [['user'], ['_controller' => 'App\\Controller\\HomeController::deleteAccount'], [], [['variable', '/', '[^/]++', 'user', true], ['text', '/deleteAccount']], [], [], []],
     'home' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
 ];

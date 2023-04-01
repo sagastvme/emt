@@ -1,17 +1,40 @@
 <template>
-  <form action="/home" class="grid grid-cols-2 gap-3 mt-5" method="post">
-    <label class=" flex-row  mr-3" for="_username">Email</label>
-    <input id="_username" v-model="username" class="flex-row  border-2 border-black" name="_username" type="text">
-    <label ref="password" class="flex-row  mr-3" htmlFor="_password">Password </label>
-    <input id="_password" v-model="password" :type="showPassword ? 'text' : 'password'"
-           class="flex-row  border-2 border-black"
-           name="_password">
-    <label class="flex-row  mr-3" for="remember">Remember Me</label>
-    <input id="remember" v-model="rememberMe" class="flex-row  border-2 border-black" type="checkbox">
-    <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer" type="submit"
-           value="Iniciar sesión"
-           @click="remember">
-  </form>
+  <div v-if="!forgotPassword">
+    <form action="/home" class="grid grid-cols-2 gap-3 mt-5" method="post">
+      <label class=" flex-row  mr-3" for="_username">Email</label>
+      <input id="_username" v-model="username" class="flex-row  border-2 border-black" name="_username" type="text">
+      <label ref="password" class="flex-row  mr-3" htmlFor="_password">Password </label>
+      <input id="_password" v-model="password" :type="showPassword ? 'text' : 'password'"
+             class="flex-row  border-2 border-black"
+             name="_password">
+      <label class="flex-row  mr-3" for="remember">Remember Me</label>
+      <input id="remember" v-model="rememberMe" class="flex-row  border-2 border-black" type="checkbox">
+      <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
+             type="submit"
+             value="Iniciar sesión"
+             @click="remember">
+
+    </form>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
+            @click="forgotPassword=true">Olvidaste la contrasena?
+    </button>
+  </div>
+  <div v-else>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
+            @click="forgotPassword=false">Cancelar
+    </button>
+    <form>
+      <input id="" ref="forgotEmail" name="" placeholder="Introduzca su email"  type="text">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
+              @click="sendForgotPassword">Enviar email de confirmacion
+      </button>
+
+    </form>
+  </div>
+  <teleport to="body">
+    <error-message v-if="showResult" :message="this.resultMessage"
+                   @close-error="showResult=false,this.forgotPassword = false"/>
+  </teleport>
 
 </template>
 
@@ -20,15 +43,20 @@
 import SvgEyeOpened from "./SvgIcons/SvgEyeOpened.vue";
 import SvgEyeClosed from "./SvgIcons/SvgEyeClosed.vue";
 import EyePassword from "./EyePassword.vue";
+import axios from "axios";
+import ErrorMessage from "./ErrorMessage.vue";
 
 export default {
-  components: {EyePassword, SvgEyeOpened, SvgEyeClosed},
+  components: {ErrorMessage, EyePassword, SvgEyeOpened, SvgEyeClosed},
   data() {
     return {
       username: '',
       password: '',
       rememberMe: false,
       showPassword: false,
+      forgotPassword: false,
+      showResult: false,
+      resultMessage: null
     }
   },
   mounted() {
@@ -55,6 +83,25 @@ export default {
     },
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
+    },
+    async sendForgotPassword() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (this.$refs.forgotEmail.value.trim() != '' && emailRegex.test(this.$refs.forgotEmail.value)) {
+        const response = await axios.post('/forgotPassword', {
+          'email': this.$refs.forgotEmail.value
+        })
+        const success = (response.data.success)
+        if (!success) {
+          this.resultMessage = 'Este email no existe'
+        } else {
+          this.resultMessage = 'Se le he enviado un correo a ' + this.$refs.forgotEmail.value
+        }
+        this.showResult = true
+        this.forgotPassword = false
+      }else{
+        this.resultMessage = 'Este email no es valido'
+        this.showResult = true
+      }
     }
   }
 }

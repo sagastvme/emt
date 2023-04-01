@@ -27,7 +27,6 @@ class __TwigTemplate_13e8ef2554f24df3777a5fa819b78b18d1271859006366094ab27d84d66
         $this->parent = false;
 
         $this->blocks = [
-            'title' => [$this, 'block_title'],
             'stylesheets' => [$this, 'block_stylesheets'],
             'javascripts' => [$this, 'block_javascripts'],
             'body' => [$this, 'block_body'],
@@ -45,27 +44,23 @@ class __TwigTemplate_13e8ef2554f24df3777a5fa819b78b18d1271859006366094ab27d84d66
 <html>
 <head>
     <meta charset=\"UTF-8\">
-    <title>";
-        // line 5
-        $this->displayBlock('title', $context, $blocks);
-        echo "</title>
-    <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>\">
+    <title>Rastro</title>
+    <link rel=\"icon\" href=\"../../metroPlans/logo.svg\" type=\"image/svg+xml\">
     ";
-        // line 8
-        echo "    ";
+        // line 7
         $this->displayBlock('stylesheets', $context, $blocks);
-        // line 11
+        // line 10
         echo "
     ";
-        // line 12
+        // line 11
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 15
+        // line 14
         echo "</head>
 <body>
 ";
-        // line 17
+        // line 16
         $this->displayBlock('body', $context, $blocks);
-        // line 18
+        // line 17
         echo "
 </body>
 </html>
@@ -75,27 +70,14 @@ class __TwigTemplate_13e8ef2554f24df3777a5fa819b78b18d1271859006366094ab27d84d66
 
     }
 
-    // line 5
-    public function block_title($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
-
-        echo "Welcome!";
-        
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
-
-    }
-
-    // line 8
+    // line 7
     public function block_stylesheets($context, array $blocks = [])
     {
         $macros = $this->macros;
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "stylesheets"));
 
-        // line 9
+        // line 8
         echo "        ";
         echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension']->renderWebpackLinkTags("appTwo");
         echo "
@@ -105,14 +87,14 @@ class __TwigTemplate_13e8ef2554f24df3777a5fa819b78b18d1271859006366094ab27d84d66
 
     }
 
-    // line 12
+    // line 11
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 13
+        // line 12
         echo "        ";
         echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension']->renderWebpackScriptTags("appTwo");
         echo "
@@ -122,7 +104,7 @@ class __TwigTemplate_13e8ef2554f24df3777a5fa819b78b18d1271859006366094ab27d84d66
 
     }
 
-    // line 17
+    // line 16
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -141,7 +123,7 @@ class __TwigTemplate_13e8ef2554f24df3777a5fa819b78b18d1271859006366094ab27d84d66
 
     public function getDebugInfo()
     {
-        return array (  126 => 17,  116 => 13,  109 => 12,  99 => 9,  92 => 8,  79 => 5,  69 => 18,  67 => 17,  63 => 15,  61 => 12,  58 => 11,  55 => 8,  50 => 5,  44 => 1,);
+        return array (  108 => 16,  98 => 12,  91 => 11,  81 => 8,  74 => 7,  64 => 17,  62 => 16,  58 => 14,  56 => 11,  53 => 10,  51 => 7,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -150,9 +132,8 @@ class __TwigTemplate_13e8ef2554f24df3777a5fa819b78b18d1271859006366094ab27d84d66
 <html>
 <head>
     <meta charset=\"UTF-8\">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>\">
-    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    <title>Rastro</title>
+    <link rel=\"icon\" href=\"../../metroPlans/logo.svg\" type=\"image/svg+xml\">
     {% block stylesheets %}
         {{ encore_entry_link_tags('appTwo') }}
     {% endblock %}
@@ -166,6 +147,6 @@ class __TwigTemplate_13e8ef2554f24df3777a5fa819b78b18d1271859006366094ab27d84d66
 
 </body>
 </html>
-", "baseTwo.html.twig", "C:\\Users\\Edu\\Documents\\propiointento\\templates\\baseTwo.html.twig");
+", "baseTwo.html.twig", "C:\\Users\\Edu\\Documents\\emt\\templates\\baseTwo.html.twig");
     }
 }

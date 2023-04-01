@@ -8,6 +8,8 @@
       <button class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-4 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline" @click="changeTab('the-plans')">Planos de metro<svg-map/></button>
       <button class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-4 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline" @click="changeTab('transport-prices')">Precios y tarifas<svg-price/></button>
       <button class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-4 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline" @click="changeTab('bike-time')">Consulta tu parada de biciMAD<svg-bike/></button>
+      <button class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-4 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline" @click="changeTab('most-visited')">Paradas mas visitadas <svg-trophy/> </button>
+
       <a href="/logout" class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-4 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline block text-center">Cerrar sesión<svg-logout/></a>
     </div>
   </menu>
@@ -23,11 +25,12 @@ import SvgLogout from "./SvgIcons/SvgLogout.vue";
 import SvgMap from "./SvgIcons/SvgMap.vue";
 import SvgPrice from "./SvgIcons/SvgPrice.vue";
 import SvgBike from "./SvgIcons/SvgBike.vue";
+import SvgTrophy from "./SvgIcons/SvgTrophy.vue";
 
 export default {
 
 
-  components: {SvgBike, SvgPrice, SvgMap, SvgLogout, SvgUser, SvgForum, SvgStar, SvgBus},
+  components: {SvgTrophy, SvgBike, SvgPrice, SvgMap, SvgLogout, SvgUser, SvgForum, SvgStar, SvgBus},
   methods: {
     changeTab(tab) {
       this.$emit('change-tab', tab)

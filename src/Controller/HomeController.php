@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Plans;
-use App\Entity\Stops;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,6 +10,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -19,6 +20,7 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'ctrl_login')]
     public function index(Request $request): Response
     {
+
         return $this->render('home/indexTwo.html.twig');
     }
 
@@ -32,7 +34,7 @@ class HomeController extends AbstractController
     public function completeApp()
     {
         try {
-            $this->denyAccessUnlessGranted('ROLE_USER');
+            $this->denyAccessUnlessGranted('ROLE_USER_VERIFIED');
             //le devuelvo el twig donde voy a usar todo spa
             $test = $this->getUser()->getPassword();
             return $this->render('home/index.html.twig');
@@ -111,26 +113,130 @@ class HomeController extends AbstractController
 
 
     #[Route('/register', name: 'register')]
-    public function crearConsulta(Request $request, ManagerRegistry $doctrine): JsonResponse
+    public function crearConsulta(Request $request, ManagerRegistry $doctrine, MailerInterface $mailer): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $username = $data['username'];
         $password = $data['password'];
-
-
         $user = new User();
         $user->setPassword($password);
         $user->setUsername($username);
         $user->setProfilePic('profilePictures/null.jpg');
-
+        $user->setVerified('N');
+        $user->setUniqueAttribute();
 
         $entityManager = $doctrine->getManager();
 
         $entityManager->persist($user);
         $entityManager->flush();
+
+        $url = 'http:/' . $_SERVER['HTTP_HOST'];
+        $url = $url . $this->generateUrl('confirm_account', ['user' => $user->getUniqueAttribute()]);
+        $email = (new Email())
+            ->from('elrastro@gmail.com')
+            ->to($user->getUsername())
+            ->subject('Confirma tu cuenta')
+            ->html(
+                $this->renderView('confirmAccount/confirmAccount.html.twig', [
+                    'url' => $url
+                ])
+            );
+        $mailer->send($email);
+
         return $this->json(['message' => 'User registered successfully', 'user' => $data]);
 
+
     }
+
+    #[Route('/confirmAccount/{user}', name: 'confirm_account')]
+    public function confirmAccount(ManagerRegistry $doctrine, $user)
+    {
+
+        $entityManager = $doctrine->getManager();
+        $userFound = $entityManager->getRepository(User::class)
+            ->findOneBy(array('uniqueAttribute' => $user));
+        $userFound->setVerified('Y');
+        $entityManager->persist($userFound);
+        $entityManager->flush();
+
+        return $this->render('confirmAccount/welcome.html.twig', array('user' => $userFound->getUsername()));
+    }
+
+    #[Route('/forgotPassword', name: 'forgotPassword')]
+    public function sendForgotPasswordEmail(ManagerRegistry $doctrine, Request $request,MailerInterface $mailer)
+    {
+        $data = json_decode($request->getContent(), true);
+        $email = $data['email'];
+        $email = $data['email'];
+
+        $entityManager = $doctrine->getManager();
+        $userFound = $entityManager->getRepository(User::class)
+            ->findOneBy(array('username' => $email));
+
+        if(!$userFound){
+            return $this->json(['success' => false]);
+
+        }else{
+            //if user found we send an email in order to recover the password
+            $url = 'http:/' . $_SERVER['HTTP_HOST'];
+            $url = $url . $this->generateUrl('forgot_password_email', ['user' => $this->getUser()->getUniqueAttribute()]);
+            $email = (new Email())
+                ->from('elrastro@gmail.com')
+                ->to($this->getUser()->getUsername())
+                ->subject('Cambia tu contrasena')
+                ->html(
+                    $this->renderView('deleteAccount/deleteAccount.html.twig', [
+                        'url' => $url
+                    ])
+                );
+            $mailer->send($email);
+
+            return $this->json(['success' => true]);
+        }
+    }
+    #[Route('/forgot_password_email/{user}', name: 'forgot_password_email')]
+    public function forgot_password_email(ManagerRegistry $doctrine, $user)
+    {
+        $entityManager = $doctrine->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(array('uniqueAttribute' => $user));
+        $html = '<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Cambia tu constrasena</title>
+   <style>
+    body {
+      background-color: #2c3e50;
+      color: #bdc3c7;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+    }
+
+    p {
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cambia tu constrasena</h1>
+  
+</body>
+</html>';
+
+        return new Response($html);
+    }
+
+
+
+
+
+
+
 
 
     #[Route('/profile', name: 'change_picture')]
@@ -166,117 +272,63 @@ class HomeController extends AbstractController
     }
 
 
-    #[Route('/saveFavourite', name: 'saveFavourite')]
-    public function saveFavourite(Request $request, ManagerRegistry $doctrine): JsonResponse
+    #[Route('/sendDeleteEmail', name: 'sendDeleteEmail')]
+    public function sendDeleteEmail(Request $request, ManagerRegistry $doctrine, MailerInterface $mailer)
     {
-        $data = json_decode($request->getContent(), true);
-        $entityManager = $doctrine->getManager();
 
-        $busCode = $data['busCode'];
-        $stopName = $data['stopName'];
-        $buses = $data['buses'];
-        $customName = $data['customName'];
-        $linesToString = '';
-        $first = true;
-        foreach ($buses as $bus) {
-            if (!$first) {
-                $linesToString .= ',';
-            } else {
-                $first = false;
-            }
-            $linesToString .= $bus['label'];
-        }
-
-
-        $stopExists = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
-
-        if (!$stopExists) {
-            $stop = new Stops();
-            $stop->setStopId($busCode);
-            $stop->setTimesVisited(0);
-            $stop->setUsername($this->getUser());
-            $stop->setCustomName($customName);
-            $stop->setBuses($linesToString);
-            $stop->setStopName($stopName);
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($stop);
-            $entityManager->flush();
-            return $this->json(['isFavourite' => $linesToString]);
-        }
-        return $this->json(['isFavourite' => true]);
-
+        $url = 'http:/' . $_SERVER['HTTP_HOST'];
+        $url = $url . $this->generateUrl('delete_account', ['user' => $this->getUser()->getUniqueAttribute()]);
+        $email = (new Email())
+            ->from('elrastro@gmail.com')
+            ->to($this->getUser()->getUsername())
+            ->subject('Borra tu cuenta')
+            ->html(
+                $this->renderView('deleteAccount/deleteAccount.html.twig', [
+                    'url' => $url
+                ])
+            );
+        $mailer->send($email);
+        return $this->json(['success' => true]);
     }
 
 
-    #[Route('/removeFavourite', name: 'removeFavourite')]
-    public function removeFavourite(Request $request, ManagerRegistry $doctrine): JsonResponse
+    #[Route('/deleteAccount/{user}', name: 'delete_account')]
+    public function deleteAccount(ManagerRegistry $doctrine, $user)
     {
-        $data = json_decode($request->getContent(), true);
-        $busCode = $data['busCode'];
         $entityManager = $doctrine->getManager();
-        $stop = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
-        $entityManager->remove($stop);
+        $user = $entityManager->getRepository(User::class)->findOneBy(array('uniqueAttribute' => $user));
+        $entityManager->remove($user);
         $entityManager->flush();
-        return $this->json(['isFavourite' => false]);
+        $html = '<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Adiós</title>
+   <style>
+    body {
+      background-color: #2c3e50;
+      color: #bdc3c7;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
     }
 
-
-
-    #[Route('/addOneVisit', name: 'addOneVisit')]
-    public function addOneVisit(Request $request, ManagerRegistry $doctrine): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-        $busCode = $data['busCode'];
-        $entityManager = $doctrine->getManager();
-        $stop = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
-       $stop->setTimesVisited($stop->getTimesVisited()+1);
-        $entityManager->persist($stop);
-        $entityManager->flush();
-        return $this->json(['isFavourite' => false]);
+    h1 {
+      font-size: 2.5em;
     }
 
-
-
-
-    #[Route('/askForUserFavourites', name: 'askForUserFavourites')]
-    public function askForUserFavourites(ManagerRegistry $doctrine): JsonResponse
-    {
-        $entityManager = $doctrine->getManager();
-        $stops = $entityManager->getRepository(Stops::class)->findBy(array('username' => $this->getUser()));
-        if ($stops) {
-            $stopsTransformed = [];
-            foreach ($stops as $stop) {
-
-
-                $stopsTransformed[$stop->getStopId()]['stopId'] = $stop->getStopId();
-                $stopsTransformed[$stop->getStopId()]['timesVisited'] = $stop->getTimesVisited();
-                $stopsTransformed[$stop->getStopId()]['stopName'] = $stop->getStopName();
-                $stopsTransformed[$stop->getStopId()]['customName'] = $stop->getCustomName();
-                $stopsTransformed[$stop->getStopId()]['buses'] = explode(',', $stop->getBuses());
-
-            }
-            return $this->json(['stopsArray' => $stopsTransformed]);
-        }else{
-            return $this->json(['stopsArray' => 'Empty']);
-        }
+    p {
+      font-size: 1.5em;
     }
+  </style>
+</head>
+<body>
+  <h1>¡Adiós!</h1>
+  <p>Nos entristece verte ir. ¡Gracias por utilizar nuestro servicio!</p>
+</body>
+</html>';
 
-
-    #[Route('/checkFavourite', name: 'checkFavourite')]
-    public function checkFavourite(Request $request, ManagerRegistry $doctrine): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-        $entityManager = $doctrine->getManager();
-        $busCode = $data['busCode'];
-        $stopExists = $entityManager->getRepository(Stops::class)->findOneBy(array('stopId' => $busCode, 'username' => $this->getUser()));
-        if (!$this->getUser()) {
-            return $this->json(['isFavourite' => 'notLoggedIn']);
-        }
-        if ($stopExists) {
-            return $this->json(['isFavourite' => true]);
-        } else {
-            return $this->json(['isFavourite' => false]);
-        }
+        return new Response($html);
     }
 
 }

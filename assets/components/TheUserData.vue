@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="myData && !change">
+  <div v-if="myData && !change" class="flex justify-center">
     <table>
       <tr>
         <td>Username:</td>
@@ -11,7 +11,7 @@
           Foto de perfil:
         </td>
         <td>
-          <img :src="profilePic" alt="">
+          <img :src="profilePic" alt="" class="w-5 h-5">
         </td>
       </tr>
       <tr>
@@ -35,7 +35,27 @@
           </button>
         </td>
       </tr>
+      <tr>
+        <td>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
+                  @click="deleteAccountMethod">
+            Borrar cuenta
+          </button>
+        </td>
+      </tr>
     </table>
+  </div>
+
+
+  <div v-if="deleteAccount" id="DeleteAccount">
+    <div id="CancelButton">
+      <button class="bg-red-500 text-white px-4 py-2 rounded-md" @click="this.deleteAccount=false,this.secondStepDeleteAccount=false">Cancelar</button>
+      <form v-if="!this.secondStepDeleteAccount" @submit.prevent="checkDeleteAccountPassword">
+        <input id="" ref="deletePassword" name="" placeholder="Introduzca su contrasena" type="password">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Siguiente paso</button>
+      </form>
+      <button v-else @click="deleteAccountLasStep" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Estas seguro</button>
+    </div>
   </div>
 
 
@@ -43,6 +63,7 @@
     <button class="bg-red-500 text-white px-4 py-2 rounded-md"
             @click="this.change=false;this.middleStep=false; this.lastStep=false">Cancel
     </button>
+
 
     <div v-if="final">
       <h3 class="text-lg font-semibold mt-4">Cambio de contrasena</h3>
@@ -67,12 +88,14 @@
 
   <teleport to="body">
     <error-message v-if="showErrorMessage" message="La contrasena no coincide"
-                   @close-error="showErrorMessage=false"></error-message>
+                   @close-error="showErrorMessage=false"/>
     <error-message v-if="wrongFilePic" message="El tipo de imagen no es valido por favor intente otro"
                    @close-error="wrongFilePic=false"/>
 
     <error-message v-if="success" message="La contrasena se ha cambiado correctamente"
-                   @close-error="success=false"></error-message>
+                   @close-error="success=false"/>
+    <error-message message="Se le ha enviado un correo para que pueda borrar la cuenta" v-if="finalDeleteMessage"
+                   @close-error="finalDeleteMessage=false, this.deleteAccount=false,this.secondStepDeleteAccount=false"/>
   </teleport>
 
 </template>
@@ -98,7 +121,10 @@ export default {
       passwordRepeat: '',
       success: false,
       newPicture: '',
-      wrongFilePic: false
+      wrongFilePic: false,
+      deleteAccount: false,
+      secondStepDeleteAccount: false,
+      finalDeleteMessage:false
     }
   },
   computed: {
@@ -186,6 +212,31 @@ export default {
       } else {
         this.wrongFilePic = true
       }
+    },
+    deleteAccountMethod() {
+      console.log(0)
+      this.deleteAccount = true
+    },
+    async checkDeleteAccountPassword() {
+      this.passInput = this.$refs.deletePassword.value;
+      console.log(this.passInput)
+      const response = await axios.post('/checkPassword', {
+        'password': this.passInput
+      })
+      let result = response.data.isPasswordCorrect
+      if (result) {
+        console.log(0)
+        this.secondStepDeleteAccount = true
+
+      } else {
+        this.showErrorMessage = true
+        this.$refs.deletePassword.value = ''
+      }
+    },
+   async deleteAccountLasStep(){
+     this.finalDeleteMessage=true;
+     console.log('Falta por hacer el enviar correo desde el server y toda la logica restante')
+     const response = await axios.post('/sendDeleteEmail')
     }
   }
 }

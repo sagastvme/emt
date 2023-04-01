@@ -17,8 +17,9 @@ import BusTime from "./components/BusTime.vue";
 import TheBeforeMenu from "./components/TheBeforeMenu.vue";
 import TheLogin from "./components/TheLogin.vue";
 import TheRegister from "./components/TheRegister.vue";
+import ErrorMessage from "./components/ErrorMessage.vue";
 export default {
-  components: {TheBeforeMenu, BusTime,TheLogin,  TheHeader, TheRegister, bikeTime},
+  components: {TheBeforeMenu, BusTime,TheLogin,  TheHeader, TheRegister, bikeTime,ErrorMessage},
 
   data() {
     return {

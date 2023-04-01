@@ -15,8 +15,9 @@ import ThePlans from "./components/ThePlans.vue";
 import TransportPrices from "./components/TransportPrices.vue";
 import BikeTime from "./components/BikeTime.vue";
 import FavouriteStops from "./components/FavouriteStops.vue";
+import MostVisited from "./components/MostVisited.vue";
 export default {
-  components: {BusTime, TheMenu, TheHeader, TheUserData, ThePlans, TransportPrices, BikeTime, FavouriteStops},
+  components: {BusTime, TheMenu, TheHeader, TheUserData, ThePlans, TransportPrices, BikeTime, FavouriteStops, MostVisited},
 
   data() {
     return {
