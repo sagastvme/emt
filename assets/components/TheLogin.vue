@@ -23,10 +23,10 @@
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
             @click="forgotPassword=false">Cancelar
     </button>
-    <form>
-      <input id="" ref="forgotEmail" name="" placeholder="Introduzca su email"  type="text">
+    <form @submit.prevent="sendForgotPassword">
+      <input id="" ref="forgotEmail" name="" placeholder="Introduzca su email"  type="email">
       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
-              @click="sendForgotPassword">Enviar email de confirmacion
+            >Enviar email de confirmacion
       </button>
 
     </form>
@@ -96,12 +96,15 @@ export default {
         } else {
           this.resultMessage = 'Se le he enviado un correo a ' + this.$refs.forgotEmail.value
         }
-        this.showResult = true
-        this.forgotPassword = false
+
+
       }else{
-        this.resultMessage = 'Este email no es valido'
-        this.showResult = true
+        this.resultMessage = 'Por favor introduzca un email valido'
+
       }
+      this.showResult = true
+
+
     }
   }
 }

@@ -23,7 +23,8 @@ return [
         '/changeP' => [[['_route' => 'change', '_controller' => 'App\\Controller\\HomeController::change'], null, null, null, false, false, null]],
         '/plans' => [[['_route' => 'metroplans', '_controller' => 'App\\Controller\\HomeController::sendPlans'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'register', '_controller' => 'App\\Controller\\HomeController::crearConsulta'], null, null, null, false, false, null]],
-        '/forgotPassword' => [[['_route' => 'confirm_account', '_controller' => 'App\\Controller\\HomeController::sendForgotPasswordEmail'], null, null, null, false, false, null]],
+        '/forgotPassword' => [[['_route' => 'forgotPassword', '_controller' => 'App\\Controller\\HomeController::sendForgotPasswordEmail'], null, null, null, false, false, null]],
+        '/forgot_password_email' => [[['_route' => 'forgot_password_email', '_controller' => 'App\\Controller\\HomeController::forgot_password_email'], null, null, null, false, false, null]],
         '/profile' => [[['_route' => 'change_picture', '_controller' => 'App\\Controller\\HomeController::uploadAction'], null, null, null, false, false, null]],
         '/sendDeleteEmail' => [[['_route' => 'sendDeleteEmail', '_controller' => 'App\\Controller\\HomeController::sendDeleteEmail'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
@@ -31,12 +32,14 @@ return [
     [ // $regexpList
         0 => '{^(?'
                 .'|/_error/(\\d+)(?:\\.([^/]++))?(*:35)'
-                .'|/deleteAccount/([^/]++)(*:65)'
+                .'|/confirmAccount/([^/]++)(*:66)'
+                .'|/deleteAccount/([^/]++)(*:96)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
         35 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        65 => [
+        66 => [[['_route' => 'confirm_account', '_controller' => 'App\\Controller\\HomeController::confirmAccount'], ['user'], null, null, false, true, null]],
+        96 => [
             [['_route' => 'delete_account', '_controller' => 'App\\Controller\\HomeController::deleteAccount'], ['user'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

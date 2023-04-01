@@ -94,6 +94,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
+        //check if the email is from an admin
+        $email = $this->getUsername();
+        $adminRegex = '/^admin[A-Za-z]+@elrastro\.madrid\.spain\.es$/';
+        if (preg_match($adminRegex, $email)) {
+            return ['ROLE_ADMIN','ROLE_USER'];
+        }
+
+
+
+
+
+
+        //check if account is verified
         if ($this->getVerified() == 'Y') {
         return array('ROLE_USER', 'ROLE_USER_VERIFIED');
         }

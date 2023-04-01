@@ -3,24 +3,36 @@
     "app": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors-node_modules_vue-loader_dist_exportHelper_js-node_modules_vue_dist_vue_esm-bundler_js-6e5ad1.js",
+        "/build/vendors-node_modules_vue-loader_dist_exportHelper_js-node_modules_vue_dist_vue_esm-bundler_js.js",
+        "/build/vendors-node_modules_axios_lib_axios_js.js",
         "/build/assets_styles_app_css-assets_components_BikeTime_vue-assets_components_BusTime_vue-assets_com-5a3d61.js",
         "/build/app.js"
       ],
       "css": [
-        "/build/assets_styles_app_css-assets_components_BikeTime_vue-assets_components_BusTime_vue-assets_com-5a3d61.css",
+        "/build/assets_styles_app_css.css",
         "/build/app.css"
+      ]
+    },
+    "admin": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_vue-loader_dist_exportHelper_js-node_modules_vue_dist_vue_esm-bundler_js.js",
+        "/build/admin.js"
+      ],
+      "css": [
+        "/build/assets_styles_app_css.css"
       ]
     },
     "appTwo": {
       "js": [
         "/build/runtime.js",
-        "/build/vendors-node_modules_vue-loader_dist_exportHelper_js-node_modules_vue_dist_vue_esm-bundler_js-6e5ad1.js",
+        "/build/vendors-node_modules_vue-loader_dist_exportHelper_js-node_modules_vue_dist_vue_esm-bundler_js.js",
+        "/build/vendors-node_modules_axios_lib_axios_js.js",
         "/build/assets_styles_app_css-assets_components_BikeTime_vue-assets_components_BusTime_vue-assets_com-5a3d61.js",
         "/build/appTwo.js"
       ],
       "css": [
-        "/build/assets_styles_app_css-assets_components_BikeTime_vue-assets_components_BusTime_vue-assets_com-5a3d61.css",
+        "/build/assets_styles_app_css.css",
         "/build/appTwo.css"
       ]
     }

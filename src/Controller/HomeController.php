@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Plans;
+use App\Entity\Stops;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,14 +34,24 @@ class HomeController extends AbstractController
     #[Route('/app', name: 'app_after_login')]
     public function completeApp()
     {
-        try {
-            $this->denyAccessUnlessGranted('ROLE_USER_VERIFIED');
-            //le devuelvo el twig donde voy a usar todo spa
-            $test = $this->getUser()->getPassword();
-            return $this->render('home/index.html.twig');
-        } catch (AccessDeniedException $e) {
-            return $this->render('home/indexTwo.html.twig');
+        try{
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+            return $this->render('admin/administration.html.twig');
+        }catch (AccessDeniedException $e){
+            try {
+                $this->denyAccessUnlessGranted('ROLE_USER_VERIFIED');
+                return $this->render('home/index.html.twig');
+            } catch (AccessDeniedException $e) {
+                return $this->render('home/indexTwo.html.twig');
+            }
         }
+
+
+
+
+
+
+
     }
 
 
@@ -142,10 +153,7 @@ class HomeController extends AbstractController
                 ])
             );
         $mailer->send($email);
-
         return $this->json(['message' => 'User registered successfully', 'user' => $data]);
-
-
     }
 
     #[Route('/confirmAccount/{user}', name: 'confirm_account')]
@@ -163,80 +171,47 @@ class HomeController extends AbstractController
     }
 
     #[Route('/forgotPassword', name: 'forgotPassword')]
-    public function sendForgotPasswordEmail(ManagerRegistry $doctrine, Request $request,MailerInterface $mailer)
+    public function sendForgotPasswordEmail(ManagerRegistry $doctrine, Request $request, MailerInterface $mailer)
     {
         $data = json_decode($request->getContent(), true);
-        $email = $data['email'];
-        $email = $data['email'];
+        $emailAddress = $data['email'];
 
         $entityManager = $doctrine->getManager();
         $userFound = $entityManager->getRepository(User::class)
-            ->findOneBy(array('username' => $email));
+            ->findOneBy(array('username' => $emailAddress));
 
-        if(!$userFound){
+        if (!$userFound) {
             return $this->json(['success' => false]);
 
-        }else{
+        } else {
             //if user found we send an email in order to recover the password
             $url = 'http:/' . $_SERVER['HTTP_HOST'];
-            $url = $url . $this->generateUrl('forgot_password_email', ['user' => $this->getUser()->getUniqueAttribute()]);
+            $url = $url . $this->generateUrl('forgot_password_email');
             $email = (new Email())
                 ->from('elrastro@gmail.com')
-                ->to($this->getUser()->getUsername())
+                ->to($emailAddress)
                 ->subject('Cambia tu contrasena')
                 ->html(
-                    $this->renderView('deleteAccount/deleteAccount.html.twig', [
-                        'url' => $url
-                    ])
+                    $this->renderView('forgotPassword/forgotPassword.html.twig', ['url' => $url, 'unique' => $userFound->getUniqueAttribute()])
                 );
             $mailer->send($email);
 
             return $this->json(['success' => true]);
         }
     }
-    #[Route('/forgot_password_email/{user}', name: 'forgot_password_email')]
-    public function forgot_password_email(ManagerRegistry $doctrine, $user)
+
+    #[Route('/forgot_password_email', name: 'forgot_password_email')]
+    public function forgot_password_email(ManagerRegistry $doctrine, Request $request)
     {
+        $unique =  $request->get('unique');
+        $newPassword = $request->get('password');
         $entityManager = $doctrine->getManager();
-        $user = $entityManager->getRepository(User::class)->findOneBy(array('uniqueAttribute' => $user));
-        $html = '<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Cambia tu constrasena</title>
-   <style>
-    body {
-      background-color: #2c3e50;
-      color: #bdc3c7;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 100px;
+        $user = $entityManager->getRepository(User::class)->findOneBy(array('uniqueAttribute' => $unique));
+        $user->setPassword($newPassword);
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return $this->render('forgotPassword/passwordChangedSuccesfully.html.twig');
     }
-
-    h1 {
-      font-size: 2.5em;
-    }
-
-    p {
-      font-size: 1.5em;
-    }
-  </style>
-</head>
-<body>
-  <h1>Cambia tu constrasena</h1>
-  
-</body>
-</html>';
-
-        return new Response($html);
-    }
-
-
-
-
-
-
-
 
 
     #[Route('/profile', name: 'change_picture')]
@@ -297,38 +272,13 @@ class HomeController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $user = $entityManager->getRepository(User::class)->findOneBy(array('uniqueAttribute' => $user));
+        $savedStops=$entityManager->getRepository(Stops::class)->findBy(['username'=>$user->getUsername()]);
+        foreach ($savedStops as $stop){
+            $entityManager->remove($stop);
+        }
         $entityManager->remove($user);
         $entityManager->flush();
-        $html = '<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Adiós</title>
-   <style>
-    body {
-      background-color: #2c3e50;
-      color: #bdc3c7;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 100px;
-    }
-
-    h1 {
-      font-size: 2.5em;
-    }
-
-    p {
-      font-size: 1.5em;
-    }
-  </style>
-</head>
-<body>
-  <h1>¡Adiós!</h1>
-  <p>Nos entristece verte ir. ¡Gracias por utilizar nuestro servicio!</p>
-</body>
-</html>';
-
-        return new Response($html);
+        return $this->render('deleteAccount/successfullDelete.html.twig');
     }
 
 }

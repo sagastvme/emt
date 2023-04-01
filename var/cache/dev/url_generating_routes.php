@@ -20,6 +20,8 @@ return [
     'metroplans' => [[], ['_controller' => 'App\\Controller\\HomeController::sendPlans'], [], [['text', '/plans']], [], [], []],
     'register' => [[], ['_controller' => 'App\\Controller\\HomeController::crearConsulta'], [], [['text', '/register']], [], [], []],
     'confirm_account' => [['user'], ['_controller' => 'App\\Controller\\HomeController::confirmAccount'], [], [['variable', '/', '[^/]++', 'user', true], ['text', '/confirmAccount']], [], [], []],
+    'forgotPassword' => [[], ['_controller' => 'App\\Controller\\HomeController::sendForgotPasswordEmail'], [], [['text', '/forgotPassword']], [], [], []],
+    'forgot_password_email' => [[], ['_controller' => 'App\\Controller\\HomeController::forgot_password_email'], [], [['text', '/forgot_password_email']], [], [], []],
     'change_picture' => [[], ['_controller' => 'App\\Controller\\HomeController::uploadAction'], [], [['text', '/profile']], [], [], []],
     'sendDeleteEmail' => [[], ['_controller' => 'App\\Controller\\HomeController::sendDeleteEmail'], [], [['text', '/sendDeleteEmail']], [], [], []],
     'delete_account' => [['user'], ['_controller' => 'App\\Controller\\HomeController::deleteAccount'], [], [['variable', '/', '[^/]++', 'user', true], ['text', '/deleteAccount']], [], [], []],

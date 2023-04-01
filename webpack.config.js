@@ -7,6 +7,7 @@ Encore
     .enableVueLoader()
 
     .addEntry('app', './assets/js/app.js')
+    .addEntry('admin', './assets/js/admin.js')
     .addEntry('appTwo', './assets/js/AppBeforeLogin.js')
     .enablePostCssLoader()
     .splitEntryChunks()
