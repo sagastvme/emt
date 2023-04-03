@@ -34,10 +34,10 @@ class HomeController extends AbstractController
     #[Route('/app', name: 'app_after_login')]
     public function completeApp()
     {
-        try{
+        try {
             $this->denyAccessUnlessGranted('ROLE_ADMIN');
             return $this->render('admin/administration.html.twig');
-        }catch (AccessDeniedException $e){
+        } catch (AccessDeniedException $e) {
             try {
                 $this->denyAccessUnlessGranted('ROLE_USER_VERIFIED');
                 return $this->render('home/index.html.twig');
@@ -45,11 +45,6 @@ class HomeController extends AbstractController
                 return $this->render('home/indexTwo.html.twig');
             }
         }
-
-
-
-
-
 
 
     }
@@ -203,7 +198,7 @@ class HomeController extends AbstractController
     #[Route('/forgot_password_email', name: 'forgot_password_email')]
     public function forgot_password_email(ManagerRegistry $doctrine, Request $request)
     {
-        $unique =  $request->get('unique');
+        $unique = $request->get('unique');
         $newPassword = $request->get('password');
         $entityManager = $doctrine->getManager();
         $user = $entityManager->getRepository(User::class)->findOneBy(array('uniqueAttribute' => $unique));
@@ -272,14 +267,28 @@ class HomeController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $user = $entityManager->getRepository(User::class)->findOneBy(array('uniqueAttribute' => $user));
-        $savedStops=$entityManager->getRepository(Stops::class)->findBy(['username'=>$user->getUsername()]);
-        foreach ($savedStops as $stop){
+        $savedStops = $entityManager->getRepository(Stops::class)->findBy(['username' => $user->getUsername()]);
+        foreach ($savedStops as $stop) {
             $entityManager->remove($stop);
         }
         $entityManager->remove($user);
         $entityManager->flush();
         return $this->render('deleteAccount/successfullDelete.html.twig');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

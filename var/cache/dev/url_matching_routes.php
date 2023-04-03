@@ -8,6 +8,8 @@
 return [
     false, // $matchHost
     [ // $staticRoutes
+        '/adminDeletesUserAccount' => [[['_route' => 'adminDeletesUserAccount', '_controller' => 'App\\Controller\\AdminLogicController::adminDeletesUserAccount'], null, null, null, false, false, null]],
+        '/allUsers' => [[['_route' => 'allUsers', '_controller' => 'App\\Controller\\AdminLogicController::allUsers'], null, null, null, false, false, null]],
         '/saveFavourite' => [[['_route' => 'saveFavourite', '_controller' => 'App\\Controller\\BusStopLogicController::saveFavourite'], null, null, null, false, false, null]],
         '/removeFavourite' => [[['_route' => 'removeFavourite', '_controller' => 'App\\Controller\\BusStopLogicController::removeFavourite'], null, null, null, false, false, null]],
         '/addOneVisit' => [[['_route' => 'addOneVisit', '_controller' => 'App\\Controller\\BusStopLogicController::addOneVisit'], null, null, null, false, false, null]],
