@@ -4,6 +4,8 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
+    'adminDeletesUserAccount' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::adminDeletesUserAccount'], [], [['text', '/adminDeletesUserAccount']], [], [], []],
+    'allUsers' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::allUsers'], [], [['text', '/allUsers']], [], [], []],
     'saveFavourite' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::saveFavourite'], [], [['text', '/saveFavourite']], [], [], []],
     'removeFavourite' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::removeFavourite'], [], [['text', '/removeFavourite']], [], [], []],
     'addOneVisit' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::addOneVisit'], [], [['text', '/addOneVisit']], [], [], []],

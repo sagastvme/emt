@@ -11,10 +11,10 @@
 import AdminMenu from "./components/AdminMenu.vue";
 import TheHeader from "./components/TheHeader.vue";
 import DeleteUsers from "./DeleteUsers.vue";
-
+import ModifyMetroPlans from "./components/ModifyMetroPlans.vue";
 export default {
   name: "AdminApp.vue",
-  components: {TheHeader, AdminMenu,DeleteUsers},
+  components: {TheHeader, AdminMenu,DeleteUsers,ModifyMetroPlans},
   data(){
     return{
       selectedTab:null
