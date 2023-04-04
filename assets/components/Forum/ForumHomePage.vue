@@ -11,9 +11,10 @@ import ForumCategories from "./ForumCategories.vue";
 import ForumNewPost from "./ForumNewPost.vue";
 import axios from "axios";
 import ErrorMessage from "../ErrorMessage.vue";
+import ForumSearch from "./ForumSearch.vue";
 export default {
   name: "ForumHomePage",
-  components: {ForumMenu,ForumCategories,ForumNewPost,ErrorMessage},
+  components: {ForumMenu,ForumCategories,ForumNewPost,ErrorMessage, ForumSearch},
   data(){
     return{
       selectedTab:'forum-categories',
