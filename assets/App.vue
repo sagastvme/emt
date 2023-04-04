@@ -16,8 +16,9 @@ import TransportPrices from "./components/TransportPrices.vue";
 import BikeTime from "./components/BikeTime.vue";
 import FavouriteStops from "./components/FavouriteStops.vue";
 import MostVisited from "./components/MostVisited.vue";
+import ForumHomePage from "./components/Forum/ForumHomePage.vue";
 export default {
-  components: {BusTime, TheMenu, TheHeader, TheUserData, ThePlans, TransportPrices, BikeTime, FavouriteStops, MostVisited},
+  components: {BusTime, TheMenu, TheHeader, TheUserData, ThePlans, TransportPrices, BikeTime, FavouriteStops, MostVisited,ForumHomePage},
 
   data() {
     return {

@@ -25,6 +25,7 @@ export default {
     async askForImages() {
       axios.get('/plans')
           .then(response => {
+            console.log(response)
             this.plans = (response.data)
             console.log(this.plans)
           })

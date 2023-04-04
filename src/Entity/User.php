@@ -46,6 +46,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", name = "verified")
      */
     private $verified;
+    /**
+     * @ORM\Column(type="integer", name = "postsPublished")
+     */
+    private $postsPublished;
+
+    /**
+     * @return mixed
+     */
+    public function getPostsPublished()
+    {
+        return $this->postsPublished;
+    }
+
+    /**
+     * @param mixed $postsPublished
+     */
+    public function setPostsPublished($postsPublished): void
+    {
+        $this->postsPublished = $postsPublished;
+    }
 
     /**
      * @return mixed

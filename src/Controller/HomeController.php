@@ -110,7 +110,7 @@ class HomeController extends AbstractController
 
         if ($plansAvailable !== null) {
             foreach ($plansAvailable as $plan) {
-                $data[$plan->getTitle()] = $this->getParameter('metroPlans') . $plan->getPath();
+                $data[$plan->getTitle()] =  $plan->getPath();
             }
         }
 

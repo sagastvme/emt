@@ -24,6 +24,8 @@ return [
         '/getMostVisited' => [[['_route' => 'getMostVisited', '_controller' => 'App\\Controller\\BusStopLogicController::getMostVisited'], null, null, null, false, false, null]],
         '/askForUserFavourites' => [[['_route' => 'askForUserFavourites', '_controller' => 'App\\Controller\\BusStopLogicController::askForUserFavourites'], null, null, null, false, false, null]],
         '/checkFavourite' => [[['_route' => 'checkFavourite', '_controller' => 'App\\Controller\\BusStopLogicController::checkFavourite'], null, null, null, false, false, null]],
+        '/allCategories' => [[['_route' => 'allCategories', '_controller' => 'App\\Controller\\ForumControllerLogic::allCategories'], null, null, null, false, false, null]],
+        '/newPost' => [[['_route' => 'newPost', '_controller' => 'App\\Controller\\ForumControllerLogic::newPost'], null, null, null, false, false, null]],
         '/home' => [[['_route' => 'ctrl_login', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'ctrl_logout', '_controller' => 'App\\Controller\\HomeController::logout'], null, null, null, false, false, null]],
         '/app' => [[['_route' => 'app_after_login', '_controller' => 'App\\Controller\\HomeController::completeApp'], null, null, null, false, false, null]],
