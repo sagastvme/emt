@@ -40,7 +40,7 @@
 
 <script>
 import axios from "axios";
-import ConfirmMessage from "./components/ConfirmMessage.vue";
+import ConfirmMessage from "../ConfirmMessage.vue";
 
 export default {
   components: {ConfirmMessage},
@@ -49,6 +49,7 @@ export default {
   }, methods: {
     async loadAllUsers() {
       const response = await axios.get('/allUsers')
+
       console.log(response)
       this.users = response.data.users
     },

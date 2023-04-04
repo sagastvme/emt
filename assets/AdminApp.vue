@@ -2,19 +2,20 @@
 <the-header/>
   <admin-menu @change-tab="changeTab"/>
   <div class="flex justify-center  ">
-
     <component :is="selectedTab"/>
   </div>
 </template>
 
 <script>
-import AdminMenu from "./components/AdminMenu.vue";
+import AdminMenu from "./components/Admin/AdminMenu.vue";
 import TheHeader from "./components/TheHeader.vue";
-import DeleteUsers from "./DeleteUsers.vue";
-import ModifyMetroPlans from "./components/ModifyMetroPlans.vue";
+import DeleteUsers from "./components/Admin/DeleteUsers.vue";
+import ModifyMetroPlans from "./components/Admin/ModifyMetroPlans.vue";
+import ErrorMessage from "./components/ErrorMessage.vue";
+import DeletePrice from "./components/Admin/DeletePrice.vue";
 export default {
   name: "AdminApp.vue",
-  components: {TheHeader, AdminMenu,DeleteUsers,ModifyMetroPlans},
+  components: {TheHeader, AdminMenu,DeleteUsers,ModifyMetroPlans, ErrorMessage, DeletePrice},
   data(){
     return{
       selectedTab:null
@@ -28,7 +29,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -5,7 +5,10 @@
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
     'adminDeletesUserAccount' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::adminDeletesUserAccount'], [], [['text', '/adminDeletesUserAccount']], [], [], []],
+    'adminDeletesTransportPlan' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::adminDeletesTransportPlan'], [], [['text', '/adminDeletesTransportPlan']], [], [], []],
     'allUsers' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::allUsers'], [], [['text', '/allUsers']], [], [], []],
+    'allMetroPlans' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::allMetroPlans'], [], [['text', '/allMetroPlans']], [], [], []],
+    'addMetroPlan' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::addMetroPlan'], [], [['text', '/addMetroPlan']], [], [], []],
     'saveFavourite' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::saveFavourite'], [], [['text', '/saveFavourite']], [], [], []],
     'removeFavourite' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::removeFavourite'], [], [['text', '/removeFavourite']], [], [], []],
     'addOneVisit' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::addOneVisit'], [], [['text', '/addOneVisit']], [], [], []],

@@ -1,4 +1,5 @@
 <template>
+  <add-metro-plan/>
   <table>
     <tr v-for="plan in plans" :key="plan">
       <td>{{plan.name}}</td>
@@ -15,15 +16,24 @@
       <button class="ml-8" @click="this.deletedPlan=null">NO</button>
     </confirm-message>
   </teleport>
+
+
+
+
+
+
+
+
 </template>
 
 <script>
 import axios from "axios";
-import ConfirmMessage from "./ConfirmMessage.vue";
-
+import ConfirmMessage from "../ConfirmMessage.vue";
+import AddMetroPlan from "./AddMetroPlan.vue";
+import ErrorMessage from "../ErrorMessage.vue";
 export default {
   name: "ModifyMetroPlans",
-  components: {ConfirmMessage},
+  components: {AddMetroPlan, ConfirmMessage, ErrorMessage},
   methods: {
     async loadAllMetroPlans() {
       const response = await axios.get('/allMetroPlans')
@@ -46,7 +56,8 @@ export default {
      const response= await axios.post('/adminDeletesTransportPlan', {
         plan:this.deletedPlan
       })
-      console.log(response)
+      const success=response.data.success;
+
       this.deletedPlan=null
     }
   },
