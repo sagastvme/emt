@@ -4033,7 +4033,7 @@
         <argument key="mailer" type="service_closure" id="mailer.mailer"/>
       </argument>
     </service>
-    <service id=".service_locator.t8PEG4a" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.YccZ236" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminLogicController::addMetroPlan" type="service_closure" id=".service_locator.T7xmfzk"/>
@@ -4044,6 +4044,7 @@
         <argument key="App\Controller\AdminLogicController::allMetroPlans" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\AdminLogicController::allPrices" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\AdminLogicController::allUsers" type="service_closure" id=".service_locator.T7xmfzk"/>
+        <argument key="App\Controller\AdminLogicController::loadAllPlans" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\BusStopLogicController::addOneGlobalVisit" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\BusStopLogicController::addOneVisit" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\BusStopLogicController::askForUserFavourites" type="service_closure" id=".service_locator.T7xmfzk"/>
@@ -4072,6 +4073,7 @@
         <argument key="App\Controller\AdminLogicController:allMetroPlans" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\AdminLogicController:allPrices" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\AdminLogicController:allUsers" type="service_closure" id=".service_locator.T7xmfzk"/>
+        <argument key="App\Controller\AdminLogicController:loadAllPlans" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\BusStopLogicController:addOneGlobalVisit" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\BusStopLogicController:addOneVisit" type="service_closure" id=".service_locator.T7xmfzk"/>
         <argument key="App\Controller\BusStopLogicController:askForUserFavourites" type="service_closure" id=".service_locator.T7xmfzk"/>
@@ -4350,12 +4352,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.t8PEG4a"/>
+      <argument type="service" id=".service_locator.YccZ236"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.t8PEG4a"/>
+      <argument type="service" id=".service_locator.YccZ236"/>
     </service>
     <service id=".doctrine.orm.default_metadata_driver.inner" class="Doctrine\Persistence\Mapping\Driver\MappingDriverChain">
       <call method="addDriver">
@@ -5011,13 +5013,13 @@
     <service id="doctrine.migrations.metadata_storage" alias="doctrine.migrations.storage.table_storage"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.t8PEG4a"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.YccZ236"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.XDGmiR3" alias=".1_ServiceLocator~Txc9QsK"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
-    <service id=".service_locator.cqzZ9zQ" alias=".service_locator.t8PEG4a"/>
+    <service id=".service_locator.MW6W8ud" alias=".service_locator.YccZ236"/>
     <service id=".service_locator.qBCHs1a" alias=".service_locator.QXcJQkF"/>
     <service id=".service_locator.jkb6XQV" alias=".service_locator.l1ae.Qz"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>

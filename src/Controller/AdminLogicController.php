@@ -155,4 +155,20 @@ class AdminLogicController extends AbstractController
         $entityManager->flush();
         return $this->json(['success' => true, 'id'=>$transport->getId()]);
     }
+
+
+
+    #[Route('/loadAllPlans', name: 'loadAllPlans')]
+    public function loadAllPlans(ManagerRegistry $doctrine, Request $request)
+    {
+        $entityManager = $doctrine->getManager();
+        $plans=[];
+        $allPlans=$entityManager->getRepository(TransportPrices::class)->findAll();
+        foreach ($allPlans as $plan) {
+            $plans[] = ['title' => $plan->getTitle(), 'price' => $plan->getPrice(), 'id' => $plan->getId()];
+
+        }
+
+        return $this->json(['success' => true, 'plans'=>$plans]);
+    }
 }

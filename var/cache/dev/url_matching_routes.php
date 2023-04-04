@@ -16,6 +16,7 @@ return [
         '/allPrices' => [[['_route' => 'allPrices', '_controller' => 'App\\Controller\\AdminLogicController::allPrices'], null, null, null, false, false, null]],
         '/adminDeletesPlan' => [[['_route' => 'adminDeletesPlan', '_controller' => 'App\\Controller\\AdminLogicController::adminDeletesPlan'], null, null, null, false, false, null]],
         '/addNewPlan' => [[['_route' => 'addNewPlan', '_controller' => 'App\\Controller\\AdminLogicController::addNewPlan'], null, null, null, false, false, null]],
+        '/loadAllPlans' => [[['_route' => 'loadAllPlans', '_controller' => 'App\\Controller\\AdminLogicController::loadAllPlans'], null, null, null, false, false, null]],
         '/saveFavourite' => [[['_route' => 'saveFavourite', '_controller' => 'App\\Controller\\BusStopLogicController::saveFavourite'], null, null, null, false, false, null]],
         '/removeFavourite' => [[['_route' => 'removeFavourite', '_controller' => 'App\\Controller\\BusStopLogicController::removeFavourite'], null, null, null, false, false, null]],
         '/addOneVisit' => [[['_route' => 'addOneVisit', '_controller' => 'App\\Controller\\BusStopLogicController::addOneVisit'], null, null, null, false, false, null]],
