@@ -126,13 +126,16 @@ class ForumControllerLogic extends AbstractController
 
 
         $replies = $entityManager->getRepository(PostAnswer::class)->findBy(['postId' => $post->getId()]);
+        $category = $entityManager->getRepository(Categories::class)->findOneBy(['id' => $post->getCategory()]);
 
-        $processedPost=[];
-        $processedPost[$post->getId()]=['id'=>$post->getId(), 'author'=>$post->getAuthor(), 'body'=>$post->getBody(),
-            'title'=>$post->getTitle(), 'category'=>$post->getCategory(), 'date'=>$post->getDateCreated()->format('Y-m-d')];
+        $processedPost = ['id' => $post->getId(), 'author' => $post->getAuthor(), 'body' => $post->getBody(),
+            'title' => $post->getTitle(), 'category' => $category->getName(), 'date' => $post->getDateCreated()->format('Y-m-d'),
+            'profilePic' => $user->getProfilePic(), 'loggedIn'=>$this->getUser()];
+
+        $proccesedReplies = [];
 
 
-        return $this->render('form/read.html.twig', ['post' => $processedPost, 'user' => $user]);
+        return $this->render('form/read.html.twig', ['post' => $processedPost, 'replies' => $proccesedReplies]);
     }
 
 
@@ -141,6 +144,7 @@ class ForumControllerLogic extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $data = json_decode($request->getContent(), true);
+        var_dump($data);
         $body = $data['body'];
         $id = $data['id'];
         $reply = new PostAnswer();
