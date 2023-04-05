@@ -104,7 +104,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getProfilePic()
     {
-        return $this->profilePic;
+
+        return 'http:/'.$this->profilePic;
+
     }
 
     public function setProfilePic($profilePic): void

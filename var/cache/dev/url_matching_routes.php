@@ -28,6 +28,7 @@ return [
         '/newPost' => [[['_route' => 'newPost', '_controller' => 'App\\Controller\\ForumControllerLogic::newPost'], null, null, null, false, false, null]],
         '/searchPosts' => [[['_route' => 'searchPosts', '_controller' => 'App\\Controller\\ForumControllerLogic::searchPosts'], null, null, null, false, false, null]],
         '/showPosts' => [[['_route' => 'showPosts', '_controller' => 'App\\Controller\\ForumControllerLogic::showPosts'], null, null, null, false, false, null]],
+        '/replyToPost' => [[['_route' => 'replyToPost', '_controller' => 'App\\Controller\\ForumControllerLogic::replyToPost'], null, null, null, false, false, null]],
         '/home' => [[['_route' => 'ctrl_login', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'ctrl_logout', '_controller' => 'App\\Controller\\HomeController::logout'], null, null, null, false, false, null]],
         '/app' => [[['_route' => 'app_after_login', '_controller' => 'App\\Controller\\HomeController::completeApp'], null, null, null, false, false, null]],
@@ -45,16 +46,16 @@ return [
     [ // $regexpList
         0 => '{^(?'
                 .'|/_error/(\\d+)(?:\\.([^/]++))?(*:35)'
-                .'|/watch/([^/]++)(*:57)'
-                .'|/confirmAccount/([^/]++)(*:88)'
-                .'|/deleteAccount/([^/]++)(*:118)'
+                .'|/read/([^/]++)(*:56)'
+                .'|/confirmAccount/([^/]++)(*:87)'
+                .'|/deleteAccount/([^/]++)(*:117)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
         35 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        57 => [[['_route' => 'watch_post', '_controller' => 'App\\Controller\\ForumControllerLogic::readPost'], ['id'], null, null, false, true, null]],
-        88 => [[['_route' => 'confirm_account', '_controller' => 'App\\Controller\\HomeController::confirmAccount'], ['user'], null, null, false, true, null]],
-        118 => [
+        56 => [[['_route' => 'read_post', '_controller' => 'App\\Controller\\ForumControllerLogic::readPost'], ['id'], null, null, false, true, null]],
+        87 => [[['_route' => 'confirm_account', '_controller' => 'App\\Controller\\HomeController::confirmAccount'], ['user'], null, null, false, true, null]],
+        117 => [
             [['_route' => 'delete_account', '_controller' => 'App\\Controller\\HomeController::deleteAccount'], ['user'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

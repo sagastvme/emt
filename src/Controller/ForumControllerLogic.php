@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categories;
 use App\Entity\Post;
+use App\Entity\PostAnswer;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,7 +68,7 @@ class ForumControllerLogic extends AbstractController
             ->from(Post::class, 'p')
             ->where('p.title LIKE :query')
             ->orWhere('p.body LIKE :query')
-            ->setParameter('query', '%'.$query.'%')
+            ->setParameter('query', '%' . $query . '%')
             ->getQuery()
             ->getResult();
 
@@ -99,14 +100,13 @@ class ForumControllerLogic extends AbstractController
     }
 
 
-
     #[Route('/showPosts', name: 'showPosts')]
     public function showPosts(Request $request, ManagerRegistry $doctrine)
     {
         $entityManager = $doctrine->getManager();
         $data = json_decode($request->getContent(), true);
         $category = $data['category'];
-        $posts=$entityManager->getRepository(Post::class)->findBy(['category'=>$category]);
+        $posts = $entityManager->getRepository(Post::class)->findBy(['category' => $category]);
         // Serialize the posts to JSON
         $postsJson = $this->serializePostsToJson($posts);
 
@@ -115,20 +115,43 @@ class ForumControllerLogic extends AbstractController
     }
 
 
-    #[Route('/watch/{id}', name: 'watch_post')]
-    public function readPost(Request $request, ManagerRegistry $doctrine, $id,UrlGeneratorInterface $urlGenerator)
+    #[Route('/read/{id}', name: 'read_post')]
+    public function readPost(Request $request, ManagerRegistry $doctrine, $id, UrlGeneratorInterface $urlGenerator)
     {
         $entityManager = $doctrine->getManager();
 
         $post = $entityManager->getRepository(Post::class)->findOneBy(['id' => $id]);
-$user=$entityManager->getRepository(User::class)->findOneBy(['username'=>$post->getAuthor()]);
+        $user = $entityManager->getRepository(User::class)->findOneBy(['username' => $post->getAuthor()]);
         // Generate the URL for the profile picture
-        $profilePictureUrl = $request->getSchemeAndHttpHost() . '/'.$user->getProfilePic();
 
 
-        return $this->render('form/read.html.twig', ['post' => $post,
-            'profilePictureUrl' => $profilePictureUrl, 'user' => $user]);
+        $replies = $entityManager->getRepository(PostAnswer::class)->findBy(['postId' => $post->getId()]);
+
+        $processedPost=[];
+        $processedPost[$post->getId()]=['id'=>$post->getId(), 'author'=>$post->getAuthor(), 'body'=>$post->getBody(),
+            'title'=>$post->getTitle(), 'category'=>$post->getCategory(), 'date'=>$post->getDateCreated()->format('Y-m-d')];
+
+
+        return $this->render('form/read.html.twig', ['post' => $processedPost, 'user' => $user]);
     }
 
+
+    #[Route('/replyToPost', name: 'replyToPost')]
+    public function replyToPost(Request $request, ManagerRegistry $doctrine)
+    {
+        $entityManager = $doctrine->getManager();
+        $data = json_decode($request->getContent(), true);
+        $body = $data['body'];
+        $id = $data['id'];
+        $reply = new PostAnswer();
+        $reply->setBody($body);
+        $reply->setAuthor($this->getUser());
+        $reply->setDateCreated(new \DateTime());
+
+        $reply->setPostId($id);
+        $entityManager->persist($reply);
+        $entityManager->flush();
+        return $this->json(['success' => true]);
+    }
 
 }
