@@ -18,7 +18,7 @@ class Post
     private $id;
 
     /**
-     * @ORM\Column(type="date", name="date_created")
+     * @ORM\Column(type="datetime", name="date_created")
      */
     private $date_created;
 
@@ -38,7 +38,8 @@ class Post
     private $body;
 
     /**
-     * @ORM\Column(type="integer", name="category")
+     * @ORM\ManyToOne(targetEntity="Categories")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id")
      */
     private $category;
 

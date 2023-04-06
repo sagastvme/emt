@@ -41,7 +41,8 @@ class ForumControllerLogic extends AbstractController
         $post->setTitle($title);
         $post->setAuthor($this->getUser()->getUsername());
         $post->setBody($body);
-        $post->setCategory($category);
+
+        $post->setCategory($entityManager->getRepository(Categories::class)->findOneBy(['id' => $category]));
         $date = new \DateTime();
         $post->setDateCreated($date);
         $entityManager->persist($post);
@@ -89,7 +90,7 @@ class ForumControllerLogic extends AbstractController
                 'title' => $post->getTitle(),
                 'body' => $post->getBody(),
                 'author' => $post->getAuthor(),
-                'category' => $post->getCategory(),
+                'category' => $post->getCategory()->getName(),
                 'date_created' => $post->getDateCreated()->format('Y-m-d')
             );
 
@@ -115,7 +116,7 @@ class ForumControllerLogic extends AbstractController
     }
 
 
-    #[Route('/read/{id}', name: 'read_post')]
+    #[Route('/read/{category}/{user}/{id}', name: 'read_post')]
     public function readPost(Request $request, ManagerRegistry $doctrine, $id, UrlGeneratorInterface $urlGenerator)
     {
         $entityManager = $doctrine->getManager();
@@ -129,10 +130,15 @@ class ForumControllerLogic extends AbstractController
         $category = $entityManager->getRepository(Categories::class)->findOneBy(['id' => $post->getCategory()]);
 
         $processedPost = ['id' => $post->getId(), 'author' => $post->getAuthor(), 'body' => $post->getBody(),
-            'title' => $post->getTitle(), 'category' => $category->getName(), 'date' => $post->getDateCreated()->format('Y-m-d'),
-            'profilePic' => $user->getProfilePic(), 'loggedIn'=>$this->getUser()];
+            'title' => $post->getTitle(), 'category' => $category->getName(), 'date' => $post->getDateCreated()->format('Y-m-d H:i'),
+            'profilePic' => $user->getProfilePic(), 'loggedIn' => $this->getUser()];
 
         $proccesedReplies = [];
+        foreach ($replies as $reply) {
+            $proccesedReplies[] = ['id' => $reply->getId(), 'body' => $reply->getBody(), 'date' => $reply->getDateCreated()->format('Y-m-d H:i'),
+                'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic()];
+
+        }
 
 
         return $this->render('form/read.html.twig', ['post' => $processedPost, 'replies' => $proccesedReplies]);
@@ -144,18 +150,77 @@ class ForumControllerLogic extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $data = json_decode($request->getContent(), true);
-        var_dump($data);
         $body = $data['body'];
         $id = $data['id'];
+
         $reply = new PostAnswer();
         $reply->setBody($body);
         $reply->setAuthor($this->getUser());
         $reply->setDateCreated(new \DateTime());
 
-        $reply->setPostId($id);
+        $reply->setPostId($entityManager->getRepository(Post::class)->findOneBy(['id' => $id]));
         $entityManager->persist($reply);
         $entityManager->flush();
-        return $this->json(['success' => true]);
+
+
+        $replyProcessed[] = ['id' => $reply->getId(), 'body' => $reply->getBody(), 'date' => $reply->getDateCreated()->format('Y-m-d H:i'),
+            'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic()];
+
+
+        return $this->json(['success' => true, 'replyProcessed' => $replyProcessed]);
     }
+
+
+    #[Route('/profile/{username}', name: 'profile')]
+    public function profile(Request $request, ManagerRegistry $doctrine, $username)
+    {
+        $entityManager = $doctrine->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
+
+        $posts = $entityManager->getRepository(Post::class)->findBy(['author' => $user]);
+        $postDetails = array_map(function ($post) {
+            return [
+                'title' => $post->getTitle(),
+                'id' => $post->getId(),
+                'category' => $post->getCategory()->getName(),
+                // add more attributes as needed
+            ];
+        }, $posts);
+
+
+        $replyProcessed[] = ['username' => $user->getUsername(), 'profilePic' => $user->getProfilePic(), 'postsPublished' => $user->getPostsPublished(),
+            'postsTitles' => $postDetails, 'dateCreated' => $user->getDateCreated()->format('Y-m-d')];
+
+
+        return $this->render('form/userDetails.html.twig', ['replyProcessed' => $replyProcessed]);
+    }
+
+
+    #[Route('/show/{category}/{id}', name: 'showPostsByCategory')]
+    public function showPostsByCategory(Request $request, ManagerRegistry $doctrine, $id)
+    {
+        $entityManager = $doctrine->getManager();
+        $category = $entityManager->getRepository(Categories::class)->findOneBy(['id' => $id]);
+        $posts = $entityManager->getRepository(Post::class)->findBy(['category' => $category]);
+        $postsProcessed = array_map(function ($post) {
+            return [
+                'title' => $post->getTitle(),
+                'id' => $post->getId(),
+                'category' => $post->getCategory()->getName(),
+                'author' => $post->getAuthor(),
+                'date'=> $post->getDateCreated()->format('Y-m-d H:i')
+                // add more attributes as needed
+            ];
+        }, $posts);
+        $categoryProcessed = [
+            'description' => $category->getDescription(),
+            'id' => $category->getId(),
+            'name' => $category->getName(),
+
+            // add more attributes as needed
+        ];
+        return $this->render('form/byCategory.html.twig', ['posts' => $postsProcessed, 'category' => $categoryProcessed]);
+    }
+
 
 }

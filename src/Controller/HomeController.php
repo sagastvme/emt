@@ -130,7 +130,8 @@ class HomeController extends AbstractController
         $user->setProfilePic('profilePictures/null.jpg');
         $user->setVerified('N');
         $user->setUniqueAttribute();
-
+        $user->setPostsPublished(0);
+        $user->setDateCreated(new \DateTime());
         $entityManager = $doctrine->getManager();
 
         $entityManager->persist($user);

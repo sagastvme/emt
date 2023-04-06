@@ -19,7 +19,8 @@ class PostAnswer
     private $id;
 
     /**
-     * @ORM\Column(type="integer", name="postId")
+     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\JoinColumn(name="postId", referencedColumnName="id")
      */
     private $postId;
 
@@ -29,7 +30,7 @@ class PostAnswer
     private $body;
 
     /**
-     * @ORM\Column(type="date", name="date_created")
+     * @ORM\Column(type="datetime", name="date_created")
      */
     private $dateCreated;
 

@@ -46,16 +46,20 @@ return [
     [ // $regexpList
         0 => '{^(?'
                 .'|/_error/(\\d+)(?:\\.([^/]++))?(*:35)'
-                .'|/read/([^/]++)(*:56)'
-                .'|/confirmAccount/([^/]++)(*:87)'
-                .'|/deleteAccount/([^/]++)(*:117)'
+                .'|/read/([^/]++)/([^/]++)/([^/]++)(*:74)'
+                .'|/profile/([^/]++)(*:98)'
+                .'|/show/([^/]++)/([^/]++)(*:128)'
+                .'|/confirmAccount/([^/]++)(*:160)'
+                .'|/deleteAccount/([^/]++)(*:191)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
         35 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        56 => [[['_route' => 'read_post', '_controller' => 'App\\Controller\\ForumControllerLogic::readPost'], ['id'], null, null, false, true, null]],
-        87 => [[['_route' => 'confirm_account', '_controller' => 'App\\Controller\\HomeController::confirmAccount'], ['user'], null, null, false, true, null]],
-        117 => [
+        74 => [[['_route' => 'read_post', '_controller' => 'App\\Controller\\ForumControllerLogic::readPost'], ['category', 'user', 'id'], null, null, false, true, null]],
+        98 => [[['_route' => 'profile', '_controller' => 'App\\Controller\\ForumControllerLogic::profile'], ['username'], null, null, false, true, null]],
+        128 => [[['_route' => 'showPostsByCategory', '_controller' => 'App\\Controller\\ForumControllerLogic::showPostsByCategory'], ['category', 'id'], null, null, false, true, null]],
+        160 => [[['_route' => 'confirm_account', '_controller' => 'App\\Controller\\HomeController::confirmAccount'], ['user'], null, null, false, true, null]],
+        191 => [
             [['_route' => 'delete_account', '_controller' => 'App\\Controller\\HomeController::deleteAccount'], ['user'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

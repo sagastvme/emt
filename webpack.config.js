@@ -10,6 +10,8 @@ Encore
     .addEntry('admin', './assets/js/admin.js')
     .addEntry('appTwo', './assets/js/AppBeforeLogin.js')
     .addEntry('addReply', './assets/js/addReply.js')
+    .addEntry('userDetails', './assets/js/userDetails.js')
+    .addEntry('byCategories', './assets/js/byCategories.js')
     .enablePostCssLoader()
     .splitEntryChunks()
 

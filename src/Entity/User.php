@@ -43,6 +43,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $uniqueAttribute;
     /**
+     * @ORM\Column(type="datetime", name = "dateCreated")
+     */
+    private $dateCreated;
+
+    /**
+     * @return mixed
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * @param mixed $dateCreated
+     */
+    public function setDateCreated($dateCreated): void
+    {
+        $this->dateCreated = $dateCreated;
+    }
+    /**
      * @ORM\Column(type="string", name = "verified")
      */
     private $verified;

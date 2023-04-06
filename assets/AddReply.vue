@@ -1,21 +1,31 @@
 <template>
+
   <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg">
-    <h1 class="text-3xl font-bold text-center py-4"> {{ this.post.title }} </h1>
+    <h1 class="text-3xl font-bold text-center py-4">    {{ this.post.title }} </h1>
     <div class="flex items-center justify-center mb-4">
       <img class="w-12 h-12 rounded-full mr-2" :src="this.post.profilePic" alt="">
       <div>
-        <p class="font-bold"> {{ this.post.author }}</p>
+        <a :href="`/profile/${this.post.author}`">{{ this.post.author }}</a>
         <p class="text-gray-600 text-xs">Creacion de la publicacion:{{ (this.post.date) }}</p>
+        <p class="text-gray-600 text-xs">{{ this.post.category }}</p>
       </div>
     </div>
     <p class="px-6 mb-6">{{ this.post.body }}</p>
-    <div class="flex items-center px-6 mb-6">
-      <svg class="w-5 h-5 text-gray-500 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-        <path d="M5 13l4 4L19 7"></path>
-      </svg>
-      <p class="text-gray-500">{{ this.post.category }}</p>
-    </div>
+    <div class="flex flex-col gap-4">
+      <div v-for="reply in repliesLocal" class="bg-white shadow-md rounded-lg p-4">
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex items-center">
+            <img class="w-10 h-10 rounded-full mr-4" :src="reply.profilePic" alt="Profile Picture">
+            <div>
+              <a :href="`/profile/${ reply.user}`">{{ reply.user}}</a>
 
+              <p class="text-gray-500">{{ reply.date }}</p>
+            </div>
+          </div>
+        </div>
+        <p class="text-gray-800">{{ reply.body }}</p>
+      </div>
+    </div>
 
 
     <form v-if="this.post.loggedIn" class="px-6 py-4 bg-gray-100 rounded-md mt-6" @submit.prevent="addReply">
@@ -29,20 +39,29 @@
 
 <script>
 import axios from "axios";
+
 export default {
+
   methods:{
    async addReply(){
       const response= await axios.post('/replyToPost',{
         body:this.$refs.body.value,
         id:this.$props.post.id
       })
-     console.log(response)
+     console.log(response.data)
+     this.repliesLocal.push(response.data.replyProcessed[0])
      this.$refs.body.value=''
     }
   },
   mounted() {
     console.log(this.$props.post)
+    console.log(this.$props.replies)
   },
-  props:['post', 'author']
+  props:['post', 'replies'],
+  data(){
+    return{
+      repliesLocal:this.$props.replies
+    }
+  }
 }
 </script>
