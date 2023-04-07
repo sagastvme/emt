@@ -1,17 +1,10 @@
-
   <template>
     <forum-menu @change-tab="changeTab"/>
-    <div v-if="selectedTab==='forum-categories'">
       <component :is="selectedTab" :categories="categories"/>
-    </div>
-   <div v-else>
-     <component :is="selectedTab"/>
-   </div>
   </template>
 
 
-
-<script>
+  <script>
 import ForumMenu from "./ForumMenu.vue";
 import ForumCategories from "./ForumCategories.vue";
 import ForumNewPost from "./ForumNewPost.vue";

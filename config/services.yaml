@@ -6,6 +6,7 @@
 parameters:
     profilePictures: 'profilePictures'
     metroPlans: 'metroPlans'
+    postImages: 'postImages'
 services:
     # default configuration for services in *this* file
     _defaults:

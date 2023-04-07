@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Categories;
 use App\Entity\Post;
 use App\Entity\PostAnswer;
+use App\Entity\PostImage;
 use App\Entity\SavedPosts;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,10 +36,11 @@ class ForumControllerLogic extends AbstractController
     public function newPost(Request $request, ManagerRegistry $doctrine)
     {
         $entityManager = $doctrine->getManager();
-        $data = json_decode($request->getContent(), true);
-        $title = $data['title'];
-        $body = $data['body'];
-        $category = $data['category'];
+
+        $title = $request->get('title');
+        $body = $request->get('body');
+        $category = $request->get('category');
+        $filesReceived = $request->files->get('images');
         $post = new Post();
         $post->setTitle($title);
         $post->setAuthor($this->getUser()->getUsername());
@@ -46,6 +49,20 @@ class ForumControllerLogic extends AbstractController
         $post->setCategory($entityManager->getRepository(Categories::class)->findOneBy(['id' => $category]));
         $date = new \DateTime();
         $post->setDateCreated($date);
+        if (!empty($request->files->get('images'))) {
+            foreach ($filesReceived as $images) {
+                $image = new PostImage();
+                $image->setPostId($post);
+                $newName = uniqid() . '.' . $images->guessExtension();
+                $targetDir = $this->getParameter('postImages');
+                $file = new File($images);
+                $file->move($targetDir, $newName);
+                $image->setSource('postImages/' . $newName);
+                $entityManager->persist($image);
+
+            }
+        }
+
         $entityManager->persist($post);
         $user = $this->getUser();
         $user->setPostsPublished($user->getPostsPublished() + 1);
@@ -130,6 +147,15 @@ class ForumControllerLogic extends AbstractController
         $replies = $entityManager->getRepository(PostAnswer::class)->findBy(['postId' => $post->getId()]);
         $category = $entityManager->getRepository(Categories::class)->findOneBy(['id' => $post->getCategory()]);
 
+        $postImages = $entityManager->getRepository(PostImage::class)->findBy(['postId' => $post]);
+
+        $imagesLinks = array_map(function ($post) {
+            return [
+                'link' => $post->getSource()
+                // add more attributes as needed
+            ];
+        }, $postImages);
+
         if ($this->getUser()) {
 
             $isFavourite = $entityManager->getRepository(SavedPosts::class)->findOneBy(['username' => $this->getUser(),
@@ -138,17 +164,27 @@ class ForumControllerLogic extends AbstractController
             $processedPost = ['id' => $post->getId(), 'author' => $post->getAuthor(), 'body' => $post->getBody(),
                 'title' => $post->getTitle(), 'category' => $category->getName(), 'date' => $post->getDateCreated()->format('Y-m-d H:i'),
                 'profilePic' => $user->getProfilePic(), 'loggedIn' => $this->getUser(), 'role' => $this->getUser()->getRole()
-                , 'isFavourite' => $isFavourite];
+                , 'isFavourite' => $isFavourite, 'postImages' => $imagesLinks];
         } else {
             $processedPost = ['id' => $post->getId(), 'author' => $post->getAuthor(), 'body' => $post->getBody(),
                 'title' => $post->getTitle(), 'category' => $category->getName(), 'date' => $post->getDateCreated()->format('Y-m-d H:i'),
-                'profilePic' => $user->getProfilePic(), 'loggedIn' => $this->getUser()];
+                'profilePic' => $user->getProfilePic(), 'loggedIn' => $this->getUser(), 'postImages' => $imagesLinks];
 
         }
         $proccesedReplies = [];
+        $images=[];
+
         foreach ($replies as $reply) {
+            $foundImages=$entityManager->getRepository(PostImage::class)->findBy(['postanswerid'=>$reply]);
+            $imagesProcessed = array_map(function ($img) {
+                return [
+                    'link' => $img->getSource()
+                    // add more attributes as needed
+                ];
+            }, $foundImages);
             $proccesedReplies[] = ['id' => $reply->getId(), 'body' => $reply->getBody(), 'date' => $reply->getDateCreated()->format('Y-m-d H:i'),
-                'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic(), 'role' => $reply->getAuthor()->getRole()];
+                'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic(), 'role' => $reply->getAuthor()->getRole(),
+                'repliedImages'=>$imagesProcessed];
 
         }
 
@@ -161,9 +197,10 @@ class ForumControllerLogic extends AbstractController
     public function replyToPost(Request $request, ManagerRegistry $doctrine)
     {
         $entityManager = $doctrine->getManager();
-        $data = json_decode($request->getContent(), true);
-        $body = $data['body'];
-        $id = $data['id'];
+        $body = $request->get('body');
+        $id = $request->get('id');
+        $filesReceived = $request->files->get('images');
+
 
         $reply = new PostAnswer();
         $reply->setBody($body);
@@ -175,8 +212,27 @@ class ForumControllerLogic extends AbstractController
         $entityManager->flush();
 
 
+        if (!empty($filesReceived)) {
+            $imgLinks = [];
+            foreach ($filesReceived as $images) {
+                $image = new PostImage();
+                $image->setPostanswerid($reply);
+                $newName = uniqid() . '.' . $images->guessExtension();
+                $targetDir = $this->getParameter('postImages');
+                $file = new File($images);
+                $file->move($targetDir, $newName);
+                $image->setSource('postImages/' . $newName);
+                $entityManager->persist($image);
+                $entityManager->flush();
+                $imgLinks['link'] = $image->getSource();
+            }
+
+
+        }
+
+
         $replyProcessed[] = ['id' => $reply->getId(), 'body' => $reply->getBody(), 'date' => $reply->getDateCreated()->format('Y-m-d H:i'),
-            'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic()];
+            'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic(), 'images'=>$imgLinks];
 
 
         return $this->json(['success' => true, 'replyProcessed' => $replyProcessed]);
@@ -342,9 +398,9 @@ class ForumControllerLogic extends AbstractController
         $postId = $data['id'];
 
         $entityManager = $doctrine->getManager();
-        $foreignKeyPost=$entityManager->getRepository(Post::class)->findOneBy(['id'=>$postId]);
+        $foreignKeyPost = $entityManager->getRepository(Post::class)->findOneBy(['id' => $postId]);
 
-        $post = $entityManager->getRepository(SavedPosts::class)->findOneBy(['postId' => $foreignKeyPost, 'username'=>$this->getUser()]);
+        $post = $entityManager->getRepository(SavedPosts::class)->findOneBy(['postId' => $foreignKeyPost, 'username' => $this->getUser()]);
 
         $entityManager->remove($post);
         $entityManager->flush();

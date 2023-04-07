@@ -24,6 +24,9 @@
       </div>
     </div>
     <p class="px-6 mb-6">{{ this.post.body }}</p>
+    <div v-for="image in images">
+      <img class="w-20 h-20" :src="image.link" alt="">
+    </div>
     <div class="flex flex-col gap-4">
       <div v-for="reply in repliesLocal" class="bg-white shadow-md rounded-lg p-4">
         <div class="flex justify-between items-center mb-4">
@@ -38,6 +41,9 @@
           </div>
         </div>
         <p class="text-gray-800">{{ reply.body }}</p>
+        <div v-for="img in imagesFromReplies">
+          <img class="w-20 h-20" :src="img.link" alt="">
+        </div>
       </div>
     </div>
 
@@ -46,6 +52,12 @@
       <label class="font-bold mb-2 block" for="body">Escribe una respuesta:</label>
       <textarea id="body" ref="body" class="border border-gray-400 rounded-md py-2 px-4 w-full mb-4" required
                 rows="4"></textarea>
+      <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
+             for="picture">
+        Anadir imagenes a tu publicacion
+      </label>
+      <input id="picture" ref="newPicture" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden"
+             multiple="true" name="images[]" type="file" @change="print">
       <button class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600" type="submit">Responder</button>
     </form>
   </div>
@@ -62,12 +74,27 @@ export default {
 
   methods: {
     async addReply() {
-      const response = await axios.post('/replyToPost', {
-        body: this.$refs.body.value,
-        id: this.$props.post.id
+
+      const formData = new FormData();
+      formData.append('body', this.$refs.body.value)
+      formData.append('id', this.$props.post.id)
+
+      for (const file of this.$refs.newPicture.files) {
+        formData.append('images[]', file)
+      }
+
+      const response = await axios.post('/replyToPost', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       })
+
+      console.log(response)
+
       console.log(response.data)
       this.repliesLocal.push(response.data.replyProcessed[0])
+    this.imagesFromReplies.push(response.data.replyProcessed[0].images)
+      console.log( this.imagesFromReplies)
       this.$refs.body.value = ''
     },
     async addToFavourites() {
@@ -90,12 +117,16 @@ export default {
     this.isFavourite = this.$props.post.isFavourite
     console.log(this.$props.replies)
     console.log(this.isFavourite)
+    this.images=this.$props.post.postImages
   },
   props: ['post', 'replies'],
   data() {
     return {
       repliesLocal: this.$props.replies,
-      isFavourite: null
+      isFavourite: null,
+      images:[],
+      imagesFromReplies:[],
+      imageFromNewReply:[]
     }
   }
 }
