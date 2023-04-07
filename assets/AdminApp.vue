@@ -13,9 +13,10 @@ import DeleteUsers from "./components/Admin/DeleteUsers.vue";
 import ModifyMetroPlans from "./components/Admin/ModifyMetroPlans.vue";
 import ErrorMessage from "./components/ErrorMessage.vue";
 import DeletePrice from "./components/Admin/DeletePrice.vue";
+import DeletePosts from "./components/Admin/AdminDeletePosts.vue";
 export default {
   name: "AdminApp.vue",
-  components: {TheHeader, AdminMenu,DeleteUsers,ModifyMetroPlans, ErrorMessage, DeletePrice},
+  components: {TheHeader, AdminMenu,DeleteUsers,ModifyMetroPlans, ErrorMessage, DeletePrice,DeletePosts},
   data(){
     return{
       selectedTab:null

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Plans;
+use App\Entity\Post;
+use App\Entity\SavedPosts;
 use App\Entity\Stops;
 use App\Entity\TransportPrices;
 use App\Entity\User;
@@ -171,4 +173,35 @@ class AdminLogicController extends AbstractController
 
         return $this->json(['success' => true, 'plans'=>$plans]);
     }
+
+
+
+    #[Route('/getAllPostsForAdmin', name: 'getAllPostsForAdmin')]
+    public function getAllPostsForAdmin(ManagerRegistry $doctrine, Request $request)
+    {
+        $entityManager = $doctrine->getManager();
+        $plans=[];
+        $allPlans=$entityManager->getRepository(Post::class)->findAll();
+        foreach ($allPlans as $plan) {
+            $plans[] = [
+                'id'=>$plan->getId(),
+                'dateCreated'=>$plan->getDateCreated()->format('Y-m-d'),
+                'author' => $plan->getAuthor(),
+                'title' => $plan->getTitle(),
+                'body' => $plan->getBody(),
+                'category'=>$plan->getCategory()->getName()
+            ];
+
+        }
+
+        return $this->json(['success' => true, 'posts'=>$plans]);
+    }
+
+
+
+
+
+
+
+
 }

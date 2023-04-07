@@ -13,6 +13,7 @@ return [
     'adminDeletesPlan' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::adminDeletesPlan'], [], [['text', '/adminDeletesPlan']], [], [], []],
     'addNewPlan' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::addNewPlan'], [], [['text', '/addNewPlan']], [], [], []],
     'loadAllPlans' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::loadAllPlans'], [], [['text', '/loadAllPlans']], [], [], []],
+    'getAllPostsForAdmin' => [[], ['_controller' => 'App\\Controller\\AdminLogicController::getAllPostsForAdmin'], [], [['text', '/getAllPostsForAdmin']], [], [], []],
     'saveFavourite' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::saveFavourite'], [], [['text', '/saveFavourite']], [], [], []],
     'removeFavourite' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::removeFavourite'], [], [['text', '/removeFavourite']], [], [], []],
     'addOneVisit' => [[], ['_controller' => 'App\\Controller\\BusStopLogicController::addOneVisit'], [], [['text', '/addOneVisit']], [], [], []],
