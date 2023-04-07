@@ -2,6 +2,8 @@
   <div class="max-w-2xl mx-auto px-4 py-6">
     <h1 class="text-2xl font-bold mb-2">Usted esta viendo el perfil de {{ userDetails.username }}</h1>
     <p class="text-gray-600 mb-4">Fecha de creacion {{ userDetails.dateCreated }}</p>
+    <p class="text-gray-600 text-xs" v-if="userDetails.role==='U'">Rol: Usuario</p>
+    <p class="text-gray-600 text-xs" v-else>Rol: administrador</p>
     <div class="flex items-center mb-4">
       <img :src="userDetails.profilePic" class="w-10 h-10 rounded-full mr-4" alt="">
       <p class="text-gray-700">{{ userDetails.postsPublished }} Post publicados</p>

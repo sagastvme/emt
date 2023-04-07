@@ -1,42 +1,66 @@
 <template>
 
   <div v-if="myData && !change" class="flex justify-center">
-    <table>
+    <table class="border-collapse border border-gray-400">
       <tr>
-        <td>Username:</td>
-        <td>{{ username }}</td>
+        <td class="border border-gray-400 px-4 py-2 font-bold">Username:</td>
+        <td class="border border-gray-400 px-4 py-2">{{ username }}</td>
       </tr>
       <tr>
-        <td>
-          Foto de perfil:
-        </td>
-        <td>
+        <td class="border border-gray-400 px-4 py-2 font-bold">Foto de perfil:</td>
+        <td class="border border-gray-400 px-4 py-2">
           <img :src="profilePic" alt="" class="w-5 h-5">
         </td>
       </tr>
       <tr>
-        <td>
-          <label class=" mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
+        <td>Posts publicados</td>
+        <td>{{ postsPublished}}</td>
+      </tr>
+      <tr>
+
+        <td class="border border-gray-400 px-4 py-2 font-bold">Fecha de creacion de la cuenta </td>
+        <td class="border border-gray-400 px-4 py-2 font-bold">{{dateCreated}}</td>
+      </tr>
+      <tr>
+        <td class="border border-gray-400 px-4 py-2 font-bold">Rol:</td>
+        <td v-if="this.role==='U'" class="border border-gray-400 px-4 py-2 font-bold">
+          Usuario
+        </td>
+        <td  v-else class="border border-gray-400 px-4 py-2 font-bold">
+          Administrador
+        </td>
+      </tr>
+      <tr v-for="post in this.posts">
+        <td class="border border-gray-400 px-4 py-2">{{ post.title }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ post.category }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ post.date }}</td>
+      <td  class="border border-gray-400 px-4 py-2" >
+        <button @click="deletePost(post)">Borrar publicacion</button>
+
+      </td>
+      </tr>
+      <tr>
+        <td class="border border-gray-400 px-4 py-2">
+          <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
                  for="picture">
             Cambiar foto de perfil
           </label>
-
         </td>
-        <td>
+        <td class="border border-gray-400 px-4 py-2">
           <input id="picture" ref="newPicture" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden"
                  type="file" @input="changePicture">
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="border border-gray-400 px-4 py-2">
           <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
                   @click="changePassword">
-            Cambiar contrasena
+            Cambiar contraseña
           </button>
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="border border-gray-400 px-4 py-2">
           <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
                   @click="deleteAccountMethod">
             Borrar cuenta
@@ -44,6 +68,7 @@
         </td>
       </tr>
     </table>
+
   </div>
 
 
@@ -96,16 +121,24 @@
                    @close-error="success=false"/>
     <error-message message="Se le ha enviado un correo para que pueda borrar la cuenta" v-if="finalDeleteMessage"
                    @close-error="finalDeleteMessage=false, this.deleteAccount=false,this.secondStepDeleteAccount=false"/>
-  </teleport>
 
+
+
+    <confirm-message v-if="deletedPost!==null" :message="'Estás seguro de que quieres borrar la publicacion ' +deletedPost"
+                     @close-error="this.deletedPost=null">
+      <button @click="deleteUserCommit">SI</button>
+      <button class="ml-8" @click="this.deletedPost=null">NO</button>
+    </confirm-message>
+  </teleport>
 </template>
 
 <script>
 import axios from "axios";
 import ErrorMessage from "./ErrorMessage.vue";
+import ConfirmMessage from "./ConfirmMessage.vue";
 
 export default {
-  components: {ErrorMessage},
+  components: {ConfirmMessage, ErrorMessage},
   data() {
     return {
       myData: false,
@@ -124,7 +157,14 @@ export default {
       wrongFilePic: false,
       deleteAccount: false,
       secondStepDeleteAccount: false,
-      finalDeleteMessage:false
+      finalDeleteMessage:false,
+      posts:null,
+      deletedPost:null,
+      deletedPostId:null,
+      postsPublished:null,
+      dateCreated:null,
+      role:null
+
     }
   },
   computed: {
@@ -141,7 +181,7 @@ export default {
   },
   mounted() {
     this.fetchData();
-
+  this.getPostsPublished();
   },
   methods: {
     fetchData() {
@@ -154,11 +194,40 @@ export default {
             this.username = response.data.username;
 
             this.profilePic = response.data.profilePicture;
+            this.postsPublished=response.data.postsPublished
+            this.dateCreated=response.data.dateCreated
+            this.role=response.data.role
             this.myData = true;
           })
           .catch(error => {
             console.error(error);
           });
+    },
+    async deleteUserCommit(){
+      console.log('lo quiere borrar')
+
+      this.posts = this.posts.filter(post => post.id !== this.deletedPostId);
+
+      const response= await axios.post('/deletePost', {
+        id:this.deletedPostId,
+
+      })
+      console.log(response)
+
+
+
+    },
+    deletePost(post) {
+      console.log(post)
+      this.deletedPost=post.title;
+      this.deletedPostId=post.id
+      console.log(this.deletedPlan)
+    },
+   async getPostsPublished(){
+      const response =await  axios.post('/getPostsPublishedByUser')
+      console.log(response)
+     this.posts=response.data.posts
+     console.log(response.data.posts)
     },
     changePassword() {
       this.change = true

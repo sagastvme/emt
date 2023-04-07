@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Categories;
 use App\Entity\Post;
 use App\Entity\PostAnswer;
+use App\Entity\SavedPosts;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -129,14 +130,25 @@ class ForumControllerLogic extends AbstractController
         $replies = $entityManager->getRepository(PostAnswer::class)->findBy(['postId' => $post->getId()]);
         $category = $entityManager->getRepository(Categories::class)->findOneBy(['id' => $post->getCategory()]);
 
-        $processedPost = ['id' => $post->getId(), 'author' => $post->getAuthor(), 'body' => $post->getBody(),
-            'title' => $post->getTitle(), 'category' => $category->getName(), 'date' => $post->getDateCreated()->format('Y-m-d H:i'),
-            'profilePic' => $user->getProfilePic(), 'loggedIn' => $this->getUser()];
+        if ($this->getUser()) {
 
+            $isFavourite = $entityManager->getRepository(SavedPosts::class)->findOneBy(['username' => $this->getUser(),
+                'postId' => $post]);
+
+            $processedPost = ['id' => $post->getId(), 'author' => $post->getAuthor(), 'body' => $post->getBody(),
+                'title' => $post->getTitle(), 'category' => $category->getName(), 'date' => $post->getDateCreated()->format('Y-m-d H:i'),
+                'profilePic' => $user->getProfilePic(), 'loggedIn' => $this->getUser(), 'role' => $this->getUser()->getRole()
+                , 'isFavourite' => $isFavourite];
+        } else {
+            $processedPost = ['id' => $post->getId(), 'author' => $post->getAuthor(), 'body' => $post->getBody(),
+                'title' => $post->getTitle(), 'category' => $category->getName(), 'date' => $post->getDateCreated()->format('Y-m-d H:i'),
+                'profilePic' => $user->getProfilePic(), 'loggedIn' => $this->getUser()];
+
+        }
         $proccesedReplies = [];
         foreach ($replies as $reply) {
             $proccesedReplies[] = ['id' => $reply->getId(), 'body' => $reply->getBody(), 'date' => $reply->getDateCreated()->format('Y-m-d H:i'),
-                'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic()];
+                'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic(), 'role' => $reply->getAuthor()->getRole()];
 
         }
 
@@ -183,13 +195,14 @@ class ForumControllerLogic extends AbstractController
                 'title' => $post->getTitle(),
                 'id' => $post->getId(),
                 'category' => $post->getCategory()->getName(),
+
                 // add more attributes as needed
             ];
         }, $posts);
 
 
         $replyProcessed[] = ['username' => $user->getUsername(), 'profilePic' => $user->getProfilePic(), 'postsPublished' => $user->getPostsPublished(),
-            'postsTitles' => $postDetails, 'dateCreated' => $user->getDateCreated()->format('Y-m-d')];
+            'postsTitles' => $postDetails, 'dateCreated' => $user->getDateCreated()->format('Y-m-d'), 'role' => $user->getRole(),];
 
 
         return $this->render('form/userDetails.html.twig', ['replyProcessed' => $replyProcessed]);
@@ -208,7 +221,7 @@ class ForumControllerLogic extends AbstractController
                 'id' => $post->getId(),
                 'category' => $post->getCategory()->getName(),
                 'author' => $post->getAuthor(),
-                'date'=> $post->getDateCreated()->format('Y-m-d H:i')
+                'date' => $post->getDateCreated()->format('Y-m-d H:i')
                 // add more attributes as needed
             ];
         }, $posts);
@@ -222,5 +235,122 @@ class ForumControllerLogic extends AbstractController
         return $this->render('form/byCategory.html.twig', ['posts' => $postsProcessed, 'category' => $categoryProcessed]);
     }
 
+    #[Route('/getPostsPublishedByUser', name: 'getPostsPublishedByUser')]
+    public function getPostsPublishedByUser(ManagerRegistry $doctrine)
+    {
+        $entityManager = $doctrine->getManager();
+        $posts = $entityManager->getRepository(Post::class)->findBy(['author' => $this->getUser()->getUsername()]);
+
+        $postDetails = array_map(function ($post) {
+            return [
+                'title' => $post->getTitle(),
+                'id' => $post->getId(),
+                'category' => $post->getCategory()->getName(),
+                'date' => $post->getDateCreated()->format('Y-m-d H:i')
+                // add more attributes as needed
+            ];
+        }, $posts);
+        return $this->json(['posts' => $postDetails]);
+    }
+
+
+    #[Route('/deletePost', name: 'deletePost')]
+    public function deletePost(ManagerRegistry $doctrine, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $postId = $data['id'];
+        $entityManager = $doctrine->getManager();
+        $post = $entityManager->getRepository(Post::class)->findOneBy(['id' => $postId]);
+
+// Delete related post_answers records
+        $postAnswers = $entityManager->getRepository(PostAnswer::class)->findBy(['postId' => $post]);
+        foreach ($postAnswers as $postAnswer) {
+            $entityManager->remove($postAnswer);
+        }
+        $postSaved = $entityManager->getRepository(SavedPosts::class)->findBy(['postId' => $post]);
+        foreach ($postSaved as $postAnswer) {
+            $entityManager->remove($postAnswer);
+        }
+// Delete the post record
+        $entityManager->remove($post);
+        $entityManager->flush();
+
+        return $this->json(['success' => true]);
+
+    }
+
+
+    #[Route('/getSavedPosts', name: 'getSavedPosts')]
+    public function getSavedPosts(ManagerRegistry $doctrine, Request $request)
+    {
+        $entityManager = $doctrine->getManager();
+
+        $saved = $entityManager->getRepository(SavedPosts::class)->findBy(['username' => $this->getUser()]);
+
+
+        $savedProcessed = array_map(function ($save) {
+            return [
+                'id' => $save->getId(),
+                'category' => $save->getPostId()->getCategory()->getName(),
+                'username' => $save->getUsername()->getUsername(),
+                'postId' => $save->getPostId()->getId(),
+                'title' => $save->getPostId()->getTitle()
+            ];
+        }, $saved);
+
+        return $this->json(['success' => true, 'posts' => $savedProcessed]);
+
+    }
+
+    #[Route('/deleteSavedPost', name: 'deleteSavedPost')]
+    public function deleteSavedPost(ManagerRegistry $doctrine, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $postId = $data['id'];
+        $entityManager = $doctrine->getManager();
+        $post = $entityManager->getRepository(SavedPosts::class)->findOneBy(['id' => $postId]);
+
+        $entityManager->remove($post);
+        $entityManager->flush();
+
+        return $this->json(['success' => true]);
+
+    }
+
+
+    #[Route('/addPostToFavourites', name: 'addPostToFavourites')]
+    public function addPostToFavourites(ManagerRegistry $doctrine, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $postId = $data['id'];
+        $entityManager = $doctrine->getManager();
+        $post = $entityManager->getRepository(Post::class)->findOneBy(['id' => $postId]);
+        $newSavedPost = new SavedPosts();
+        $newSavedPost->setPostId($post);
+        $newSavedPost->setUsername($this->getUser());
+        $entityManager->persist($newSavedPost);
+        $entityManager->flush();
+
+        return $this->json(['success' => true]);
+
+    }
+
+    #[Route('/removePostFromFavourites', name: 'removePostFromFavourites')]
+    public function removePostFromFavourites(ManagerRegistry $doctrine, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $postId = $data['id'];
+
+        $entityManager = $doctrine->getManager();
+        $foreignKeyPost=$entityManager->getRepository(Post::class)->findOneBy(['id'=>$postId]);
+
+        $post = $entityManager->getRepository(SavedPosts::class)->findOneBy(['postId' => $foreignKeyPost, 'username'=>$this->getUser()]);
+
+        $entityManager->remove($post);
+        $entityManager->flush();
+
+        return $this->json(['success' => true]);
+
+    }
 
 }

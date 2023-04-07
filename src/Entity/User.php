@@ -50,6 +50,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return mixed
      */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role): void
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * @ORM\Column(type="string", name = "role")
+     */
+    private $role;
+
+    /**
+     * @return mixed
+     */
     public function getDateCreated()
     {
         return $this->dateCreated;
@@ -62,6 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->dateCreated = $dateCreated;
     }
+
     /**
      * @ORM\Column(type="string", name = "verified")
      */
@@ -125,7 +147,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getProfilePic()
     {
 
-        return 'http:/'.$this->profilePic;
+        return 'http:/' . $this->profilePic;
 
     }
 
@@ -139,18 +161,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         //check if the email is from an admin
         $email = $this->getUsername();
         $adminRegex = '/^admin[A-Za-z]+@elrastro\.madrid\.spain\.es$/';
-        if (preg_match($adminRegex, $email)) {
-            return ['ROLE_ADMIN','ROLE_USER'];
+        if (preg_match($adminRegex, $email) && $this->getRole() == 'A' && $this->getVerified() == 'Y') {
+            return ['ROLE_ADMIN', 'ROLE_USER'];
         }
-
-
-
-
-
-
         //check if account is verified
         if ($this->getVerified() == 'Y') {
-        return array('ROLE_USER', 'ROLE_USER_VERIFIED');
+            return array('ROLE_USER', 'ROLE_USER_VERIFIED');
         }
         return array('ROLE_USER');
     }

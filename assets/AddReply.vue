@@ -1,13 +1,26 @@
 <template>
 
   <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg">
-    <h1 class="text-3xl font-bold text-center py-4">    {{ this.post.title }} </h1>
+    <h1 class="text-3xl font-bold text-center py-4"> {{ this.post.title }} </h1>
     <div class="flex items-center justify-center mb-4">
-      <img class="w-12 h-12 rounded-full mr-2" :src="this.post.profilePic" alt="">
+      <img :src="this.post.profilePic" alt="" class="w-12 h-12 rounded-full mr-2">
       <div>
         <a :href="`/profile/${this.post.author}`">{{ this.post.author }}</a>
         <p class="text-gray-600 text-xs">Creacion de la publicacion:{{ (this.post.date) }}</p>
+        <p v-if="this.post.role==='U'" class="text-gray-600 text-xs">Rol: Usuario</p>
+        <p v-else class="text-gray-600 text-xs">Rol: administrador</p>
         <p class="text-gray-600 text-xs">{{ this.post.category }}</p>
+<div v-if="this.post.loggedIn">
+        <div v-if="this.isFavourite===null">
+          <button @click="addToFavourites"> <svg-not-favourite/> </button>
+
+        </div>
+        <div v-else>
+
+          <button @click="removeFromFavourites"> <svg-favourite/> </button>
+        </div>
+</div>
+
       </div>
     </div>
     <p class="px-6 mb-6">{{ this.post.body }}</p>
@@ -15,10 +28,11 @@
       <div v-for="reply in repliesLocal" class="bg-white shadow-md rounded-lg p-4">
         <div class="flex justify-between items-center mb-4">
           <div class="flex items-center">
-            <img class="w-10 h-10 rounded-full mr-4" :src="reply.profilePic" alt="Profile Picture">
+            <img :src="reply.profilePic" alt="Profile Picture" class="w-10 h-10 rounded-full mr-4">
             <div>
-              <a :href="`/profile/${ reply.user}`">{{ reply.user}}</a>
-
+              <a :href="`/profile/${ reply.user}`">{{ reply.user }}</a>
+              <p v-if="reply.role==='U'" class="text-gray-600 text-xs">Rol: Usuario</p>
+              <p v-else class="text-gray-600 text-xs">Rol: administrador</p>
               <p class="text-gray-500">{{ reply.date }}</p>
             </div>
           </div>
@@ -29,9 +43,10 @@
 
 
     <form v-if="this.post.loggedIn" class="px-6 py-4 bg-gray-100 rounded-md mt-6" @submit.prevent="addReply">
-      <label for="body" class="font-bold mb-2 block">Escribe una respuesta:</label>
-      <textarea id="body" class="border border-gray-400 rounded-md py-2 px-4 w-full mb-4" ref="body" rows="4" required></textarea>
-      <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Responder</button>
+      <label class="font-bold mb-2 block" for="body">Escribe una respuesta:</label>
+      <textarea id="body" ref="body" class="border border-gray-400 rounded-md py-2 px-4 w-full mb-4" required
+                rows="4"></textarea>
+      <button class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600" type="submit">Responder</button>
     </form>
   </div>
 </template>
@@ -39,28 +54,48 @@
 
 <script>
 import axios from "axios";
+import SvgFavourite from "./components/SvgIcons/SvgFavourite.vue";
+import SvgNotFavourite from "./components/SvgIcons/SvgNotFavourite.vue";
 
 export default {
+  components: {SvgNotFavourite, SvgFavourite},
 
-  methods:{
-   async addReply(){
-      const response= await axios.post('/replyToPost',{
-        body:this.$refs.body.value,
-        id:this.$props.post.id
+  methods: {
+    async addReply() {
+      const response = await axios.post('/replyToPost', {
+        body: this.$refs.body.value,
+        id: this.$props.post.id
       })
-     console.log(response.data)
-     this.repliesLocal.push(response.data.replyProcessed[0])
-     this.$refs.body.value=''
+      console.log(response.data)
+      this.repliesLocal.push(response.data.replyProcessed[0])
+      this.$refs.body.value = ''
+    },
+    async addToFavourites() {
+      const response = await axios.post('/addPostToFavourites', {
+        id: this.$props.post.id
+      })
+      this.isFavourite=true
+
+    },
+    async removeFromFavourites(){
+      const response = await axios.post('/removePostFromFavourites', {
+        id: this.$props.post.id
+      })
+      this.isFavourite=null
+
     }
   },
   mounted() {
     console.log(this.$props.post)
+    this.isFavourite = this.$props.post.isFavourite
     console.log(this.$props.replies)
+    console.log(this.isFavourite)
   },
-  props:['post', 'replies'],
-  data(){
-    return{
-      repliesLocal:this.$props.replies
+  props: ['post', 'replies'],
+  data() {
+    return {
+      repliesLocal: this.$props.replies,
+      isFavourite: null
     }
   }
 }

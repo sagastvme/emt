@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Plans;
+use App\Entity\Post;
 use App\Entity\Stops;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
@@ -55,13 +56,13 @@ class HomeController extends AbstractController
     {
         $data = [];
         $data['username'] = $this->getUser()->getUsername();
-        $data['password'] = $this->getUser()->getPassword();
         $data['profilePicture'] = $this->getUser()->getProfilePic();
+        $data['role']=$this->getUser()->getRole();
+        $data['dateCreated']=$this->getUser()->getDateCreated()->format('Y-m-d');
+        $data['postsPublished']=$this->getUser()->getPostsPublished();
         // Use the 'app.path.profile_pictures' parameter to get the correct path to your pictures
         return new JsonResponse($data);
     }
-
-
     #[Route('/checkPassword', name: 'checkPassword')]
     public function check(Request $request)
     {
@@ -276,6 +277,9 @@ class HomeController extends AbstractController
         $entityManager->flush();
         return $this->render('deleteAccount/successfullDelete.html.twig');
     }
+
+
+
 
 
 
