@@ -1,7 +1,13 @@
-<template>
-<forum-menu @change-tab="changeTab"/>
-<component :is="selectedTab" :categories="categories"  />
-</template>
+
+  <template>
+    <forum-menu @change-tab="changeTab"/>
+    <div v-if="selectedTab==='forum-categories'">
+      <component :is="selectedTab" :categories="categories"/>
+    </div>
+   <div v-else>
+     <component :is="selectedTab"/>
+   </div>
+  </template>
 
 
 
