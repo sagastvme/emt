@@ -44,7 +44,7 @@ import SvgEyeOpened from "./SvgIcons/SvgEyeOpened.vue";
 import SvgEyeClosed from "./SvgIcons/SvgEyeClosed.vue";
 import EyePassword from "./EyePassword.vue";
 import axios from "axios";
-import ErrorMessage from "./ErrorMessage.vue";
+import ErrorMessage from "./Messages/ErrorMessage.vue";
 
 export default {
   components: {ErrorMessage, EyePassword, SvgEyeOpened, SvgEyeClosed},

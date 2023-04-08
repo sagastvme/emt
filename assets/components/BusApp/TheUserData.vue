@@ -134,8 +134,8 @@
 
 <script>
 import axios from "axios";
-import ErrorMessage from "./ErrorMessage.vue";
-import ConfirmMessage from "./ConfirmMessage.vue";
+import ErrorMessage from "./Messages/ErrorMessage.vue";
+import ConfirmMessage from "./Messages/ConfirmMessage.vue";
 
 export default {
   components: {ConfirmMessage, ErrorMessage},
@@ -266,7 +266,7 @@ export default {
           fileName == 'image/gif' || fileName == 'image/webp') {
         const formData = new FormData();
         formData.append('profilePic', this.$refs.newPicture.files[0]);
-        const response = await axios.post('profile', formData, {
+        const response = await axios.post('/profile', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
