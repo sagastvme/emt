@@ -17,15 +17,15 @@
 </template>
 
 <script>
-import SvgBus from "./SvgIcons/SvgBus.vue";
-import SvgStar from "./SvgIcons/SvgStarEmpty.vue";
-import SvgForum from "./SvgIcons/SvgForum.vue";
-import SvgUser from "./SvgIcons/SvgUser.vue";
-import SvgLogout from "./SvgIcons/SvgLogout.vue";
-import SvgMap from "./SvgIcons/SvgMap.vue";
-import SvgPrice from "./SvgIcons/SvgPrice.vue";
-import SvgBike from "./SvgIcons/SvgBike.vue";
-import SvgTrophy from "./SvgIcons/SvgTrophy.vue";
+import SvgBus from "../SvgIcons/SvgBus.vue";
+import SvgStar from "../SvgIcons/SvgStarEmpty.vue";
+import SvgForum from "../SvgIcons/SvgForum.vue";
+import SvgUser from "../SvgIcons/SvgUser.vue";
+import SvgLogout from "../SvgIcons/SvgLogout.vue";
+import SvgMap from "../SvgIcons/SvgMap.vue";
+import SvgPrice from "../SvgIcons/SvgPrice.vue";
+import SvgBike from "../SvgIcons/SvgBike.vue";
+import SvgTrophy from "../SvgIcons/SvgTrophy.vue";
 
 export default {
 

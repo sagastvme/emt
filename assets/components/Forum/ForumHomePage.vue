@@ -9,7 +9,7 @@ import ForumMenu from "./ForumMenu.vue";
 import ForumCategories from "./ForumCategories.vue";
 import ForumNewPost from "./ForumNewPost.vue";
 import axios from "axios";
-import ErrorMessage from "../ErrorMessage.vue";
+import ErrorMessage from "../Messages/ErrorMessage.vue";
 import ForumSearch from "./ForumSearch.vue";
 import ForumSavedPosts from "./ForumSavedPosts.vue";
 export default {

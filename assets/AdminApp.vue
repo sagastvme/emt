@@ -8,10 +8,10 @@
 
 <script>
 import AdminMenu from "./components/Admin/AdminMenu.vue";
-import TheHeader from "./components/TheHeader.vue";
+import TheHeader from "./components/BusApp/TheHeader.vue";
 import DeleteUsers from "./components/Admin/DeleteUsers.vue";
 import ModifyMetroPlans from "./components/Admin/ModifyMetroPlans.vue";
-import ErrorMessage from "./components/ErrorMessage.vue";
+import ErrorMessage from "./components/Messages/ErrorMessage.vue";
 import DeletePrice from "./components/Admin/DeletePrice.vue";
 import DeletePosts from "./components/Admin/AdminDeletePosts.vue";
 export default {

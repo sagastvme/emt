@@ -1,6 +1,6 @@
 <template>
-  <svg id="Layer_1" fill="#000000" height="64px" version="1.1"
-       viewBox="0 0 511.999 511.999" width="64px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+  <svg class="w-10 h-10" id="Layer_1" fill="#000000"  version="1.1"
+       viewBox="0 0 511.999 511.999"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
     <g id="SVGRepo_iconCarrier"> <circle cx="256.003" cy="256.003" r="249.99" style="fill:#D7F3FF;"></circle>
       <polygon points="317.035,160.117 295.388,160.117 216.62,160.117 194.974,160.117 211.726,153.178 244.327,139.698 256.004,134.863 267.681,139.698 300.271,153.178 "

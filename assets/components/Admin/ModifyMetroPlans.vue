@@ -28,9 +28,9 @@
 
 <script>
 import axios from "axios";
-import ConfirmMessage from "../ConfirmMessage.vue";
+import ConfirmMessage from "../Messages/ConfirmMessage.vue";
 import AddMetroPlan from "./AddMetroPlan.vue";
-import ErrorMessage from "../ErrorMessage.vue";
+import ErrorMessage from "../Messages/ErrorMessage.vue";
 export default {
   name: "ModifyMetroPlans",
   components: {AddMetroPlan, ConfirmMessage, ErrorMessage},

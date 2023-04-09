@@ -134,8 +134,8 @@
 
 <script>
 import axios from "axios";
-import ErrorMessage from "./Messages/ErrorMessage.vue";
-import ConfirmMessage from "./Messages/ConfirmMessage.vue";
+import ErrorMessage from "../Messages/ErrorMessage.vue";
+import ConfirmMessage from "../Messages/ConfirmMessage.vue";
 
 export default {
   components: {ConfirmMessage, ErrorMessage},

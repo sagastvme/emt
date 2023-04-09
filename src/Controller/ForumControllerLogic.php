@@ -172,10 +172,10 @@ class ForumControllerLogic extends AbstractController
 
         }
         $proccesedReplies = [];
-        $images=[];
+        $images = [];
 
         foreach ($replies as $reply) {
-            $foundImages=$entityManager->getRepository(PostImage::class)->findBy(['postanswerid'=>$reply]);
+            $foundImages = $entityManager->getRepository(PostImage::class)->findBy(['postanswerid' => $reply]);
             $imagesProcessed = array_map(function ($img) {
                 return [
                     'link' => $img->getSource()
@@ -184,7 +184,7 @@ class ForumControllerLogic extends AbstractController
             }, $foundImages);
             $proccesedReplies[] = ['id' => $reply->getId(), 'body' => $reply->getBody(), 'date' => $reply->getDateCreated()->format('Y-m-d H:i'),
                 'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic(), 'role' => $reply->getAuthor()->getRole(),
-                'repliedImages'=>$imagesProcessed];
+                'repliedImages' => $imagesProcessed];
 
         }
 
@@ -211,9 +211,9 @@ class ForumControllerLogic extends AbstractController
         $entityManager->persist($reply);
         $entityManager->flush();
 
-
+        $imgLinks = [];
         if (!empty($filesReceived)) {
-            $imgLinks = [];
+
             foreach ($filesReceived as $images) {
                 $image = new PostImage();
                 $image->setPostanswerid($reply);
@@ -224,7 +224,7 @@ class ForumControllerLogic extends AbstractController
                 $image->setSource('postImages/' . $newName);
                 $entityManager->persist($image);
                 $entityManager->flush();
-                $imgLinks['link'] = $image->getSource();
+                $imgLinks[] = ['link' => $image->getSource()];
             }
 
 
@@ -232,7 +232,7 @@ class ForumControllerLogic extends AbstractController
 
 
         $replyProcessed[] = ['id' => $reply->getId(), 'body' => $reply->getBody(), 'date' => $reply->getDateCreated()->format('Y-m-d H:i'),
-            'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic(), 'images'=>$imgLinks];
+            'user' => $reply->getAuthor()->getUsername(), 'profilePic' => $reply->getAuthor()->getProfilePic(), 'repliedImages' => $imgLinks];
 
 
         return $this->json(['success' => true, 'replyProcessed' => $replyProcessed]);
@@ -317,17 +317,41 @@ class ForumControllerLogic extends AbstractController
         $postId = $data['id'];
         $entityManager = $doctrine->getManager();
         $post = $entityManager->getRepository(Post::class)->findOneBy(['id' => $postId]);
+        $targetDir = $this->getParameter('postImages');
 
-// Delete related post_answers records
+        // Delete related post_answers records
         $postAnswers = $entityManager->getRepository(PostAnswer::class)->findBy(['postId' => $post]);
         foreach ($postAnswers as $postAnswer) {
             $entityManager->remove($postAnswer);
+            $postImages = $entityManager->getRepository(PostImage::class)->findBy(['postanswerid' => $postAnswer]);
+            foreach ($postImages as $img) {
+
+                $existingFile = glob($img->getPath());
+                echo $img->getPath();
+                var_dump($existingFile);
+                if (is_file($existingFile[0])) {
+                    unlink($existingFile[0]);
+                }
+                $entityManager->remove($img);
+            }
         }
         $postSaved = $entityManager->getRepository(SavedPosts::class)->findBy(['postId' => $post]);
         foreach ($postSaved as $postAnswer) {
             $entityManager->remove($postAnswer);
         }
-// Delete the post record
+        // Delete all images related to this post and its answers
+        // Check if a file with the same name exists
+
+        $postImages = $entityManager->getRepository(PostImage::class)->findBy(['postId' => $post]);
+        foreach ($postImages as $img) {
+
+            $existingFile = glob($img->getPath());
+            var_dump($existingFile);
+            if (is_file($existingFile[0])) {
+                unlink($existingFile[0]);
+            }
+            $entityManager->remove($img);
+        }
         $entityManager->remove($post);
         $entityManager->flush();
 

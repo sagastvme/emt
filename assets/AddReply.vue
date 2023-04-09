@@ -41,7 +41,7 @@
           </div>
         </div>
         <p class="text-gray-800">{{ reply.body }}</p>
-        <div v-for="img in imagesFromReplies">
+        <div v-for="img in reply.repliedImages">
           <img class="w-20 h-20" :src="img.link" alt="">
         </div>
       </div>
@@ -93,7 +93,7 @@ export default {
 
       console.log(response.data)
       this.repliesLocal.push(response.data.replyProcessed[0])
-    this.imagesFromReplies.push(response.data.replyProcessed[0].images)
+
       console.log( this.imagesFromReplies)
       this.$refs.body.value = ''
     },

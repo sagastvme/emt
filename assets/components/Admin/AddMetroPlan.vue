@@ -22,7 +22,7 @@
 
 <script>
 import axios from "axios";
-import ErrorMessage from "../ErrorMessage.vue";
+import ErrorMessage from "../Messages/ErrorMessage.vue";
 
 export default {
   name: "AddMetroPlan",

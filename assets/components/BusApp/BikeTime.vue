@@ -78,11 +78,11 @@
 </template>
 
 <script>
-import SvgSearch from "./SvgIcons/SvgSearch.vue";
+import SvgSearch from "../SvgIcons/SvgSearch.vue";
 import axios from 'axios';
-import SvgEyeOpened from "./SvgIcons/SvgEyeOpened.vue";
-import SvgEyeClosed from "./SvgIcons/SvgEyeClosed.vue";
-import ErrorMessage from "./ErrorMessage.vue";
+import SvgEyeOpened from "../SvgIcons/SvgEyeOpened.vue";
+import SvgEyeClosed from "../SvgIcons/SvgEyeClosed.vue";
+import ErrorMessage from "../Messages/ErrorMessage.vue";
 
 
 export default {

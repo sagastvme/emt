@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Plans;
-use App\Entity\Post;
 use App\Entity\Stops;
 use App\Entity\User;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
@@ -57,12 +57,13 @@ class HomeController extends AbstractController
         $data = [];
         $data['username'] = $this->getUser()->getUsername();
         $data['profilePicture'] = $this->getUser()->getProfilePic();
-        $data['role']=$this->getUser()->getRole();
-        $data['dateCreated']=$this->getUser()->getDateCreated()->format('Y-m-d');
-        $data['postsPublished']=$this->getUser()->getPostsPublished();
+        $data['role'] = $this->getUser()->getRole();
+        $data['dateCreated'] = $this->getUser()->getDateCreated()->format('Y-m-d');
+        $data['postsPublished'] = $this->getUser()->getPostsPublished();
         // Use the 'app.path.profile_pictures' parameter to get the correct path to your pictures
         return new JsonResponse($data);
     }
+
     #[Route('/checkPassword', name: 'checkPassword')]
     public function check(Request $request)
     {
@@ -111,7 +112,7 @@ class HomeController extends AbstractController
 
         if ($plansAvailable !== null) {
             foreach ($plansAvailable as $plan) {
-                $data[$plan->getTitle()] =  $plan->getPath();
+                $data[$plan->getTitle()] = $plan->getPath();
             }
         }
 
@@ -127,6 +128,7 @@ class HomeController extends AbstractController
         $password = $data['password'];
         $user = new User();
         $user->setPassword($password);
+        $user->setRole('U');
         $user->setUsername($username);
         $user->setProfilePic('profilePictures/null.jpg');
         $user->setVerified('N');
@@ -134,23 +136,26 @@ class HomeController extends AbstractController
         $user->setPostsPublished(0);
         $user->setDateCreated(new \DateTime());
         $entityManager = $doctrine->getManager();
+        try {
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        $url = 'http:/' . $_SERVER['HTTP_HOST'];
-        $url = $url . $this->generateUrl('confirm_account', ['user' => $user->getUniqueAttribute()]);
-        $email = (new Email())
-            ->from('elrastro@gmail.com')
-            ->to($user->getUsername())
-            ->subject('Confirma tu cuenta')
-            ->html(
-                $this->renderView('confirmAccount/confirmAccount.html.twig', [
-                    'url' => $url
-                ])
-            );
-        $mailer->send($email);
-        return $this->json(['message' => 'User registered successfully', 'user' => $data]);
+            $url = 'http:/' . $_SERVER['HTTP_HOST'];
+            $url = $url . $this->generateUrl('confirm_account', ['user' => $user->getUniqueAttribute()]);
+            $email = (new Email())
+                ->from('elrastro@gmail.com')
+                ->to($user->getUsername())
+                ->subject('Confirma tu cuenta')
+                ->html(
+                    $this->renderView('confirmAccount/confirmAccount.html.twig', [
+                        'url' => $url
+                    ])
+                );
+            $mailer->send($email);
+            return $this->json(['message' => true]);
+        } catch (UniqueConstraintViolationException $e) {
+            return $this->json(['message' => false]);
+        }
     }
 
     #[Route('/confirmAccount/{user}', name: 'confirm_account')]
@@ -277,22 +282,6 @@ class HomeController extends AbstractController
         $entityManager->flush();
         return $this->render('deleteAccount/successfullDelete.html.twig');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

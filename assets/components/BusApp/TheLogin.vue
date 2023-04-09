@@ -1,50 +1,59 @@
 <template>
-  <div v-if="!forgotPassword">
-    <form action="/home" class="grid grid-cols-2 gap-3 mt-5" method="post">
-      <label class=" flex-row  mr-3" for="_username">Email</label>
-      <input id="_username" v-model="username" class="flex-row  border-2 border-black" name="_username" type="text">
-      <label ref="password" class="flex-row  mr-3" htmlFor="_password">Password </label>
-      <input id="_password" v-model="password" :type="showPassword ? 'text' : 'password'"
-             class="flex-row  border-2 border-black"
-             name="_password">
-      <label class="flex-row  mr-3" for="remember">Remember Me</label>
-      <input id="remember" v-model="rememberMe" class="flex-row  border-2 border-black" type="checkbox">
-      <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
-             type="submit"
-             value="Iniciar sesión"
-             @click="remember">
+  <div class="flex flex-col items-center justify-center">
+    <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl">Iniciar sesión</h2>
+    <div v-if="!forgotPassword" class="mt-5 shadow-lg rounded-lg p-4 bg-white">
+      <form action="/home" class="grid grid-cols-2 gap-3" method="post">
+        <label class="flex items-center text-gray-700 font-bold" for="_username">Email</label>
+        <input id="_username" v-model="username" class="border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500" name="_username" type="text">
+        <label class="flex items-center text-gray-700 font-bold" ref="password" htmlFor="_password">Password</label>
+        <input id="_password" v-model="password" :type="showPassword ? 'text' : 'password'"
+               class="border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500"
+               name="_password">
+        <label class="flex items-center text-gray-700 font-bold" for="remember">Remember Me</label>
+        <input id="remember" v-model="rememberMe" type="checkbox" class="form-checkbox border-gray-300 rounded focus:outline-none focus:border-blue-500">
+        <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer col-span-2"
+               type="submit" value="Iniciar sesión" @click="remember">
+      </form>
 
-    </form>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
-            @click="forgotPassword=true">Olvidaste la contrasena?
-    </button>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3"
+              @click="forgotPassword=true">Olvidaste la contraseña?</button>
+    </div>
+
+    <div v-else class="mt-5 shadow-lg rounded-lg p-4 bg-white">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              @click="forgotPassword=false">Cancelar</button>
+      <form @submit.prevent="sendForgotPassword" class="flex items-center mt-3">
+        <input id="" ref="forgotEmail" name="" placeholder="Introduzca su email" type="email"
+               class="border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500 w-full">
+        <div>
+          <button v-if="!emailSending" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3"
+                  @click="sendEmail">Enviar email de confirmación</button>
+          <transition name="fade">
+            <button v-if="emailSending" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3"
+                    disabled>
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-75" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-25" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>Enviando...</button>
+          </transition>
+        </div>
+      </form>
+    </div>
+
+    <teleport to="body">
+      <error-message v-if="showResult" :message="this.resultMessage"
+                     @close-error="showResult=false,this.forgotPassword = false"/>
+    </teleport>
   </div>
-  <div v-else>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
-            @click="forgotPassword=false">Cancelar
-    </button>
-    <form @submit.prevent="sendForgotPassword">
-      <input id="" ref="forgotEmail" name="" placeholder="Introduzca su email"  type="email">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
-            >Enviar email de confirmacion
-      </button>
-
-    </form>
-  </div>
-  <teleport to="body">
-    <error-message v-if="showResult" :message="this.resultMessage"
-                   @close-error="showResult=false,this.forgotPassword = false"/>
-  </teleport>
-
 </template>
 
 
 <script>
-import SvgEyeOpened from "./SvgIcons/SvgEyeOpened.vue";
-import SvgEyeClosed from "./SvgIcons/SvgEyeClosed.vue";
-import EyePassword from "./EyePassword.vue";
+import SvgEyeOpened from "../SvgIcons/SvgEyeOpened.vue";
+import SvgEyeClosed from "../SvgIcons/SvgEyeClosed.vue";
+import EyePassword from "../EyePassword.vue";
 import axios from "axios";
-import ErrorMessage from "./Messages/ErrorMessage.vue";
+import ErrorMessage from "../Messages/ErrorMessage.vue";
 
 export default {
   components: {ErrorMessage, EyePassword, SvgEyeOpened, SvgEyeClosed},
@@ -56,7 +65,8 @@ export default {
       showPassword: false,
       forgotPassword: false,
       showResult: false,
-      resultMessage: null
+      resultMessage: null,
+      emailSending:null
     }
   },
   mounted() {
@@ -87,9 +97,11 @@ export default {
     async sendForgotPassword() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (this.$refs.forgotEmail.value.trim() != '' && emailRegex.test(this.$refs.forgotEmail.value)) {
+        this.emailSending = true;
         const response = await axios.post('/forgotPassword', {
           'email': this.$refs.forgotEmail.value
         })
+        this.emailSending = false;
         const success = (response.data.success)
         if (!success) {
           this.resultMessage = 'Este email no existe'
@@ -109,11 +121,3 @@ export default {
   }
 }
 </script>
-<style>
-button {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-</style>

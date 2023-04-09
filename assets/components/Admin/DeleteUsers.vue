@@ -40,7 +40,7 @@
 
 <script>
 import axios from "axios";
-import ConfirmMessage from "../ConfirmMessage.vue";
+import ConfirmMessage from "../Messages/ConfirmMessage.vue";
 
 export default {
   components: {ConfirmMessage},

@@ -56,6 +56,10 @@ class PostImage
     {
         return 'http:/' . $this->source;
     }
+    public function getPath()
+    {
+        return $this->source;
+    }
 
     /**
      * @param mixed $source
