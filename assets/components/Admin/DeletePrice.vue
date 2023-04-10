@@ -1,48 +1,75 @@
 <template>
-
-  <form @submit.prevent="searchPlan">
-    <h2>Introduzca la tarifa que quiere buscar </h2>
-    <input ref="searchedPlan" placeholder="aqui" required type="text">
-    <input class="bg-red-400" type="submit" value="Buscar tarifa">
+  <div>
+  <form @submit.prevent="searchPlan" class="w-full max-w-md mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Introduzca la tarifa que quiere buscar</h2>
+    <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
+      <input ref="searchedPlan" placeholder="Escriba aquí el título de la tarifa" required type="text" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none">
+      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit">
+        Buscar tarifa
+      </button>
+    </div>
   </form>
 
 
-  <form @submit.prevent="insertPlan" class="border border-black">
-    <h2>Anadir plano </h2>
-    <label for="newPlanTitle">Titulo de la nueva tarifa</label>
-    <input ref="newPlanTitle" id="newPlanTitle" placeholder="aqui" required type="text">
 
-
-    <label for="newPlanPrice">Precio de la nueva tarifa</label>
-    <input ref="newPlanPrice" id="newPlanPrice" placeholder="aqui" required type="text">
-
-    <input class="bg-red-400" type="submit" value="Anadir tarifa">
-
+  <form @submit.prevent="insertPlan" class="border border-black p-4">
+    <h2 class="mb-4 text-lg font-medium">Añadir plan</h2>
+    <div class="mb-2">
+      <label for="newPlanTitle" class="block font-medium mb-1">Título de la nueva tarifa</label>
+      <input ref="newPlanTitle" id="newPlanTitle" placeholder="Escriba aquí" required type="text"
+             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+    </div>
+    <div class="mb-4">
+      <label for="newPlanPrice" class="block font-medium mb-1">Precio de la nueva tarifa</label>
+      <input ref="newPlanPrice" id="newPlanPrice" placeholder="Escriba aquí" required type="text"
+             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+    </div>
+    <button class="bg-red-400 py-2 px-4 text-white rounded-md shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            type="submit">Añadir tarifa</button>
   </form>
 
-
-  <table v-if="searchedPlan==null">
+  <table v-if="searchedPlan==null" class="table-auto w-full mt-4">
+    <thead>
+    <tr class="bg-gray-200">
+      <th class="px-4 py-2">Título</th>
+      <th class="px-4 py-2">Precio</th>
+      <th class="px-4 py-2">Acción</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr v-for="plan in plans" :key="plan.id" :class="{ focused: plan.title === searchedPlan }">
-      <td>{{ plan.title }}</td>
-      <td>{{ plan.price }}</td>
-      <td>
-        <button @click="deletePlan(plan)">Borrar tarifa</button>
+      <td class="border px-4 py-2">{{ plan.title }}</td>
+      <td class="border px-4 py-2">{{ plan.price }}</td>
+      <td class="border px-4 py-2">
+        <button class="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded"
+                @click="deletePlan(plan)">Borrar tarifa</button>
       </td>
     </tr>
+    </tbody>
   </table>
 
 
-  <table v-else>
-    <button class="bg-red-300" @click="this.searchedPlan=null">Ir atras</button>
-    <tr v-for="results in searchedPlan">
 
-      <td>{{ results.title }}</td>
-      <td>{{ results.price }}</td>
-      <td>
-        <button @click="deletePlan(results)">Borrar tarifa</button>
+  <table v-else class="table-auto w-full">
+    <button class="bg-red-300 px-4 py-2 my-4 rounded-md" @click="this.searchedPlan=null">Ir atras</button>
+    <thead>
+    <tr>
+      <th class="px-4 py-2">Titulo</th>
+      <th class="px-4 py-2">Precio</th>
+      <th class="px-4 py-2">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="results in searchedPlan" :key="results.id" :class="{ 'bg-gray-100': results.title === searchedPlan }">
+      <td class="border px-4 py-2">{{ results.title }}</td>
+      <td class="border px-4 py-2">{{ results.price }}</td>
+      <td class="border px-4 py-2">
+        <button class="bg-red-500 text-white px-4 py-2 rounded-md" @click="deletePlan(results)">Borrar tarifa</button>
       </td>
     </tr>
+    </tbody>
   </table>
+
   <teleport v-if="deletedPlan!==null" to="body">
     <confirm-message :message="'Estás seguro de que quieres borrar la tarifa ' +deletedPlan"
                      @close-error="this.deletedPlan=null">
@@ -59,12 +86,14 @@
 
 
   <teleport v-if="newPlanTitle!==null" to="body">
-  <confirm-message :message="'Esta seguro de que quiere crear una nueva tarifa '+this.$refs.newPlanTitle.value"
-                   @close-error="this.newPlanTitle=null">
-    <button @click="addPriceCommit">SI</button>
-    <button class="ml-8" @click="this.newPlanTitle=null">NO</button>
-  </confirm-message>
+    <confirm-message :message="'Esta seguro de que quiere crear una nueva tarifa '+this.$refs.newPlanTitle.value"
+                     @close-error="this.newPlanTitle=null">
+      <button @click="addPriceCommit">SI</button>
+      <button class="ml-8" @click="this.newPlanTitle=null">NO</button>
+    </confirm-message>
   </teleport>
+  </div>
+
 </template>
 
 <script>

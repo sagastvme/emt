@@ -104,13 +104,13 @@
         </div>
         <div v-if="loggedIn">
           <div v-if="wantsToAdd">
-            <form @submit.prevent="addFavourite" class="flex items-center">
-              <input required type="text" ref="customName" placeholder="Nombre que le quiera poner a la parada" class="w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border">
+            <form @submit.prevent="addFavourite" class="flex items-center mb-25">
+              <input required type="text" ref="customName" placeholder="Nombre personalizado" class="w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border mx-5">
               <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">Anadir a favoritos</button>
             </form>
           </div>
 
-          <div v-if="!wantsToAdd" class="flex items-center">
+          <div v-if="!wantsToAdd" class="flex items-center justify-center mb-5">
             <svg-star-empty v-if="!isFavourite" @click="this.wantsToAdd=true" class="w-6 h-6 cursor-pointer" />
             <svg-star-full v-else @click="this.askConfirm=true" class="w-6 h-6 cursor-pointer" />
             <span class="ml-2">{{ isFavourite ? 'Parada agregada a favoritos' : 'Agregar a favoritos' }}</span>
@@ -119,7 +119,7 @@
 
 
 
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center mt-5">
           <ul class="block sm:inline-block md:table">
             <li v-for="buses in dataArray['Arrive']" :key="buses" class="text-sm mb-3 flex items-center md:table-cell md:mx-6 md:my-2">
               <span class="bg-blue-200 rounded-full py-1 px-3 mr-5">{{ buses.line }}</span>

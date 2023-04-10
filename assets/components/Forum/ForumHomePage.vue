@@ -1,6 +1,10 @@
   <template>
-    <forum-menu @change-tab="changeTab"/>
-      <component :is="selectedTab" :categories="categories"/>
+    <div class="w-max">
+
+      <forum-menu @change-tab="changeTab" />
+      <component :is="selectedTab" :categories="categories" />
+
+    </div>
   </template>
 
 

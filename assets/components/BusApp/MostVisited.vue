@@ -1,13 +1,26 @@
 <template>
-  <div class="flex justify-center">
-  <h2 class="mb-3">Top 10 paradas mas visitadas</h2>
-  <table>
-    <tr v-for="stop in stopsArray">
-      <td>Codigo de la parada: {{ stop.stopId }}</td>
-      <td>Veces visitada: {{ stop.timesVisited }}</td>
-    </tr>
-  </table>
+  <div class="flex items-center justify-center">
+    <div class="w-full p-4 mb-10">
+    <h2 class="text-3xl font-bold text-center ">Top 10 paradas más visitadas</h2>
+      <div class="overflow-x-auto">
+      <table class="w-full table-auto mt-2">
+      <thead class="bg-gray-200">
+      <tr>
+        <th class="border border-gray-400 py-2 px-4">Código de parada</th>
+        <th class="border border-gray-400 py-2 px-4">Veces visitada</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="stop in stopsArray" :key="stop.stopId">
+        <td class="border border-gray-400 py-2 px-4">{{ stop.stopId }}</td>
+        <td class="border border-gray-400 py-2 px-4">{{ stop.timesVisited }}</td>
+      </tr>
+      </tbody>
+    </table>
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>

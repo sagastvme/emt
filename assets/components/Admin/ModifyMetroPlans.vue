@@ -1,27 +1,31 @@
 <template>
-  <add-metro-plan/>
-  <table>
-    <tr v-for="plan in plans" :key="plan">
-      <td>{{plan.name}}</td>
-      <td>   <img :src="plan.path" class="h-48 object-contain mb-4"> </td>
-  <td>
-    <button @click="deletePlan(plan.id, plan.name)" >Borrar plano</button>
-  </td>
-    </tr>
-  </table>
-  <teleport v-if="deletedPlan!==null" to="body">
-    <confirm-message :message="'Estás seguro de que quieres borrar el plano ' +message"
-                     @close-error="this.deletedPlan=null">
-      <button @click="deleteUserCommit">SI</button>
-      <button class="ml-8" @click="this.deletedPlan=null">NO</button>
-    </confirm-message>
-  </teleport>
-
-
-
-
-
-
+  <div class="flex flex-col items-center">
+    <div class="w-full max-w-md">
+      <add-metro-plan />
+    </div>
+    <div class="w-full overflow-x-auto">
+      <table class="w-full">
+        <tbody>
+        <tr v-for="plan in plans" :key="plan">
+          <td class="py-4">{{plan.name}}</td>
+          <td class="py-4">
+            <img :src="plan.path" class="h-48 object-contain mb-4">
+          </td>
+          <td class="py-4">
+            <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" @click="deletePlan(plan.id, plan.name)">Borrar plano</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <teleport v-if="deletedPlan!==null" to="body">
+      <confirm-message :message="'Estás seguro de que quieres borrar el plano ' +message"
+                       @close-error="this.deletedPlan=null">
+        <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" @click="deleteUserCommit">SI</button>
+        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-4" @click="this.deletedPlan=null">NO</button>
+      </confirm-message>
+    </teleport>
+  </div>
 
 
 </template>

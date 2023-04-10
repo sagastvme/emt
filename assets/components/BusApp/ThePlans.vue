@@ -1,8 +1,9 @@
 <template>
-  <div v-if="plans" class="flex flex-wrap justify-center">
-    <ul class="inline-flex flex-wrap">
+  <div v-if="plans">
+    <h2 class="text-3xl font-bold text-center py-8">Planos de transporte</h2>
+    <ul class="flex flex-wrap justify-center md:flex-row">
       <li v-for="(plan, index) in plans" :key="index" class="m-4">
-        <div class="rounded border-2 border-red-400 w-80 h-80 flex flex-col justify-center items-center">
+        <div class="rounded border-2 border-red-400 w-80 h-80 flex flex-col justify-center items-center sm:mx-auto">
           <h3 class="text-lg font-bold mb-4">{{index }}</h3>
           <img :src="plan" class="h-48 object-contain mb-4">
           <button @click="viewImage(plan)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
@@ -12,7 +13,10 @@
       </li>
     </ul>
   </div>
+
+
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -34,8 +38,9 @@ export default {
           });
     },
     viewImage(plan) {
-      window.open(plan, '_blank');
+      window.location.href = plan;
     }
+
   },
   data() {
     return {

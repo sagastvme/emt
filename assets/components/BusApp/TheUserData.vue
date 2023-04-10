@@ -1,46 +1,57 @@
 <template>
+<div>
+  <h2 class="text-3xl font-bold text-center mb-2">Tu perfil</h2>
 
-  <div v-if="myData && !change" class="flex justify-center">
-    <table class="border-collapse border border-gray-400">
+  <div v-if="myData && !change && !deleteAccount" class="flex justify-center inline-block ">
+
+    <table class="border-collapse border border-gray-400 w-full">
+
+      <thead class="bg-gray-100">
       <tr>
-        <td class="border border-gray-400 px-4 py-2 font-bold">Username:</td>
-        <td class="border border-gray-400 px-4 py-2">{{ username }}</td>
+        <th class="border border-gray-400 px-4 py-2 font-bold text-left">Username:</th>
+        <th class="border border-gray-400 px-4 py-2 text-left">{{ username }}</th>
       </tr>
       <tr>
-        <td class="border border-gray-400 px-4 py-2 font-bold">Foto de perfil:</td>
-        <td class="border border-gray-400 px-4 py-2">
+        <th class="border border-gray-400 px-4 py-2 font-bold text-left">Foto de perfil:</th>
+        <th class="border border-gray-400 px-4 py-2 text-left">
           <img :src="profilePic" alt="" class="w-5 h-5">
-        </td>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="border border-gray-400 px-4 py-2 font-bold text-left">Posts publicados:</td>
+        <td class="border border-gray-400 px-4 py-2 text-left">{{ postsPublished}}</td>
       </tr>
       <tr>
-        <td>Posts publicados</td>
-        <td>{{ postsPublished}}</td>
+        <td class="border border-gray-400 px-4 py-2 font-bold text-left">Fecha de creacion de la cuenta:</td>
+        <td class="border border-gray-400 px-4 py-2 text-left">{{ dateCreated }}</td>
       </tr>
       <tr>
-
-        <td class="border border-gray-400 px-4 py-2 font-bold">Fecha de creacion de la cuenta </td>
-        <td class="border border-gray-400 px-4 py-2 font-bold">{{dateCreated}}</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2 font-bold">Rol:</td>
-        <td v-if="this.role==='U'" class="border border-gray-400 px-4 py-2 font-bold">
+        <td class="border border-gray-400 px-4 py-2 font-bold text-left">Rol:</td>
+        <td class="border border-gray-400 px-4 py-2 text-left">
+        <span v-if="this.role==='U'" class="bg-green-500 text-white font-bold py-1 px-2 rounded-full">
           Usuario
-        </td>
-        <td  v-else class="border border-gray-400 px-4 py-2 font-bold">
+        </span>
+          <span v-else class="bg-red-500 text-white font-bold py-1 px-2 rounded-full">
           Administrador
+        </span>
         </td>
       </tr>
       <tr v-for="post in this.posts">
-        <td class="border border-gray-400 px-4 py-2">{{ post.title }}</td>
-        <td class="border border-gray-400 px-4 py-2">{{ post.category }}</td>
-        <td class="border border-gray-400 px-4 py-2">{{ post.date }}</td>
-      <td  class="border border-gray-400 px-4 py-2" >
-        <button @click="deletePost(post)">Borrar publicacion</button>
-
-      </td>
+        <td class="border border-gray-400 px-4 py-2 text-left">{{ post.title }}</td>
+        <td class="border border-gray-400 px-4 py-2 text-left">{{ post.category }}</td>
+        <td class="border border-gray-400 px-4 py-2 text-left">{{ post.date }}</td>
+        <td class="border border-gray-400 px-4 py-2 text-left">
+          <button @click="deletePost(post)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded-full">
+            Borrar publicacion
+          </button>
+        </td>
       </tr>
+      </tbody>
+      <tfoot>
       <tr>
-        <td class="border border-gray-400 px-4 py-2">
+        <td class="border border-gray-400 px-4 py-2 text-left">
           <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
                  for="picture">
             Cambiar foto de perfil
@@ -67,21 +78,23 @@
           </button>
         </td>
       </tr>
+      </tfoot>
     </table>
 
   </div>
 
 
-  <div v-if="deleteAccount" id="DeleteAccount">
-    <div id="CancelButton">
-      <button class="bg-red-500 text-white px-4 py-2 rounded-md" @click="this.deleteAccount=false,this.secondStepDeleteAccount=false">Cancelar</button>
-      <form v-if="!this.secondStepDeleteAccount" @submit.prevent="checkDeleteAccountPassword">
-        <input id="" ref="deletePassword" name="" placeholder="Introduzca su contrasena" type="password">
+  <div v-if="deleteAccount" id="DeleteAccount" class="mt-4">
+    <div id="CancelButton" class="flex justify-end">
+      <button class="bg-red-500 text-white px-4 py-2 rounded-md mr-2" @click="this.deleteAccount=false,this.secondStepDeleteAccount=false">Cancelar</button>
+      <form v-if="!this.secondStepDeleteAccount" @submit.prevent="checkDeleteAccountPassword" class="flex">
+        <input id="" ref="deletePassword" name="" placeholder="Introduzca su contrasena" type="password" class="border border-gray-300 rounded-md p-2 mr-2">
         <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Siguiente paso</button>
       </form>
-      <button v-else @click="deleteAccountLasStep" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Estas seguro</button>
+      <button v-else @click="deleteAccountLasStep" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Estas seguro de que quieres borrar tu cuenta?</button>
     </div>
   </div>
+
 
 
   <div v-if="change">
@@ -96,21 +109,16 @@
       <input id="currentPassword" ref="passInput" class="border border-gray-300 rounded-md p-2" type="password">
       <button class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4" @click="secondStep">Siguiente paso</button>
     </div>
-  </div>
+
 
   <div v-if="lastStep">
-    <label class="flex-row  justify-end mr-3" for="password">Contraseña</label>
-    <input id="password" v-model="checkPassword" class="flex-row  border-2 border-black" name="checkPassword"
-           type="password">
-    <label class="flex-row  justify-end mr-3" for="passwordRepeat">Repita su contraseña</label>
-    <input id="passwordRepeat" v-model="passwordRepeat" class="flex-row  border-2 border-black" name="passwordRepeat"
-           type="password">
-    <button v-if="samePassword"
-            class="bg-blue-500 hover:cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            @click="changeFinalPassword">Cambiar contrasena
-    </button>
+    <label class="block mt-4" for="password">Contraseña</label>
+    <input id="password" v-model="checkPassword" class="border border-gray-300 rounded-md p-2" name="checkPassword" type="password">
+    <label class="block mt-4" for="passwordRepeat">Repita su contraseña</label>
+    <input id="passwordRepeat" v-model="passwordRepeat" class="border border-gray-300 rounded-md p-2" name="passwordRepeat" type="password">
+    <button v-if="samePassword" class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4" @click="changeFinalPassword">Cambiar contraseña</button>
   </div>
-
+  </div>
   <teleport to="body">
     <error-message v-if="showErrorMessage" message="La contrasena no coincide"
                    @close-error="showErrorMessage=false"/>
@@ -130,6 +138,7 @@
       <button class="ml-8" @click="this.deletedPost=null">NO</button>
     </confirm-message>
   </teleport>
+</div>
 </template>
 
 <script>

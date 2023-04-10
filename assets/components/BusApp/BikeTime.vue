@@ -1,12 +1,16 @@
 <template>
   <div class="flex justify-center  ">
   <div class="grid-cols-3">
-    <h2 class="flex-row">Introduzca el codigo de su estacion biciMAD </h2>
-    <form class="select-none" @submit.prevent="submitData">
-      <div>
-        <div>
-          <label class="flex-row" for="bus">Codigo de la parada</label>
-          <input id="bus" ref="busInput" v-model.number="bikeCode" class=" flex-row border-2 border-black rounded"
+    <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl">
+      <span class="text-center ml-4 mr-2">Introduzca el codigo de su estacion biciMAD</span>
+    </h2>
+    <form  @submit.prevent="submitData">
+      <div class="flex flex-col items-center mt-5 ">
+        <label  class="text-gray-700 font-medium mb-2" for="bus">Codigo de la parada</label>
+        <div class="flex justify-center items-center">
+
+
+          <input id="bus" ref="busInput" v-model.number="bikeCode" class=" border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border "
                  required type="number">
           <button v-if="!isBusCodeNegative" class="flex-row">
             <svg-search v-if="!loading"/>
@@ -15,16 +19,22 @@
                          @close-error="showErrorMessage=false"></error-message>
 
 
-          <div class="parent">
-            <div v-if="loading" class="spinner"></div>
+            <div class="parent mt-4 ml-5">
+              <div v-if="loading">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-75" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-25" fill="black" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+              </div>
+
           </div>
         </div>
       </div>
     </form>
     <div v-if="dataRecovered && !stopDoesntExist" class="select-none">
 
-      <div class="mt-5">
-        <table class="table-auto border">
+      <div class="mt-5 flex justify-center items-center">
+        <table  class="w-full table-auto">
           <tbody>
           <tr>
             <td class="py-2 px-4 border">Direccion de la parada</td>
@@ -210,30 +220,3 @@ export default {
   components: {ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
 }
 </script>
-
-<style scoped>
-.parent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-
-.spinner {
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #3498db;
-  border-radius: 50%;
-  width: 20px;
-  margin-top: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
-
-  /* Alternatively, you can set line-height of parent to 20px and text-align to center */
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-</style>

@@ -15,7 +15,7 @@ import TheMenu from "./components/BusApp/TheMenu.vue";
 import BusTime from "./components/BusApp/BusTime.vue";
 import TheUserData from "./components/BusApp/TheUserData.vue";
 import ThePlans from "./components/BusApp/ThePlans.vue";
-import TransportPrices from "./components/SvgIcons/TransportPrices.vue";
+import TransportPrices from "./components/BusApp/TransportPrices.vue";
 import BikeTime from "./components/BusApp/BikeTime.vue";
 import FavouriteStops from "./components/BusApp/FavouriteStops.vue";
 import MostVisited from "./components/BusApp/MostVisited.vue";

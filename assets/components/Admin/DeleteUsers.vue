@@ -1,41 +1,54 @@
 <template>
-
-  <form @submit.prevent="searchUser">
-    <h2>Introduzca el usuario que quiere buscar </h2>
-    <input ref="searchedUser" placeholder="aqui" required type="email">
-    <input class="bg-red-400" type="submit" value="Buscar usuario">
+  <div>
+  <form @submit.prevent="searchUser" class="my-4 md:w-1/2 md:mx-auto">
+    <h2 class="text-xl font-bold mb-2">Introduzca el usuario que quiere buscar</h2>
+    <input ref="searchedUser" placeholder="aqui" required type="email"
+           class="w-full border border-gray-300 rounded-lg mb-4 px-4 py-2">
+    <input type="submit" value="Buscar usuario" class="bg-red-400 text-white py-2 px-4 rounded-lg cursor-pointer">
   </form>
 
-
-  <table v-if="searchedUser==null">
+  <table v-if="searchedUser==null" class="w-full">
     <tr v-for="user in users" :key="user" :class="{ focused: user === searchedUser }">
-      <td>{{ user }}</td>
-      <td>
-        <button @click="deleteUser(user)">Borrar usuario</button>
+      <td class="py-2">{{ user }}</td>
+      <td class="py-2">
+        <button @click="deleteUser(user)"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+          Borrar usuario
+        </button>
       </td>
     </tr>
   </table>
 
-
-  <table v-else>
-
+  <table v-else class="w-full">
     <tr>
-      <td>
-        <button class="bg-red-300" @click="this.searchedUser=null">Ir atras</button>
+      <td class="py-2">
+        <button @click="this.searchedUser=null"
+                class="bg-red-300 text-white py-2 px-4 rounded-lg cursor-pointer">Ir atras
+        </button>
       </td>
-      <td>{{ searchedUser }}</td>
-      <td>
-        <button @click="deleteUser(searchedUser)">Borrar usuario</button>
+      <td class="py-2">{{ searchedUser }}</td>
+      <td class="py-2">
+        <button @click="deleteUser(searchedUser)"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+          Borrar usuario
+        </button>
       </td>
     </tr>
   </table>
+
   <teleport v-if="deletedUser!==null" to="body">
     <confirm-message :message="'Estás seguro de que quieres borrar la cuenta ' +deletedUser"
                      @close-error="this.deletedUser=null">
-      <button @click="deleteUserCommit">SI</button>
-      <button class="ml-8" @click="this.deletedUser=null">NO</button>
+      <button @click="deleteUserCommit"
+              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">SI
+      </button>
+      <button
+              @click="this.deletedUser=null"
+              class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full cursor-pointer">NO
+      </button>
     </confirm-message>
   </teleport>
+  </div>
 </template>
 
 <script>
