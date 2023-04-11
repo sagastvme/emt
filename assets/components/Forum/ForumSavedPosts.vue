@@ -4,10 +4,10 @@
   <table class="table-auto border-collapse border border-gray-500 w-full" v-else >
     <thead>
     <tr >
-      <th class="px-4 py-2 text-left">Enlace</th>
-      <th class="px-4 py-2 text-left">Titulo</th>
-      <th class="px-4 py-2 text-left">Usuario</th>
-      <th class="px-4 py-2 text-left">Categoria</th>
+      <th class="px-3 py-2 text-center">Enlace</th>
+      <th class="px-3 py-2 text-center">Titulo</th>
+      <th class="px-3 py-2 text-center">Usuario</th>
+      <th class="px-3 py-2 text-center">Categoria</th>
     </tr>
     </thead>
     <tbody class="divide-y divide-gray-200">
@@ -17,11 +17,11 @@
        <a :href="'/read/'+post.category+'/'+post.title+'/'+post.postId" >Visitar el post</a>
      </td>
 
-      <td class="border px-4 py-2">{{post.title}}</td>
-      <td class="border px-4 py-2">{{post.username}}</td>
-      <td class="border px-4 py-2 hidden lg:block">{{post.category}}</td>
-      <td class="border px-4 py-2">
-        <button @click="deletePost(post)" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+      <td class="border px-3 py-2">{{post.title}}</td>
+      <td class="border px-3 py-2">{{post.username}}</td>
+      <td class="border px-3 py-2 hidden lg:block">{{post.category}}</td>
+      <td class="border px-3 py-2">
+        <button @click="deletePost(post)" class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
           Quitar de favs
         </button>
       </td>

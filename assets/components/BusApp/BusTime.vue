@@ -9,7 +9,7 @@
         <label for="bus" class="text-gray-700 font-medium mb-2">Codigo de la parada</label>
         <div class="flex  items-center justify-center ">
           <input id="bus" ref="busInput" v-model.number="busCode" class=" border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border " required type="number">
-          <button v-if="!isBusCodeNegative" class="flex items-center px-4 h-full bg-white rounded-r-md">
+          <button v-if="!isBusCodeNegative" class="flex items-center px-3 h-full bg-white rounded-r-md">
             <svg-search v-if="!loading" class="w-6 h-6 text-gray-400 mt-2" />
           </button>
 
@@ -17,11 +17,11 @@
         <teleport v-if="askConfirm" to="body">
             <confirm-message :message="'Estás seguro de que quieres borrar la parada ' +this.busCode"
                              @close-error="this.askConfirm=false" v-if="this.askConfirm">
-              <button @click="removeFavourite" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200">SI</button>
-              <button class="ml-4 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors duration-200" @click="this.askConfirm=false">NO</button>
+              <button @click="removeFavourite" class="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition-colors duration-200">SI</button>
+              <button class="ml-4 bg-gray-200 text-gray-700 px-3 py-2 rounded-md hover:bg-gray-300 transition-colors duration-200" @click="this.askConfirm=false">NO</button>
             </confirm-message>
             <error-message v-else v-if="showErrorMessage" message="El numero debe ser mayor que 1"
-                           @close-error="showErrorMessage=false" class="absolute top-full left-0 w-full -mt-2 px-4 py-2 bg-red-100 border border-red-500 rounded-md text-red-500 text-sm" />
+                           @close-error="showErrorMessage=false" class="absolute top-full left-0 w-full -mt-2 px-3 py-2 bg-red-100 border border-red-500 rounded-md text-red-500 text-sm" />
           </teleport>
         </div>
         <div class="parent mt-4">
@@ -38,7 +38,7 @@
 
     <div v-if="dataRecovered && !stopDoesntExist" >
       <div class="flex items-center justify-center ">
-        <button @click="showStopDetails" class="bg-gray-200 hover:bg-gray-300 rounded-md px-4 py-2 flex">
+        <button @click="showStopDetails" class="bg-gray-200 hover:bg-gray-300 rounded-md px-3 py-2 flex">
           <h2 class="flex items-center justify-center text-center">
             <span >Información de la parada</span>
             <svg-eye-closed v-if="showStopDetailsVariable" class="w-6 h-6" />
@@ -49,23 +49,23 @@
 
 
       <div v-if="showStopDetailsVariable " id="busStopInfo" class="mt-4">
-        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto py-6 px-6 lg:px-8">
           <div class="overflow-x-auto">
-            <table class="table-auto border-collapse border border-gray-500 w-full">
+            <table class="table-auto border-collapse w-full">
               <thead>
-              <tr>
-                <th class="px-4 py-2 text-left">Nombre de la parada</th>
-                <th class="px-4 py-2 text-left">Direccion de la parada</th>
-                <th class="px-4 py-2 text-left">Codigo de la parada</th>
-                <th class="px-4 py-2 text-left">Numero de lineas</th>
+              <tr class="bg-[#87f6ff] text-[#616163] uppercase text-sm font-semibold">
+              <th class="px-3 py-2 ">Nombre de la parada</th>
+                <th class="px-3 py-2 ">Direccion de la parada</th>
+                <th class="px-3 py-2 ">Codigo de la parada</th>
+                <th class="px-3 py-2 ">Numero de lineas</th>
               </tr>
               </thead>
-              <tbody>
-              <tr>
-                <td class="border px-4 py-2">{{ this.busStopInfo.stops[0].name }}</td>
-                <td class="border px-4 py-2">{{ this.busStopInfo.stops[0].postalAddress }}</td>
-                <td class="border px-4 py-2">{{ this.busStopInfo.stops[0].stop }}</td>
-                <td class="border px-4 py-2">{{ this.busStopInfo.stops[0].dataLine.length }}</td>
+              <tbody class="text-[#616163] text-sm font-light">
+              <tr  class="border-b border-gray-200 hover:bg-gray-100">
+                <td class="border px-3 py-2 text-center">{{ this.busStopInfo.stops[0].name }}</td>
+                <td class="border px-3 py-2 text-center">{{ this.busStopInfo.stops[0].postalAddress }}</td>
+                <td class="border px-3 py-2 text-center">{{ this.busStopInfo.stops[0].stop }}</td>
+                <td class="border px-3 py-2 text-center">{{ this.busStopInfo.stops[0].dataLine.length }}</td>
               </tr>
               </tbody>
             </table>
@@ -73,25 +73,27 @@
         </div>
 
 
-      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 ">
+      <div class="max-w-7xl mx-auto py-6  lg:px-8 ">
           <div class="overflow-x-auto">
-            <table class="table-auto border-collapse border border-gray-500 w-full">
+            <table class="w-full border-collapse table-auto">
               <thead>
-              <tr>
-                <th class="px-4 py-2 text-left">Lineas</th>
-                <th class="px-4 py-2 text-left">Direccion</th>
-                <th class="px-4 py-2 text-left">Tiempo medio de llegada</th>
-                <th class="px-4 py-2 text-left">Hora de inicio</th>
-                <th class="px-4 py-2 text-left">Hora de finalizacion</th>
+              <tr class="bg-[#daf5ff] text-[#616163] uppercase text-sm font-semibold">
+
+              <th class="px-3 py-2 text-center">Lineas</th>
+                <th class="px-3 py-2 text-center">Direccion</th>
+                <th class="px-3 py-2 text-center">Tiempo medio de llegada</th>
+                <th class="px-3 py-2 text-center">Hora de inicio</th>
+                <th class="px-3 py-2 text-center">Hora de finalizacion</th>
               </tr>
               </thead>
-              <tbody>
-              <tr v-for="stop in this.busStopInfo.stops[0].dataLine" :key="stop">
-                <td class="border px-4 py-2">{{ stop.label }}</td>
-                <td class="border px-4 py-2">{{ stop.direction === 'A' ? stop.headerA : stop.headerB }}</td>
-                <td class="border px-4 py-2">{{ (parseInt(stop.maxFreq) + parseInt(stop.minFreq)) / 2 }}</td>
-                <td class="border px-4 py-2">{{ stop.startTime }}</td>
-                <td class="border px-4 py-2">{{ stop.stopTime }}</td>
+              <tbody class="text-[#616163] text-sm font-light">
+              <tr v-for="stop in this.busStopInfo.stops[0].dataLine" :key="stop"
+                  class="border-b border-gray-200 hover:bg-gray-100">
+                <td class=" px-3 py-2">{{ stop.label }}</td>
+                <td class=" px-3 py-2">{{ stop.direction === 'A' ? stop.headerA : stop.headerB }}</td>
+                <td class=" px-3 py-2">{{ (parseInt(stop.maxFreq) + parseInt(stop.minFreq)) / 2 }}</td>
+                <td class=" px-3 py-2">{{ stop.startTime }}</td>
+                <td class=" px-3 py-2">{{ stop.stopTime }}</td>
               </tr>
               </tbody>
             </table>
@@ -106,7 +108,7 @@
           <div v-if="wantsToAdd">
             <form @submit.prevent="addFavourite" class="flex items-center mb-25">
               <input required type="text" ref="customName" placeholder="Nombre personalizado" class="w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border mx-5">
-              <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3">Anadir a favoritos</button>
+              <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded ml-3">Anadir a favoritos</button>
             </form>
           </div>
 
@@ -119,10 +121,10 @@
 
 
 
-        <div class="flex justify-center items-center mt-5">
-          <ul class="block sm:inline-block md:table">
-            <li v-for="buses in dataArray['Arrive']" :key="buses" class="text-sm mb-3 flex items-center md:table-cell md:mx-6 md:my-2">
-              <span class="bg-blue-200 rounded-full py-1 px-3 mr-5">{{ buses.line }}</span>
+        <div class="flex justify-center items-center mt-5 ">
+          <ul class="block inline-block lg:table">
+            <li v-for="buses in dataArray['Arrive']" :key="buses" class="text-3xl mb-3 flex items-center lg:table-cell lg:mx-6 lg:my-2">
+              <span class=" rounded-full py-1 px-3 mr-5 text-3xl  md:bg-red-500">{{ buses.line }}</span>
               <div>
                 <div>{{ buses.destination }}</div>
                 <div class="mr-5">Tiempo estimado: {{ displayArrivingTime(buses.estimateArrive) }}</div>
@@ -137,13 +139,10 @@
 
       </div>
 
-      <div v-if="stopDoesntExist" class="select-none">
+      <div v-if="stopDoesntExist" class="flex justify-center items-center">
         <h3 class="text-lg font-bold">La parada que ha introducido no existe</h3>
       </div>
 
-    </div>
-    <div v-if="stopDoesntExist" class="select-none">
-      <h3>La parada que ha introducido no existe</h3>
     </div>
 
   </div>

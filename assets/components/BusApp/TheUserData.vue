@@ -8,28 +8,28 @@
 
       <thead class="bg-gray-100">
       <tr>
-        <th class="border border-gray-400 px-4 py-2 font-bold text-left">Username:</th>
-        <th class="border border-gray-400 px-4 py-2 text-left">{{ username }}</th>
+        <th class="border border-gray-400 px-3 py-2 font-bold text-center">Username:</th>
+        <th class="border border-gray-400 px-3 py-2 text-center">{{ username }}</th>
       </tr>
       <tr>
-        <th class="border border-gray-400 px-4 py-2 font-bold text-left">Foto de perfil:</th>
-        <th class="border border-gray-400 px-4 py-2 text-left">
+        <th class="border border-gray-400 px-3 py-2 font-bold text-center">Foto de perfil:</th>
+        <th class="border border-gray-400 px-3 py-2 text-center">
           <img :src="profilePic" alt="" class="w-5 h-5">
         </th>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td class="border border-gray-400 px-4 py-2 font-bold text-left">Posts publicados:</td>
-        <td class="border border-gray-400 px-4 py-2 text-left">{{ postsPublished}}</td>
+        <td class="border border-gray-400 px-3 py-2 font-bold text-center">Posts publicados:</td>
+        <td class="border border-gray-400 px-3 py-2 text-center">{{ postsPublished}}</td>
       </tr>
       <tr>
-        <td class="border border-gray-400 px-4 py-2 font-bold text-left">Fecha de creacion de la cuenta:</td>
-        <td class="border border-gray-400 px-4 py-2 text-left">{{ dateCreated }}</td>
+        <td class="border border-gray-400 px-3 py-2 font-bold text-center">Fecha de creacion de la cuenta:</td>
+        <td class="border border-gray-400 px-3 py-2 text-center">{{ dateCreated }}</td>
       </tr>
       <tr>
-        <td class="border border-gray-400 px-4 py-2 font-bold text-left">Rol:</td>
-        <td class="border border-gray-400 px-4 py-2 text-left">
+        <td class="border border-gray-400 px-3 py-2 font-bold text-center">Rol:</td>
+        <td class="border border-gray-400 px-3 py-2 text-center">
         <span v-if="this.role==='U'" class="bg-green-500 text-white font-bold py-1 px-2 rounded-full">
           Usuario
         </span>
@@ -39,10 +39,10 @@
         </td>
       </tr>
       <tr v-for="post in this.posts">
-        <td class="border border-gray-400 px-4 py-2 text-left">{{ post.title }}</td>
-        <td class="border border-gray-400 px-4 py-2 text-left">{{ post.category }}</td>
-        <td class="border border-gray-400 px-4 py-2 text-left">{{ post.date }}</td>
-        <td class="border border-gray-400 px-4 py-2 text-left">
+        <td class="border border-gray-400 px-3 py-2 text-center">{{ post.title }}</td>
+        <td class="border border-gray-400 px-3 py-2 text-center">{{ post.category }}</td>
+        <td class="border border-gray-400 px-3 py-2 text-center">{{ post.date }}</td>
+        <td class="border border-gray-400 px-3 py-2 text-center">
           <button @click="deletePost(post)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded-full">
             Borrar publicacion
           </button>
@@ -51,28 +51,28 @@
       </tbody>
       <tfoot>
       <tr>
-        <td class="border border-gray-400 px-4 py-2 text-left">
-          <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
+        <td class="border border-gray-400 px-3 py-2 text-center">
+          <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer"
                  for="picture">
             Cambiar foto de perfil
           </label>
         </td>
-        <td class="border border-gray-400 px-4 py-2">
+        <td class="border border-gray-400 px-3 py-2">
           <input id="picture" ref="newPicture" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden"
                  type="file" @input="changePicture">
         </td>
       </tr>
       <tr>
-        <td class="border border-gray-400 px-4 py-2">
-          <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
+        <td class="border border-gray-400 px-3 py-2">
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full"
                   @click="changePassword">
             Cambiar contraseña
           </button>
         </td>
       </tr>
       <tr>
-        <td class="border border-gray-400 px-4 py-2">
-          <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
+        <td class="border border-gray-400 px-3 py-2">
+          <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full"
                   @click="deleteAccountMethod">
             Borrar cuenta
           </button>
@@ -86,19 +86,19 @@
 
   <div v-if="deleteAccount" id="DeleteAccount" class="mt-4">
     <div id="CancelButton" class="flex justify-end">
-      <button class="bg-red-500 text-white px-4 py-2 rounded-md mr-2" @click="this.deleteAccount=false,this.secondStepDeleteAccount=false">Cancelar</button>
+      <button class="bg-red-500 text-white px-3 py-2 rounded-md mr-2" @click="this.deleteAccount=false,this.secondStepDeleteAccount=false">Cancelar</button>
       <form v-if="!this.secondStepDeleteAccount" @submit.prevent="checkDeleteAccountPassword" class="flex">
         <input id="" ref="deletePassword" name="" placeholder="Introduzca su contrasena" type="password" class="border border-gray-300 rounded-md p-2 mr-2">
-        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Siguiente paso</button>
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full">Siguiente paso</button>
       </form>
-      <button v-else @click="deleteAccountLasStep" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">Estas seguro de que quieres borrar tu cuenta?</button>
+      <button v-else @click="deleteAccountLasStep" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full">Estas seguro de que quieres borrar tu cuenta?</button>
     </div>
   </div>
 
 
 
   <div v-if="change">
-    <button class="bg-red-500 text-white px-4 py-2 rounded-md"
+    <button class="bg-red-500 text-white px-3 py-2 rounded-md"
             @click="this.change=false;this.middleStep=false; this.lastStep=false">Cancel
     </button>
 
@@ -107,7 +107,7 @@
       <h3 class="text-lg font-semibold mt-4">Cambio de contrasena</h3>
       <label class="block mt-4" for="currentPassword">Introduzca su contrasena actual</label>
       <input id="currentPassword" ref="passInput" class="border border-gray-300 rounded-md p-2" type="password">
-      <button class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4" @click="secondStep">Siguiente paso</button>
+      <button class="bg-blue-500 text-white px-3 py-2 rounded-md mt-4" @click="secondStep">Siguiente paso</button>
     </div>
 
 
@@ -116,7 +116,7 @@
     <input id="password" v-model="checkPassword" class="border border-gray-300 rounded-md p-2" name="checkPassword" type="password">
     <label class="block mt-4" for="passwordRepeat">Repita su contraseña</label>
     <input id="passwordRepeat" v-model="passwordRepeat" class="border border-gray-300 rounded-md p-2" name="passwordRepeat" type="password">
-    <button v-if="samePassword" class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4" @click="changeFinalPassword">Cambiar contraseña</button>
+    <button v-if="samePassword" class="bg-blue-500 text-white px-3 py-2 rounded-md mt-4" @click="changeFinalPassword">Cambiar contraseña</button>
   </div>
   </div>
   <teleport to="body">

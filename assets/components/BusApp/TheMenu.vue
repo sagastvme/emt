@@ -19,7 +19,7 @@
  <nav class="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
 
     <!--hamburguer button-->
-  <div class="flex justify-between items-center px-4 py-3 md:py-4 md:hidden">
+  <div class="flex justify-between items-center px-3 py-3 md:py-4 md:hidden">
 
       <button class="block " @click="showMobileMenu = !showMobileMenu">
         <svg class="w-6 h-6 fill-current text-gray-800" viewBox="0 0 24 24">
@@ -33,21 +33,21 @@
     <div v-show="!showMobileMenu" class="hidden md:block">
       <div class="flex w-full">
         <button
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-4 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
             :class="{ 'bg-gray-500': isTabActive('bus-time'), 'bg-gray-400': !isTabActive('bus-time') }"
             @click="changeTabMobile('bus-time')"
         >
           Consulta tu parada de autobus<svg-bus class="absolute right-0 top-0 mt-1 mr-1" />
         </button>
         <button
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-4 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
             :class="{ 'bg-gray-500': isTabActive('favourite-stops'), 'bg-gray-400': !isTabActive('favourite-stops') }"
             @click="changeTabMobile('favourite-stops')"
         >
           Mis sitios<svg-star/>
         </button>
         <button
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-4 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
             :class="{ 'bg-gray-500': isTabActive('forum-home-page'), 'bg-gray-400': !isTabActive('forum-home-page') }"
             @click="changeTabMobile('forum-home-page')"
         >Foro<svg-forum/>
@@ -56,7 +56,7 @@
 
 
         <button
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-4 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
             :class="{ 'bg-gray-500': isTabActive('the-user-data'), 'bg-gray-400': !isTabActive('the-user-data') }"
             @click="changeTabMobile('the-user-data')"
         >Mi perfil<svg-user/>
@@ -64,19 +64,19 @@
 
 
         <button
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-4 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
             :class="{ 'bg-gray-500': isTabActive('the-plans'), 'bg-gray-400': !isTabActive('the-plans') }"
             @click="changeTabMobile('the-plans')"
         >Planos de metro<svg-map/>
         </button>
           <button
-              class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-4 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+              class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
               :class="{ 'bg-gray-500': isTabActive('transport-prices'), 'bg-gray-400': !isTabActive('transport-prices') }"
               @click="changeTabMobile('transport-prices')"
           >Precios y tarifas<svg-price/>
           </button>
         <button
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-4 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
             :class="{ 'bg-gray-500': isTabActive('bike-time'), 'bg-gray-400': !isTabActive('bike-time') }"
             @click="changeTabMobile('bike-time')"
         >Consulta tu parada de biciMAD<svg-bike/>
@@ -85,14 +85,14 @@
 
         <button
             class="mr-2  hover:bg-gray-500 flex-1 text-white
-            font-bold rounded-md px-4 py-2 transition duration-200
+            font-bold rounded-md px-3 py-2 transition duration-200
             focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
             :class="{ 'bg-gray-500': isTabActive('most-visited'), 'bg-gray-400': !isTabActive('most-visited') }"
             @click="changeTabMobile('most-visited')"
         >Paradas mas visitadas <svg-trophy/>
         </button>
         <a href="/logout" class="mr-2  hover:bg-gray-500 flex-1 text-white
-            font-bold rounded-md px-4 py-2 transition duration-200
+            font-bold rounded-md px-3 py-2 transition duration-200
             focus:outline-none focus:shadow-outline relative hover:text-white transition-colors bg-gray-400">
           Cerrar sesión<svg-logout/></a>
       </div>
@@ -103,34 +103,34 @@
 
       <div class="px-2 pt-2 pb-3">
         <button
-            class="flex items-center w-full text-left py-2 px-4 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+            class="flex items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('bus-time')"
         >
           <span>Consulta tu parada de autobus</span>
           <svg-bus class="ml-2 h-5 w-5" />
         </button>
         <button
-            class="flex items-center w-full text-left py-2 px-4 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+            class="flex items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('favourite-stops')"
         >
           Mis sitios<svg-star/>
         </button>
         <button
-            class="flex items-center w-full text-left py-2 px-4 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+            class="flex items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('forum-home-page')"
         >
           Foro<svg-forum/>
         </button>
 
         <button
-            class="flex items-center w-full text-left py-2 px-4 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+            class="flex items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('the-user-data')"
         >
           Mi perfil<svg-user/>
         </button>
 
         <button
-            class="flex items-center w-full text-left py-2 px-4 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+            class="flex items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('the-plans')"
         >
           Planos de metro<svg-map/>
@@ -139,14 +139,14 @@
 
 
         <button
-            class="flex items-center w-full text-left py-2 px-4 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+            class="flex items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('transport-prices')"
         >
           Precios y tarifas<svg-price/>
         </button>
 
         <button
-            class="flex items-center w-full text-left py-2 px-4 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+            class="flex items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('most-visited')"
         >
           Paradas mas visitadas <svg-trophy/>
@@ -154,7 +154,7 @@
 
 
 
-        <a href="/logout"  class="flex items-center w-full text-left py-2 px-4 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
+        <a href="/logout"  class="flex items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
         >
           Cerrar sesión<svg-logout/></a>
 

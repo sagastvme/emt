@@ -5,20 +5,20 @@
   <table class="w-full">
     <thead>
     <tr>
-      <th class="px-4 py-2">Título</th>
-      <th class="px-4 py-2">Autor</th>
-      <th class="px-4 py-2">Categoría</th>
-      <th class="px-4 py-2">Fecha de creación</th>
-      <th class="px-4 py-2">Acciones</th>
+      <th class="px-3 py-2">Título</th>
+      <th class="px-3 py-2">Autor</th>
+      <th class="px-3 py-2">Categoría</th>
+      <th class="px-3 py-2">Fecha de creación</th>
+      <th class="px-3 py-2">Acciones</th>
     </tr>
     </thead>
     <tbody>
     <tr v-for="post in posts" :key="post.id">
-      <td class="border px-4 py-2">{{ post.title }}</td>
-      <td class="border px-4 py-2">{{ post.author }}</td>
-      <td class="border px-4 py-2">{{ post.category }}</td>
-      <td class="border px-4 py-2">{{ post.dateCreated }}</td>
-      <td class="border px-4 py-2">
+      <td class="border px-3 py-2">{{ post.title }}</td>
+      <td class="border px-3 py-2">{{ post.author }}</td>
+      <td class="border px-3 py-2">{{ post.category }}</td>
+      <td class="border px-3 py-2">{{ post.dateCreated }}</td>
+      <td class="border px-3 py-2">
         <button class="bg-red-500 text-white px-2 py-1 rounded-md"
                 @click="deletePost(post)">
           Borrar
@@ -33,7 +33,7 @@
     <confirm-message v-if="deletedPost !== null"
                      :message="'Estás seguro de que quieres borrar la publicación ' + deletedPost"
                      @close-error="deletedPost = null">
-      <button class="bg-red-500 text-white px-2 py-1 rounded-md mr-4" @click="deleteUserCommit">
+      <button class=" text-white px-2 py-1 rounded-md mr-4" @click="deleteUserCommit">
         SI
       </button>
       <button class="bg-gray-300 px-2 py-1 rounded-md" @click="deletedPost = null">

@@ -6,7 +6,7 @@
         <div class="rounded border-2 border-red-400 w-80 h-80 flex flex-col justify-center items-center sm:mx-auto">
           <h3 class="text-lg font-bold mb-4">{{index }}</h3>
           <img :src="plan" class="h-48 object-contain mb-4">
-          <button @click="viewImage(plan)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          <button @click="viewImage(plan)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-full">
             View full size
           </button>
         </div>

@@ -50,15 +50,15 @@
 
     <form v-if="this.post.loggedIn" class="px-6 py-4 bg-gray-100 rounded-md mt-6" @submit.prevent="addReply">
       <label class="font-bold mb-2 block" for="body">Escribe una respuesta:</label>
-      <textarea id="body" ref="body" class="border border-gray-400 rounded-md py-2 px-4 w-full mb-4" required
+      <textarea id="body" ref="body" class="border border-gray-400 rounded-md py-2 px-3 w-full mb-4" required
                 rows="4"></textarea>
-      <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
+      <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer"
              for="picture">
         Anadir imagenes a tu publicacion
       </label>
       <input id="picture" ref="newPicture" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden"
              multiple="true" name="images[]" type="file" @change="print">
-      <button class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600" type="submit">Responder</button>
+      <button class="bg-green-500 text-white py-2 px-3 rounded-md hover:bg-green-600" type="submit">Responder</button>
     </form>
   </div>
 </template>

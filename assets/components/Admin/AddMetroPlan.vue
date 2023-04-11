@@ -1,14 +1,14 @@
 <template>
   <form @submit.prevent="changePicture" class="w-full md:w-3/4 lg:w-1/2 mx-auto">
     <label for="name" class="block mb-2">Introduzca el titulo del plano</label>
-    <input id="name" ref="planName" required type="text" class="w-full border-gray-300 border-2 rounded-lg mb-4 px-4 py-2 focus:outline-none focus:border-blue-500">
-    <label class="mt-4 block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer text-center w-full md:w-auto"
+    <input id="name" ref="planName" required type="text" class="w-full border-gray-300 border-2 rounded-lg mb-4 px-3 py-2 focus:outline-none focus:border-blue-500">
+    <label class="mt-4 block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer text-center w-full md:w-auto"
            for="picture">
       Anadir imagen
     </label>
     <input id="picture" ref="newPicture" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden" required
            type="file">
-    <input type="submit" value="Anadir plano" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer mt-4 w-full md:w-auto">
+    <input type="submit" value="Anadir plano" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer mt-4 w-full md:w-auto">
   </form>
   <teleport to="body">
     <error-message v-if="wrongFilePic" message="El tipo de imagen no es valido por favor intente otro"

@@ -6,14 +6,14 @@
         <table class="w-full table-auto">
           <thead class="bg-gray-200">
           <tr>
-            <th class="border border-gray-400 py-2 px-4">Abono</th>
-            <th class="border border-gray-400 py-2 px-4">Precio</th>
+            <th class="border border-gray-400 py-2 px-3">Abono</th>
+            <th class="border border-gray-400 py-2 px-3">Precio</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="plan in plans" :key="plan.id">
-            <td class="border border-gray-400 py-2 px-4">{{plan.title}}</td>
-            <td class="border border-gray-400 py-2 px-4">{{plan.price}}</td>
+            <td class="border border-gray-400 py-2 px-3">{{plan.title}}</td>
+            <td class="border border-gray-400 py-2 px-3">{{plan.price}}</td>
           </tr>
           </tbody>
         </table>

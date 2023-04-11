@@ -11,27 +11,27 @@
                name="_password">
         <label class="flex items-center text-gray-700 font-bold" for="remember">Remember Me</label>
         <input id="remember" v-model="rememberMe" type="checkbox" class="form-checkbox border-gray-300 rounded focus:outline-none focus:border-blue-500">
-        <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer col-span-2"
+        <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded hover:cursor-pointer col-span-2"
                type="submit" value="Iniciar sesión" @click="remember">
       </form>
 
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3"
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mt-3"
               @click="forgotPassword=true">Olvidaste la contraseña?</button>
     </div>
 
     <div v-else class="mt-5 shadow-lg rounded-lg p-4 bg-white">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded"
               @click="forgotPassword=false">Cancelar</button>
       <form @submit.prevent="sendForgotPassword" class="flex items-center mt-3">
         <input id="" ref="forgotEmail" name="" placeholder="Introduzca su email" type="email"
                class="border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500 w-full">
         <div>
-          <button v-if="!emailSending" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3"
+          <button v-if="!emailSending" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded ml-3"
                   @click="sendForgotPassword">
             Enviar email de confirmación
           </button>
           <transition name="fade">
-            <button v-if="emailSending" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3"
+            <button v-if="emailSending" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded ml-3"
                     disabled>
               <svg class="animate-spin mx-auto h-10 w-10 text-white inline-block align-middle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-75" cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle>

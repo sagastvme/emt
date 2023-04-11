@@ -16,7 +16,7 @@
       <input id="passwordRepeat" ref="passwordRepeat" v-model="passwordRepeat" :type="showPasswordRepeat ? 'text' : 'password'" class="flex-row border border-gray-300 rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" name="passwordRepeat">
 
 
-      <button v-if="samePassword" class="bg-blue-500 hover:cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded col-span-2 relative h-10">
+      <button v-if="samePassword" class="bg-blue-500 hover:cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-3 rounded col-span-2 relative h-10">
         <span v-if="!registering">Registrarse</span>
         <transition name="fade">
     <span v-if="registering" class="absolute inset-0 flex items-center justify-center">

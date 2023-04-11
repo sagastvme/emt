@@ -3,8 +3,8 @@
   <form @submit.prevent="searchUser" class="my-4 md:w-1/2 md:mx-auto">
     <h2 class="text-xl font-bold mb-2">Introduzca el usuario que quiere buscar</h2>
     <input ref="searchedUser" placeholder="aqui" required type="email"
-           class="w-full border border-gray-300 rounded-lg mb-4 px-4 py-2">
-    <input type="submit" value="Buscar usuario" class="bg-red-400 text-white py-2 px-4 rounded-lg cursor-pointer">
+           class="w-full border border-gray-300 rounded-lg mb-4 px-3 py-2">
+    <input type="submit" value="Buscar usuario" class="bg-red-400 text-white py-2 px-3 rounded-lg cursor-pointer">
   </form>
 
   <table v-if="searchedUser==null" class="w-full">
@@ -12,7 +12,7 @@
       <td class="py-2">{{ user }}</td>
       <td class="py-2">
         <button @click="deleteUser(user)"
-                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer">
           Borrar usuario
         </button>
       </td>
@@ -23,13 +23,13 @@
     <tr>
       <td class="py-2">
         <button @click="this.searchedUser=null"
-                class="bg-red-300 text-white py-2 px-4 rounded-lg cursor-pointer">Ir atras
+                class="bg-red-300 text-white py-2 px-3 rounded-lg cursor-pointer">Ir atras
         </button>
       </td>
       <td class="py-2">{{ searchedUser }}</td>
       <td class="py-2">
         <button @click="deleteUser(searchedUser)"
-                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer">
           Borrar usuario
         </button>
       </td>
@@ -40,11 +40,11 @@
     <confirm-message :message="'Estás seguro de que quieres borrar la cuenta ' +deletedUser"
                      @close-error="this.deletedUser=null">
       <button @click="deleteUserCommit"
-              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer">SI
+              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer">SI
       </button>
       <button
               @click="this.deletedUser=null"
-              class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full cursor-pointer">NO
+              class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-3 rounded-full cursor-pointer">NO
       </button>
     </confirm-message>
   </teleport>

@@ -6,14 +6,14 @@
       <table class="w-full table-auto mt-2">
       <thead class="bg-gray-200">
       <tr>
-        <th class="border border-gray-400 py-2 px-4">Código de parada</th>
-        <th class="border border-gray-400 py-2 px-4">Veces visitada</th>
+        <th class="border border-gray-400 py-2 px-3">Código de parada</th>
+        <th class="border border-gray-400 py-2 px-3">Veces visitada</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="stop in stopsArray" :key="stop.stopId">
-        <td class="border border-gray-400 py-2 px-4">{{ stop.stopId }}</td>
-        <td class="border border-gray-400 py-2 px-4">{{ stop.timesVisited }}</td>
+        <td class="border border-gray-400 py-2 px-3">{{ stop.stopId }}</td>
+        <td class="border border-gray-400 py-2 px-3">{{ stop.timesVisited }}</td>
       </tr>
       </tbody>
     </table>

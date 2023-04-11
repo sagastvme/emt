@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-center items-center py-6 ">
-    <form class="bg-black bg-opacity-90 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4  mx-auto px-4 sm:px-6 lg:px-8 w-full"
+    <form class="bg-black bg-opacity-90 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4  mx-auto px-3 sm:px-6 lg:px-8 w-full"
           @submit.prevent="newPost">
       <div class="mb-4">
         <label class="block text-white font-bold mb-2" for="title">Título</label>
@@ -14,7 +14,7 @@
         <textarea id="body" ref="body"
                   class="bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                   cols="30" name="body" required rows="10"></textarea>
-        <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
+        <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer"
                for="picture">
           Anadir imagenes a tu publicacion
         </label>
@@ -32,7 +32,7 @@
         </select>
       </div>
       <div class="flex items-center justify-center">
-        <input class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full" type="submit"
+        <input class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full" type="submit"
                value="Crear post">
       </div>
 

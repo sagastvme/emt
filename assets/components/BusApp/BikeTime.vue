@@ -37,40 +37,40 @@
         <table  class="w-full table-auto">
           <tbody>
           <tr>
-            <td class="py-2 px-4 border">Direccion de la parada</td>
-            <td class="py-2 px-4 border">{{ dataArray.address }}</td>
+            <td class="py-2 px-3 border">Direccion de la parada</td>
+            <td class="py-2 px-3 border">{{ dataArray.address }}</td>
           </tr>
           <tr>
-            <td class="py-2 px-4 border">Nombre de la parada</td>
-            <td class="py-2 px-4 border">{{ dataArray.name }}</td>
+            <td class="py-2 px-3 border">Nombre de la parada</td>
+            <td class="py-2 px-3 border">{{ dataArray.name }}</td>
           </tr>
           <tr>
-            <td class="py-2 px-4 border">Codigo de la parada</td>
-            <td class="py-2 px-4 border">{{ dataArray.id }}</td>
+            <td class="py-2 px-3 border">Codigo de la parada</td>
+            <td class="py-2 px-3 border">{{ dataArray.id }}</td>
           </tr>
           <tr>
-            <td class="py-2 px-4 border">Numero de reservas</td>
-            <td class="py-2 px-4 border">{{ dataArray.reservations_count }}</td>
+            <td class="py-2 px-3 border">Numero de reservas</td>
+            <td class="py-2 px-3 border">{{ dataArray.reservations_count }}</td>
           </tr>
           <tr>
-            <td class="py-2 px-4 border">Nivel de ocupacion</td>
-            <td class="py-2 px-4 border">{{ this.stopStatus }}</td>
+            <td class="py-2 px-3 border">Nivel de ocupacion</td>
+            <td class="py-2 px-3 border">{{ this.stopStatus }}</td>
           </tr>
           <tr>
-            <td class="py-2 px-4 border">Total de bases</td>
-            <td class="py-2 px-4 border">{{ dataArray.total_bases }}</td>
+            <td class="py-2 px-3 border">Total de bases</td>
+            <td class="py-2 px-3 border">{{ dataArray.total_bases }}</td>
           </tr>
           <tr>
-            <td class="py-2 px-4 border">Bicicletas disponibles</td>
-            <td class="py-2 px-4 border">{{ dataArray.dock_bikes }}</td>
+            <td class="py-2 px-3 border">Bicicletas disponibles</td>
+            <td class="py-2 px-3 border">{{ dataArray.dock_bikes }}</td>
           </tr>
           <tr>
-            <td class="py-2 px-4 border">Dockers libres</td>
-            <td class="py-2 px-4 border">{{ dataArray.free_bases }}</td>
+            <td class="py-2 px-3 border">Dockers libres</td>
+            <td class="py-2 px-3 border">{{ dataArray.free_bases }}</td>
           </tr>
           <tr>
-            <td class="py-2 px-4 border">Dockers reservados</td>
-            <td class="py-2 px-4 border">{{ dataArray.reservations_count }}</td>
+            <td class="py-2 px-3 border">Dockers reservados</td>
+            <td class="py-2 px-3 border">{{ dataArray.reservations_count }}</td>
           </tr>
           </tbody>
         </table>
@@ -80,7 +80,7 @@
 
 
     </div>
-    <div v-if="stopDoesntExist" class="select-none">
+    <div v-if="stopDoesntExist" class="flex justify-center items-center">
       <h3>La parada que ha introducido no existe</h3>
     </div>
   </div>
