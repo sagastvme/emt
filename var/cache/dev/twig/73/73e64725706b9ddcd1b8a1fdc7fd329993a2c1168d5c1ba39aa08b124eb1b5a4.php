@@ -58,7 +58,7 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
         $this->displayBlock('javascripts', $context, $blocks);
         // line 16
         echo "</head>
-<body>
+<body  class=\"bg-blue-300\">
 ";
         // line 18
         $this->displayBlock('body', $context, $blocks);
@@ -114,7 +114,7 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 
         // line 19
         echo "    <img src=\"../../public/metroPlans/logo.svg\" type=\"image/svg+xml\" alt=\"\">
-    <div id=\"before\" class=\"select-none\">
+    <div id=\"before\">
 
     </div>
 ";
@@ -151,10 +151,10 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
         {{ encore_entry_script_tags('appTwo') }}
     {% endblock %}
 </head>
-<body>
+<body  class=\"bg-blue-300\">
 {% block body %}
     <img src=\"../../public/metroPlans/logo.svg\" type=\"image/svg+xml\" alt=\"\">
-    <div id=\"before\" class=\"select-none\">
+    <div id=\"before\">
 
     </div>
 {% endblock %}

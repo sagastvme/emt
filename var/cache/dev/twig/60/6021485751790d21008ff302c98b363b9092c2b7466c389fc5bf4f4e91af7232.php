@@ -44,24 +44,26 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
 <html>
     <head>
         <meta charset=\"UTF-8\">
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+
         <title>Rastro</title>
         <link rel=\"icon\" href=\"../../metroPlans/logo.svg\" type=\"image/svg+xml\">
         ";
-        // line 8
+        // line 10
         echo "        ";
         $this->displayBlock('stylesheets', $context, $blocks);
-        // line 11
+        // line 13
         echo "
         ";
-        // line 12
+        // line 14
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 15
-        echo "    </head>
-    <body>
-        ";
         // line 17
+        echo "    </head>
+    <body class=\"bg-red-500\">
+        ";
+        // line 19
         $this->displayBlock('body', $context, $blocks);
-        // line 18
+        // line 20
         echo "    </body>
 </html>
 ";
@@ -70,14 +72,14 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
 
     }
 
-    // line 8
+    // line 10
     public function block_stylesheets($context, array $blocks = [])
     {
         $macros = $this->macros;
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "stylesheets"));
 
-        // line 9
+        // line 11
         echo "            ";
         echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension']->renderWebpackLinkTags("app");
         echo "
@@ -87,14 +89,14 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
 
     }
 
-    // line 12
+    // line 14
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 13
+        // line 15
         echo "            ";
         echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension']->renderWebpackScriptTags("app");
         echo "
@@ -104,7 +106,7 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
 
     }
 
-    // line 17
+    // line 19
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -123,7 +125,7 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
 
     public function getDebugInfo()
     {
-        return array (  108 => 17,  98 => 13,  91 => 12,  81 => 9,  74 => 8,  65 => 18,  63 => 17,  59 => 15,  57 => 12,  54 => 11,  51 => 8,  43 => 1,);
+        return array (  110 => 19,  100 => 15,  93 => 14,  83 => 11,  76 => 10,  67 => 20,  65 => 19,  61 => 17,  59 => 14,  56 => 13,  53 => 10,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -132,6 +134,8 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
 <html>
     <head>
         <meta charset=\"UTF-8\">
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+
         <title>Rastro</title>
         <link rel=\"icon\" href=\"../../metroPlans/logo.svg\" type=\"image/svg+xml\">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -143,7 +147,7 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class=\"bg-red-500\">
         {% block body %}{% endblock %}
     </body>
 </html>

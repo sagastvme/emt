@@ -1,8 +1,8 @@
 <template>
-  <header class="flex justify-center items-center mt-3 mb-3">
+  <header >
 
-    <svg-madrid />
-    <h1 class="text-5xl md:text-4xl">
+    <svg-madrid class="h-24 w-24" />
+    <h1 class="hidden">
       El rastro
     </h1>
 

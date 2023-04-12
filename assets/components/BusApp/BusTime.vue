@@ -1,16 +1,17 @@
 <template>
   <div class="grid-cols-3">
     <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl">
-      <span class="text-center ml-4 mr-2">Introduzca el código de su parada para conocer el tiempo que le queda a su autobús</span>
+   <!--   <span class="text-center text-7xl">Consulta tu parada de autobus</span>-->
+      <svg-bus class="w-52 h-52"/>
     </h2>
 
     <form class="select-none max-w-xl mx-auto my-8" @submit.prevent="submitData">
       <div class="flex flex-col items-center ">
-        <label for="bus" class="text-gray-700 font-medium mb-2">Codigo de la parada</label>
-        <div class="flex  items-center justify-center ">
-          <input id="bus" ref="busInput" v-model.number="busCode" class=" border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border " required type="number">
-          <button v-if="!isBusCodeNegative" class="flex items-center px-3 h-full bg-white rounded-r-md">
-            <svg-search v-if="!loading" class="w-6 h-6 text-gray-400 mt-2" />
+
+        <div class="flex  items-center justify-center w-full ml-8 ">
+          <input placeholder="Codigo de la parada" id="bus" ref="busInput" v-model.number="busCode" class="  h-24 text-5xl  place w-full h-18 border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border " required type="number">
+          <button v-if="!isBusCodeNegative" class="flex items-center px-3 h-full bg-transparent rounded-r-md">
+            <svg-search v-if="!loading" class="w-14 h-14 text-gray-400 " />
           </button>
 
 
@@ -24,10 +25,10 @@
                            @close-error="showErrorMessage=false" class="absolute top-full left-0 w-full -mt-2 px-3 py-2 bg-red-100 border border-red-500 rounded-md text-red-500 text-sm" />
           </teleport>
         </div>
-        <div class="parent mt-4">
-          <div v-if="loading">
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-75" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <div class="parent mt-4 h-50 w-50">
+          <div v-if="loading" >
+            <svg class="animate-spin mt-20 -ml-1 mr-3 h-20 w-20 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-75" cx="12" cy="12" r="10" stroke="black" stroke-width="3"></circle>
               <path class="opacity-25" fill="black" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
             </svg>
           </div>
@@ -37,72 +38,65 @@
     </form>
 
     <div v-if="dataRecovered && !stopDoesntExist" >
-      <div class="flex items-center justify-center ">
-        <button @click="showStopDetails" class="bg-gray-200 hover:bg-gray-300 rounded-md px-3 py-2 flex">
-          <h2 class="flex items-center justify-center text-center">
-            <span >Información de la parada</span>
-            <svg-eye-closed v-if="showStopDetailsVariable" class="w-6 h-6" />
-            <svg-eye-opened v-else class="w-6 h-6" />
+      <div class="flex items-center justify-center">
+        <button @click="showStopDetails" class="bg-white  rounded-md px-3 py-2 flex ">
+          <h2 class="flex items-center justify-center text-center text-3xl">
+            <span>Información de la parada</span>
+            <svg-eye-closed v-if="showStopDetailsVariable" class="w-6 h-6 ml-2 mt-1" />
+            <svg-eye-opened v-else class="w-6 h-6 ml-2 mt-1" />
           </h2>
         </button>
       </div>
 
 
+
       <div v-if="showStopDetailsVariable " id="busStopInfo" class="mt-4">
-        <div class="max-w-7xl mx-auto py-6 px-6 lg:px-8">
+        <div class=" mx-auto py-6 px-6 lg:px-8">
           <div class="overflow-x-auto">
-            <table class="table-auto border-collapse w-full">
-              <thead>
-              <tr class="bg-[#87f6ff] text-[#616163] uppercase text-sm font-semibold">
-              <th class="px-3 py-2 ">Nombre de la parada</th>
-                <th class="px-3 py-2 ">Direccion de la parada</th>
-                <th class="px-3 py-2 ">Codigo de la parada</th>
-                <th class="px-3 py-2 ">Numero de lineas</th>
-              </tr>
-              </thead>
-              <tbody class="text-[#616163] text-sm font-light">
-              <tr  class="border-b border-gray-200 hover:bg-gray-100">
-                <td class="border px-3 py-2 text-center">{{ this.busStopInfo.stops[0].name }}</td>
-                <td class="border px-3 py-2 text-center">{{ this.busStopInfo.stops[0].postalAddress }}</td>
-                <td class="border px-3 py-2 text-center">{{ this.busStopInfo.stops[0].stop }}</td>
-                <td class="border px-3 py-2 text-center">{{ this.busStopInfo.stops[0].dataLine.length }}</td>
-              </tr>
-              </tbody>
-            </table>
+
+            <ul class="border border-gray-300 divide-y divide-gray-300 rounded">
+              <li class="flex justify-center py-4 bg-gray-100">
+                <span class="w-1/3 text-center text-3xl font-semibold text-gray-700">Nombre</span>
+                <span class="w-1/3 text-center text-3xl font-semibold text-gray-700">Direccion</span>
+                <span class="w-1/3 text-center text-3xl font-semibold text-gray-700">Numero de lineas</span>
+              </li>
+              <li class="flex justify-center py-4 border-t bg-gray-100 border-gray-300">
+                <span class="w-1/3 text-center text-3xl text-gray-700">{{ this.busStopInfo.stops[0].name }}</span>
+                <span class="w-1/3 text-center text-3xl text-gray-700">{{ this.busStopInfo.stops[0].postalAddress }}</span>
+                <span class="w-1/3 text-center text-3xl text-gray-700">{{ this.busStopInfo.stops[0].dataLine.length }}</span>
+              </li>
+            </ul>
+
+
           </div>
         </div>
 
 
-      <div class="max-w-7xl mx-auto py-6  lg:px-8 ">
-          <div class="overflow-x-auto">
-            <table class="w-full border-collapse table-auto">
-              <thead>
-              <tr class="bg-[#daf5ff] text-[#616163] uppercase text-sm font-semibold">
-
-              <th class="px-3 py-2 text-center">Lineas</th>
-                <th class="px-3 py-2 text-center">Direccion</th>
-                <th class="px-3 py-2 text-center">Tiempo medio de llegada</th>
-                <th class="px-3 py-2 text-center">Hora de inicio</th>
-                <th class="px-3 py-2 text-center">Hora de finalizacion</th>
-              </tr>
-              </thead>
-              <tbody class="text-[#616163] text-sm font-light">
-              <tr v-for="stop in this.busStopInfo.stops[0].dataLine" :key="stop"
-                  class="border-b border-gray-200 hover:bg-gray-100">
-                <td class=" px-3 py-2">{{ stop.label }}</td>
-                <td class=" px-3 py-2">{{ stop.direction === 'A' ? stop.headerA : stop.headerB }}</td>
-                <td class=" px-3 py-2">{{ (parseInt(stop.maxFreq) + parseInt(stop.minFreq)) / 2 }}</td>
-                <td class=" px-3 py-2">{{ stop.startTime }}</td>
-                <td class=" px-3 py-2">{{ stop.stopTime }}</td>
-              </tr>
-              </tbody>
-            </table>
+        <div class="w-full py-6">
+          <div class="overflow-x-auto ">
+            <ul class="border border-gray-300 divide-y divide-gray-300 w-full ">
+              <li class="flex justify-center py-4 bg-gray-100">
+                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700">Lineas</span>
+                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700">Direccion</span>
+                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700">Pasa cada</span>
+                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700">Horario</span>
+              </li>
+              <template v-for="stop in this.busStopInfo.stops[0].dataLine">
+                <li class="flex justify-center py-4 border-t bg-gray-100 border-gray-300">
+                  <span class="w-1/4 text-center text-3xl text-gray-700">{{ stop.label }}</span>
+                  <span class="w-1/4 text-center text-3xl text-gray-700">{{ stop.direction === 'A' ? stop.headerA : stop.headerB }}</span>
+                  <span class="w-1/4 text-center text-3xl text-gray-700">{{ (parseInt(stop.maxFreq) + parseInt(stop.minFreq)) / 2 }} min</span>
+                  <span class="w-1/4 text-center text-3xl text-gray-700">{{ stop.startTime }} {{ stop.stopTime }}</span>
+                </li>
+              </template>
+            </ul>
           </div>
         </div>
+
       </div>
       <div class="p-5">
         <div class="flex justify-center items-center">
-        <h2 class="text-2xl font-bold mb-3">Buses en camino</h2>
+        <h2 class="text-6xl text-gray-700 font-bold mb-3">Buses en camino</h2>
         </div>
         <div v-if="loggedIn">
           <div v-if="wantsToAdd">
@@ -121,10 +115,10 @@
 
 
 
-        <div class="flex justify-center items-center mt-5 ">
-          <ul class="block inline-block lg:table">
-            <li v-for="buses in dataArray['Arrive']" :key="buses" class="text-3xl mb-3 flex items-center lg:table-cell lg:mx-6 lg:my-2">
-              <span class=" rounded-full py-1 px-3 mr-5 text-3xl  md:bg-red-500">{{ buses.line }}</span>
+        <div class="flex justify-center items-center mt-5 overflow-x-auto">
+          <ul >
+            <li v-for="buses in dataArray['Arrive']" :key="buses" class="text-3xl mb-3 flex items-center ">
+              <span class=" rounded-full pb-1.5  px-3 mr-5  bg-blue-500">{{ buses.line }}</span>
               <div>
                 <div>{{ buses.destination }}</div>
                 <div class="mr-5">Tiempo estimado: {{ displayArrivingTime(buses.estimateArrive) }}</div>
@@ -132,6 +126,7 @@
             </li>
           </ul>
         </div>
+
 
 
 
@@ -158,6 +153,7 @@ import SvgStar from "../SvgIcons/SvgStarEmpty.vue";
 import SvgStarEmpty from "../SvgIcons/SvgStarEmpty.vue";
 import SvgStarFull from "../SvgIcons/SvgStarFull.vue";
 import ConfirmMessage from "../Messages/ConfirmMessage.vue";
+import SvgBus from "../SvgIcons/SvgBus.vue";
 
 
 export default {
@@ -330,7 +326,9 @@ export default {
     }
 
   },
-  components: {ConfirmMessage, SvgStarFull, SvgStarEmpty, SvgStar, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
+  components: {
+    SvgBus,
+    ConfirmMessage, SvgStarFull, SvgStarEmpty, SvgStar, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
 }
 </script>
 

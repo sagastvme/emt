@@ -1,25 +1,8 @@
 <template>
- <!-- <menu class="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
-    <div class="flex w-full">
-      <button  @click="changeTab('bus-time')">Parada<svg-bus/></button>
-      <button @click="changeTab('favourite-stops')">Mis sitios<svg-star/></button>
-      <button  @click="changeTab('forum-home-page')">Foro<svg-forum/></button>
-      <button   @click="changeTab('the-user-data')">Mi perfil<svg-user/></button>
-      <button  @click="changeTab('the-plans')">Planos de metro<svg-map/></button>
-      <button  @click="changeTab('transport-prices')">Precios y tarifas<svg-price/></button>
-      <button @click="changeTab('bike-time')">Consulta tu parada de biciMAD<svg-bike/></button>
-
-
-
-      <button  @click="changeTab('most-visited')">Paradas mas visitadas <svg-trophy/> </button>
-
-      <a href="/logout" class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-4 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline block text-center">Cerrar sesión<svg-logout/></a>
-    </div>
-  </menu>-->
  <nav class="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
 
     <!--hamburguer button-->
-  <div class="flex justify-between items-center px-3 py-3 md:py-4 md:hidden">
+  <div class="flex justify-between items-center px-3 py-3 lg:py-4 lg:hidden">
 
       <button class="block " @click="showMobileMenu = !showMobileMenu">
         <svg class="w-6 h-6 fill-current text-gray-800" viewBox="0 0 24 24">
@@ -29,8 +12,8 @@
     </div>
 
 
-<!--Categories for the hamburguer menu-->
-    <div v-show="!showMobileMenu" class="hidden md:block">
+    <!--Desktop menu-->
+    <div v-show="!showMobileMenu" class="hidden lg:block">
       <div class="flex w-full">
         <button
             class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
@@ -98,8 +81,8 @@
       </div>
     </div>
 
-
-    <div v-show="showMobileMenu" class="md:hidden">
+    <!--Burguer menu-->
+    <div v-show="showMobileMenu" class="lg:hidden">
 
       <div class="px-2 pt-2 pb-3">
         <button

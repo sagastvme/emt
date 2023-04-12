@@ -1,9 +1,11 @@
 <template>
-  <the-header></the-header>
+
+  <the-header class="hidden"></the-header>
   <the-before-menu @change-tab="changeTab"></the-before-menu>
-  <div class="flex justify-center mt-8 md:mt-16">
+  <div class="flex justify-center mt-8 md:mt-16 ">
     <component :is="selectedTab"></component>
   </div>
+
 </template>
 
 <script>
