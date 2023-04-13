@@ -62,7 +62,7 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 ";
         // line 18
         $this->displayBlock('body', $context, $blocks);
-        // line 24
+        // line 23
         echo "
 </body>
 </html>";
@@ -113,8 +113,7 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 19
-        echo "    <img src=\"../../public/metroPlans/logo.svg\" type=\"image/svg+xml\" alt=\"\">
-    <div id=\"before\">
+        echo "    <div id=\"before\">
 
     </div>
 ";
@@ -130,7 +129,7 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 
     public function getDebugInfo()
     {
-        return array (  116 => 19,  109 => 18,  99 => 14,  92 => 13,  82 => 10,  75 => 9,  66 => 24,  64 => 18,  60 => 16,  58 => 13,  55 => 12,  53 => 9,  43 => 1,);
+        return array (  116 => 19,  109 => 18,  99 => 14,  92 => 13,  82 => 10,  75 => 9,  66 => 23,  64 => 18,  60 => 16,  58 => 13,  55 => 12,  53 => 9,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -153,7 +152,6 @@ class __TwigTemplate_ddc40dc43ff1d1fd16af88ea9c820ae8630e02280dd7af5869f1be83537
 </head>
 <body  class=\"bg-blue-300\">
 {% block body %}
-    <img src=\"../../public/metroPlans/logo.svg\" type=\"image/svg+xml\" alt=\"\">
     <div id=\"before\">
 
     </div>

@@ -59,7 +59,7 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
         $this->displayBlock('javascripts', $context, $blocks);
         // line 17
         echo "    </head>
-    <body class=\"bg-red-500\">
+    <body >
         ";
         // line 19
         $this->displayBlock('body', $context, $blocks);
@@ -147,7 +147,7 @@ class __TwigTemplate_64398933c0a0cb2949086bbbaff9d4bd5db1c974ffdeee7703b3ff27940
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body class=\"bg-red-500\">
+    <body >
         {% block body %}{% endblock %}
     </body>
 </html>

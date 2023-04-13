@@ -91,6 +91,9 @@ export default {
         password: this.password,
         confirmedStatus: 1
       })
+      this.password='';
+      this.username='';
+      this.passwordRepeat='';
       this.registering=false
       if(response.data.message){
 

@@ -1,5 +1,5 @@
 <template>
-  <the-header></the-header>
+
   <the-menu @change-tab="changeTab"></the-menu>
   <div class="flex justify-center mt-8 md:mt-16">
     <component :is="selectedTab" ></component>

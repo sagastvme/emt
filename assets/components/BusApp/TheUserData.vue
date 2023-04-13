@@ -1,10 +1,14 @@
 <template>
 <div>
-  <h2 class="text-3xl font-bold text-center mb-2">Tu perfil</h2>
+  <h2 class="flex items-center justify-center">
+    <img :src="profilePic" alt="" class="w-36 h-36 object-contain rounded-full">
+  </h2>
 
-  <div v-if="myData && !change && !deleteAccount" class="flex justify-center inline-block ">
 
-    <table class="border-collapse border border-gray-400 w-full">
+
+  <div v-if="myData && !change && !deleteAccount" class="flex flex-col items-center">
+
+ <!--   <table class="border-collapse border border-gray-400 w-full">
 
       <thead class="bg-gray-100">
       <tr>
@@ -79,45 +83,137 @@
         </td>
       </tr>
       </tfoot>
-    </table>
+    </table>-->
+    <ul class=" w-full  text-5xl mt-8">
 
+      <li class="mb-8 flex items-center justify-center">
+        <span class="text-left  font-bold">Usuario: </span>
+        <span >{{ username }}</span>
+      </li>
+
+      <li class="mb-8 flex items-center ">
+        <span class="text-left  font-bold">Publicaciones totales: </span>
+        <span >{{ postsPublished}}</span>
+      </li>
+
+      <li class="mb-8 flex items-center ">
+        <span class="text-left  font-bold">Usuario desde: </span>
+        <span >{{ dateCreated }}</span>
+      </li>
+
+
+
+
+
+      <li class="mb-12 mt-4 flex items-center justify-center">
+  <span>
+    <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full" for="picture">
+      Cambiar foto de perfil
+    </label>
+  </span>
+        <span>
+    <input id="picture" ref="newPicture" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden" type="file" @input="changePicture">
+  </span>
+      </li>
+
+      <li class="mb-4 flex items-center justify-center">
+  <span>
+    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full" @click="changePassword">
+      Cambiar contraseña
+    </button>
+  </span>
+      </li>
+
+      <li class="mt-12 flex items-center justify-center">
+  <span>
+    <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-3 rounded-full" @click="deleteAccountMethod">
+      Borrar cuenta
+    </button>
+  </span>
+      </li>
+
+    </ul>
+
+    <h3 class="text-6xl mt-14 font-bold">Mis publicaciones</h3>
+    <div class="flex justify-center items-center">
+    <ul class=" w-full text-5xl mt-8">
+      <li v-for="post in this.posts" class="flex">
+        <span class="px-3 py-2">{{ post.title }}</span>
+        <span >
+      <button @click="deletePost(post)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded-full">
+        Borrar
+      </button>
+    </span>
+      </li>
+    </ul>
+    </div>
   </div>
 
 
-  <div v-if="deleteAccount" id="DeleteAccount" class="mt-4">
-    <div id="CancelButton" class="flex justify-end">
-      <button class="bg-red-500 text-white px-3 py-2 rounded-md mr-2" @click="this.deleteAccount=false,this.secondStepDeleteAccount=false">Cancelar</button>
-      <form v-if="!this.secondStepDeleteAccount" @submit.prevent="checkDeleteAccountPassword" class="flex">
-        <input id="" ref="deletePassword" name="" placeholder="Introduzca su contrasena" type="password" class="border border-gray-300 rounded-md p-2 mr-2">
-        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full">Siguiente paso</button>
-      </form>
-      <button v-else @click="deleteAccountLasStep" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full">Estas seguro de que quieres borrar tu cuenta?</button>
+<!--<div v-if="final" class="text-5xl flex flex-col items-center">
+      <h3 class="font-semibold mt-12 mb-8 text-5xl text-center">Cambio de contraseña</h3>
+
+
+        <input id="currentPassword" ref="passInput" class="mb-8 border border-gray-300 rounded-md p-2 mr-2" type="password" placeholder="Introduzca su contraseña actual">
+        <button class="bg-blue-500 text-white px-3 py-2 rounded-md" @click="secondStep">Siguiente paso</button>
+
     </div>
+
+       <button class="bg-red-500 text-white px-3 py-2 rounded-md text-4xl"
+            @click="this.change=false;this.middleStep=false; this.lastStep=false">Cancel
+    </button>-->
+  <div v-if="deleteAccount" id="DeleteAccount" class="mt-4">
+
+      <button class="mt-8 bg-red-500 text-white px-3 py-2 rounded-md text-4xl" @click="this.deleteAccount=false,this.secondStepDeleteAccount=false">Cancelar</button>
+
+      <form v-if="!this.secondStepDeleteAccount" @submit.prevent="checkDeleteAccountPassword" >
+        <div id="CancelButton" class="text-5xl flex flex-col items-center">
+        <input id="" ref="deletePassword" name="" placeholder="Introduzca su contrasena" type="password"  class="mt-8 mb-8 border border-gray-300 rounded-md p-2 mr-2">
+        <button class="bg-blue-500 text-white px-3 py-2 rounded-md">Siguiente paso</button>
+        </div>
+
+      </form>
+      <button v-else @click="deleteAccountLasStep" class="ml-12 bg-blue-500 text-white px-3 py-2 rounded-md text-4xl">Borrar cuenta</button>
+
   </div>
 
 
 
   <div v-if="change">
-    <button class="bg-red-500 text-white px-3 py-2 rounded-md"
+    <button class="bg-red-500 text-white px-3 py-2 rounded-md text-4xl"
             @click="this.change=false;this.middleStep=false; this.lastStep=false">Cancel
     </button>
 
 
-    <div v-if="final">
-      <h3 class="text-lg font-semibold mt-4">Cambio de contrasena</h3>
-      <label class="block mt-4" for="currentPassword">Introduzca su contrasena actual</label>
-      <input id="currentPassword" ref="passInput" class="border border-gray-300 rounded-md p-2" type="password">
-      <button class="bg-blue-500 text-white px-3 py-2 rounded-md mt-4" @click="secondStep">Siguiente paso</button>
+    <div v-if="final" class="text-5xl flex flex-col items-center">
+      <h3 class="font-semibold mt-12 mb-8 text-5xl text-center">Cambio de contraseña</h3>
+
+
+        <input id="currentPassword" ref="passInput" class="mb-8 border border-gray-300 rounded-md p-2 mr-2" type="password" placeholder="Introduzca su contraseña actual">
+        <button class="bg-blue-500 text-white px-3 py-2 rounded-md" @click="secondStep">Siguiente paso</button>
+
     </div>
 
 
-  <div v-if="lastStep">
-    <label class="block mt-4" for="password">Contraseña</label>
-    <input id="password" v-model="checkPassword" class="border border-gray-300 rounded-md p-2" name="checkPassword" type="password">
-    <label class="block mt-4" for="passwordRepeat">Repita su contraseña</label>
-    <input id="passwordRepeat" v-model="passwordRepeat" class="border border-gray-300 rounded-md p-2" name="passwordRepeat" type="password">
+
+    <div v-if="lastStep" class="text-5xl flex flex-col items-center">
+      <h3 class="font-semibold mt-12 mb-8 text-5xl text-center">Cambio de contraseña</h3>
+
+    <input placeholder="Contrasena nueva" id="password" v-model="checkPassword" class="mt-4 mb-8 border border-gray-300 rounded-md p-2 mr-2" name="checkPassword" type="password">
+
+    <input placeholder="Repita su contrasena" id="passwordRepeat" v-model="passwordRepeat" class="mb-8 border border-gray-300 rounded-md p-2 mr-2" name="passwordRepeat" type="password">
     <button v-if="samePassword" class="bg-blue-500 text-white px-3 py-2 rounded-md mt-4" @click="changeFinalPassword">Cambiar contraseña</button>
   </div>
+
+    <!--<div v-if="final" class="text-5xl flex flex-col items-center">
+      <h3 class="font-semibold mt-12 mb-8 text-5xl text-center">Cambio de contraseña</h3>
+
+
+        <input id="currentPassword" ref="passInput" class="mb-8 border border-gray-300 rounded-md p-2 mr-2" type="password" placeholder="Introduzca su contraseña actual">
+        <button class="bg-blue-500 text-white px-3 py-2 rounded-md" @click="secondStep">Siguiente paso</button>
+
+    </div>-->
+
   </div>
   <teleport to="body">
     <error-message v-if="showErrorMessage" message="La contrasena no coincide"
