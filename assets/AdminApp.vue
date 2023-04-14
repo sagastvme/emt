@@ -1,5 +1,7 @@
 <template>
-  <the-header class="hidden"></the-header>
+  <div class="hidden lg:block">
+    <the-header></the-header>
+  </div>
   <admin-menu @change-tab="changeTab"/>
   <div class="flex justify-center mt-8 md:mt-16 ">
     <component :is="selectedTab"/>

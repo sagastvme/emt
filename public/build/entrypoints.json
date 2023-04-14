@@ -7,6 +7,7 @@
         "/build/vendors-node_modules_axios_lib_axios_js.js",
         "/build/assets_styles_app_css-assets_components_BusApp_TheHeader_vue-assets_components_Messages_Confi-a04abb.js",
         "/build/assets_components_BusApp_BikeTime_vue-assets_components_BusApp_BusTime_vue-assets_components_-c91fbb.js",
+        "/build/assets_components_SvgIcons_SvgLogout_vue-assets_components_SvgIcons_SvgPrice_vue.js",
         "/build/app.js"
       ],
       "css": [
@@ -20,6 +21,7 @@
         "/build/vendors-node_modules_vue-loader_dist_exportHelper_js-node_modules_vue_dist_vue_esm-bundler_js.js",
         "/build/vendors-node_modules_axios_lib_axios_js.js",
         "/build/assets_styles_app_css-assets_components_BusApp_TheHeader_vue-assets_components_Messages_Confi-a04abb.js",
+        "/build/assets_components_SvgIcons_SvgLogout_vue-assets_components_SvgIcons_SvgPrice_vue.js",
         "/build/admin.js"
       ],
       "css": [

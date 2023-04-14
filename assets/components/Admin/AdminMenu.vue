@@ -48,22 +48,41 @@
 
 
 
+<!--Desktop menu -->
+    <div v-show="!showMobileMenu" class="hidden lg:block">
 
+      <div class="flex flex-col lg:flex-row items-center w-full">
+        <button
+            :class="{ 'bg-[#173753]': isTabActive('delete-users'), 'bg-[#1d70a2]': !isTabActive('delete-users') }"
+            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            @click="changeTabMobile('delete-users')"
+        >
+          <span class="pr-3">Borrar usuarios</span>
+          <svg-admin-delete class="h-16 w-16 mx-auto"/>
+        </button>
+        <button
+            :class="{ 'bg-[#173753]': isTabActive('modify-metro-plans'), 'bg-[#1d70a2]': !isTabActive('modify-metro-plans') }"
+            class="text-4xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            @click="changeTabMobile('modify-metro-plans')"
+        >
+          <span class="pr-3">Manejar planos</span>
+        <svg-admin-manage class="h-16 w-16 mx-auto"/>
+        </button>
+        <button
+            :class="{ 'bg-[#173753]': isTabActive('delete-price'), 'bg-[#1d70a2]': !isTabActive('delete-price') }"
+            class="text-4xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            @click="changeTabMobile('delete-price')"
+        >
+          <span class="pr-3">Actualizar tarifas</span>
+          <svg-price class="h-16 w-16 mx-auto"/>
+        </button>
+        <a href="/logout" class="bg-[#1d70a2] text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-1 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center">
+          <span class="mx-auto">Salir</span>
+          <svg-logout class="mt-6 h-12 w-12 mx-auto" />
+        </a>
+      </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
 
 
   </nav>
@@ -73,10 +92,13 @@
 <script>
 import SvgLogout from "../SvgIcons/SvgLogout.vue";
 import TheHeader from "../BusApp/TheHeader.vue";
+import SvgAdminDelete from "../SvgIcons/SvgAdminDelete.vue";
+import SvgAdminManage from "../SvgIcons/SvgAdminManage.vue";
+import SvgPrice from "../SvgIcons/SvgPrice.vue";
 
 export default {
   name: "AdminMenu",
-  components: {TheHeader, SvgLogout},
+  components: {SvgPrice, SvgAdminManage, SvgAdminDelete, TheHeader, SvgLogout},
   methods: {
     changeTab(tab) {
       this.showMobileMenu = !this.showMobileMenu
@@ -90,7 +112,13 @@ export default {
   },
   data(){
     return{
-      showMobileMenu: false
+      showMobileMenu: false,
+      activeTab:'delete-price'
+    }
+  },
+  computed: {
+    isTabActive() {
+      return (tab) => this.activeTab === tab;
     }
   }
 }
