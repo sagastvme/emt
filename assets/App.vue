@@ -1,5 +1,7 @@
 <template>
-
+  <div class="hidden lg:block">
+    <the-header></the-header>
+  </div>
   <the-menu @change-tab="changeTab"></the-menu>
   <div class="flex justify-center">
     <component :is="selectedTab" ></component>
@@ -25,7 +27,7 @@ export default {
 
   data() {
     return {
-      selectedTab: 'forum-home-page'
+      selectedTab: 'bus-time'
     }
   },
   methods:{

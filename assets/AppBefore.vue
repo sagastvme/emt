@@ -1,6 +1,8 @@
 <template>
+  <div class="hidden lg:block">
+    <the-header></the-header>
+  </div>
 
-  <the-header class="hidden"></the-header>
   <the-before-menu @change-tab="changeTab"></the-before-menu>
   <div class="flex justify-center mt-8 md:mt-16 ">
     <component :is="selectedTab"></component>
@@ -17,8 +19,9 @@ import TheBeforeMenu from "./components/BusApp/TheBeforeMenu.vue";
 import TheLogin from "./components/BusApp/TheLogin.vue";
 import TheRegister from "./components/BusApp/TheRegister.vue";
 import ErrorMessage from "./components/Messages/ErrorMessage.vue";
+
 export default {
-  components: {TheBeforeMenu, BusTime,TheLogin,  TheHeader, TheRegister, bikeTime,ErrorMessage},
+  components: {TheBeforeMenu, BusTime, TheLogin, TheHeader, TheRegister, bikeTime, ErrorMessage},
 
   data() {
     return {

@@ -20,33 +20,33 @@
     <!--Desktop Menu-->
     <div v-show="!showMobileMenu" class="hidden lg:block">
 
-      <div class="flex w-full">
-
+      <div class="flex flex-col lg:flex-row items-center w-full">
         <button
-            :class="{ 'bg-gray-500': isTabActive('bus-time'), 'bg-gray-400': !isTabActive('bus-time') }"
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+            :class="{ 'bg-[#173753]': isTabActive('bus-time'), 'bg-[#1d70a2]': !isTabActive('bus-time') }"
+            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('bus-time')"
         >
-          Consulta tu parada de autobus
-          <svg-bus class="absolute right-0 top-0 mt-1 mr-1"/>
+          <span class="pr-3">Tu parada de autobus</span>
+          <svg-bus class="h-24 w-24 mx-auto"/>
         </button>
         <button
-            :class="{ 'bg-gray-500': isTabActive('the-login'), 'bg-gray-400': !isTabActive('the-login') }"
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+            :class="{ 'bg-[#173753]': isTabActive('the-login'), 'bg-[#1d70a2]': !isTabActive('the-login') }"
+            class="text-4xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('the-login')"
         >
-          Iniciar sesion
-          <svg-login class="absolute right-0 top-0 mt-1 mr-1"/>
+          <span class="pr-3">Iniciar sesion</span>
+          <svg-login class="h-24 w-24 mx-auto"/>
         </button>
         <button
-            :class="{ 'bg-gray-500': isTabActive('the-register'), 'bg-gray-400': !isTabActive('the-register') }"
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
+            :class="{ 'bg-[#173753]': isTabActive('the-register'), 'bg-[#1d70a2]': !isTabActive('the-register') }"
+            class="text-4xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('the-register')"
         >
-          Registrate
-          <svg-user class="absolute right-0 top-0 mt-1 mr-1"/>
+          <span class="pr-3">Registrate</span>
+          <svg-user class="h-24 w-24 mx-auto"/>
         </button>
       </div>
+
     </div>
 
     <!--Burguer menu-->
@@ -108,7 +108,7 @@ export default {
   data() {
     return {
       showMobileMenu: false,
-      activeTab: null,
+      activeTab: 'bus-time',
     }
   },
   computed: {
