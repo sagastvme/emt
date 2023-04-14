@@ -1,38 +1,37 @@
 <template>
   <div class="flex flex-col justify-center items-center py-6 ">
-    <form class="bg-black bg-opacity-90 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4  mx-auto px-3 sm:px-6 lg:px-8 w-full"
+    <form class="shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4  mx-auto px-3  w-full text-6xl"
           @submit.prevent="newPost">
       <div class="mb-4">
-        <label class="block text-white font-bold mb-2" for="title">Título</label>
-        <input id="title" ref="title"
-               class="bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
+         <input id="title" ref="title"
+         placeholder="Titulo"      class="bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                required
                type="text">
       </div>
       <div class="mb-4">
-        <label class="block text-white font-bold mb-2" for="body">Cuerpo del post</label>
         <textarea id="body" ref="body"
-                  class="bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
+         placeholder="Cuerpo"         class="bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                   cols="30" name="body" required rows="10"></textarea>
-        <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer"
-               for="picture">
+        <div class="my-14 flex items-center justify-center">
+        <label class="bg-blue-500 text-white px-3 py-2 rounded-md" for="picture">
           Anadir imagenes a tu publicacion
         </label>
         <input id="picture" ref="newPicture" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden"
                multiple="true" name="images[]" type="file" @change="print">
       </div>
+      </div>
       <div class="mb-4">
-        <label class="block text-white font-bold mb-2" for="category">Categoría</label>
+        <label class="text-5xl text-center block text-white font-bold mb-2" for="category">Categoría</label>
         <select id="category" ref="selectedCategory"
-                class="bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
+                class="text-4xl bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                 name="category"
                 required>
-          <option disabled value="">Selecciona una categoría</option>
-          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+
+          <option class="text-sm mx-auto" v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
       </div>
       <div class="flex items-center justify-center">
-        <input class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full" type="submit"
+        <input class="bg-blue-500 text-white px-3 py-2 rounded-md" type="submit"
                value="Crear post">
       </div>
 

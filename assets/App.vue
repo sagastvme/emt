@@ -1,7 +1,7 @@
 <template>
 
   <the-menu @change-tab="changeTab"></the-menu>
-  <div class="flex justify-center mt-8 md:mt-16">
+  <div class="flex justify-center">
     <component :is="selectedTab" ></component>
 
   </div>
@@ -25,7 +25,7 @@ export default {
 
   data() {
     return {
-      selectedTab: 'bus-time'
+      selectedTab: 'forum-home-page'
     }
   },
   methods:{

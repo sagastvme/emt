@@ -1,18 +1,22 @@
 <template>
-  <div class="bg-gray-100 rounded-lg shadow-lg mt-3">
-    <div class="flex w-full">
-      <button class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-3 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline" @click="changeTab('forum-new-post')">+</button>
-      <button class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-3 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline" @click="changeTab('forum-categories')">Foro</button>
-      <button class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-3 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline" @click="changeTab('forum-search')">Buscar</button>
-      <button class="mr-2 flex-1 hover:bg-gray-400 text-white font-bold rounded-md px-3 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline" @click="changeTab('forum-saved-posts')">Publicaciones guardadas</button>
-    </div>
+  <div class="bg-gray-300 w-full flex ">
+    <button class="mb-7 w-1/4 text-9xl text-black font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline flex justify-center items-center" @click="changeTab('forum-new-post')">+</button>
+    <button class="w-1/4 font-bold rounded-md px-3 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline flex justify-center items-center" @click="changeTab('forum-categories')"><svg-forum class="w-20 h-20" /></button>
+    <button class="w-1/4 font-bold rounded-md px-3 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline flex justify-center items-center" @click="changeTab('forum-search')"><svg-search class="w-20 h-20"/></button>
+    <button class="w-1/4 font-bold rounded-md px-3 py-2 transition duration-200 bg-gray-300 focus:outline-none focus:shadow-outline flex justify-center items-center" @click="changeTab('forum-saved-posts')"><svg-favourite class="w-20 h-20"/></button>
   </div>
+
 </template>
 
 
 <script>
+import SvgForum from "../SvgIcons/SvgForum.vue";
+import SvgSearch from "../SvgIcons/SvgSearch.vue";
+import SvgFavourite from "../SvgIcons/SvgFavourite.vue";
+
 export default {
   name: "ForumMenu",
+  components: {SvgFavourite, SvgSearch, SvgForum},
   methods:{
     changeTab(tab) {
       this.$emit('change-tab', tab)

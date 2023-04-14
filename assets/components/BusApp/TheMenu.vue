@@ -150,7 +150,7 @@
   <nav class="rounded-lg overflow-hidden shadow-lg">
 
     <div class="bg-[#1d70a2]  rounded">
-      <div class="flex justify-center items-center px-3 py-3 lg:py-4 lg:hidden">
+      <div class="flex justify-center items-center px-3 py-3">
         <button class="block flex-shrink-0" @click="showMobileMenu = !showMobileMenu">
           <svg class="w-20 h-20 fill-current text-gray-800" viewBox="0 0 24 24">
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"  />
@@ -161,9 +161,6 @@
         </div>
       </div>
     </div>
-
-
-
 
     <!--Desktop Menu-->
     <div v-show="!showMobileMenu" class="hidden lg:block">
@@ -204,7 +201,7 @@
             @click="changeTab('bus-time')"
         >
           <span>Tu parada de autobus</span>
-          <svg-bus class="ml-2 h-10 w-10"/>
+          <svg-bus class="ml-2 h-16 w-16"/>
         </button>
 
 
@@ -213,19 +210,19 @@
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('most-visited')"
         >
-          Paradas mas visitadas <svg-trophy class="ml-2 mt-2 h-12 w-12"/>
+          Paradas mas visitadas <svg-trophy class="ml-2 h-16 w-16"/>
         </button>
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
 
             @click="changeTab('favourite-stops')"
         >
-          Mis sitios<svg-star class="ml-2 h-10 w-10" />
+          Mis sitios<svg-star-full class="ml-2 h-16 w-16" />
         </button>
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('forum-home-page')"
-        >Foro<svg-forum class="ml-2 h-10 w-10" />
+        >Foro<svg-forum class="ml-2 h-16 w-16" />
         </button>
 
 
@@ -233,29 +230,29 @@
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('the-user-data')"
-        >Mi perfil<svg-user class="ml-2 h-10 w-10"/>
+        >Mi perfil<svg-menu-user class="ml-2 h-16 w-16"/>
         </button>
 
 
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('the-plans')"
-        >Planos de metro<svg-map/>
+        >Planos de metro<svg-map class="ml-2 h-16 w-16"/>
         </button>
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('transport-prices')"
-        >Precios y tarifas<svg-price/>
+        >Precios y tarifas<svg-price class="ml-2 h-16 w-16"/>
         </button>
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('bike-time')"
-        >Tu parada de biciMAD<svg-bike/>
+        >Tu parada de biciMAD<svg-bike class="ml-2 h-24 w-24"/>
         </button>
 
         <a href="/logout"       class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
         >
-          Cerrar sesión<svg-logout/></a>
+          Cerrar sesión<svg-logout class="ml-2 mt-4 h-16 w-16"/></a>
 
 
 
@@ -280,11 +277,16 @@ import SvgBike from "../SvgIcons/SvgBike.vue";
 import SvgTrophy from "../SvgIcons/SvgTrophy.vue";
 import TheHeader from "./TheHeader.vue";
 import SvgLogin from "../SvgIcons/SvgLogin.vue";
+import SvgStarFull from "../SvgIcons/SvgStarFull.vue";
+import SvgMenuUser from "../SvgIcons/SvgMenuUser.vue";
 
 export default {
 
 
-  components: {SvgLogin, TheHeader, SvgTrophy, SvgBike, SvgPrice, SvgMap, SvgLogout, SvgUser, SvgForum, SvgStar, SvgBus},
+  components: {
+    SvgMenuUser,
+    SvgStarFull,
+    SvgLogin, TheHeader, SvgTrophy, SvgBike, SvgPrice, SvgMap, SvgLogout, SvgUser, SvgForum, SvgStar, SvgBus},
   methods: {
     changeTab(tab) {
       this.showMobileMenu = !this.showMobileMenu

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center">
+  <div class="flex flex-col items-center text-4xl">
     <div class="w-full max-w-md">
       <add-metro-plan />
     </div>
@@ -21,8 +21,8 @@
     <teleport v-if="deletedPlan!==null" to="body">
       <confirm-message :message="'Estás seguro de que quieres borrar el plano ' +message"
                        @close-error="this.deletedPlan=null">
-        <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-3 rounded" @click="deleteUserCommit">SI</button>
-        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-3 rounded ml-4" @click="this.deletedPlan=null">NO</button>
+        <button class=" text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600 transition-colors duration-300">SI</button>
+        <button class="bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300" @click="this.deletedPlan=null">NO</button>
       </confirm-message>
     </teleport>
   </div>

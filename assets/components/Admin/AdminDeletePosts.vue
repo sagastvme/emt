@@ -1,14 +1,14 @@
 <template>
-  <div>
-  <h1 class="text-2xl font-bold mb-4 flex justify-center">Publicaciones del foro</h1>
+  <div class="text-4xl">
+  <h1 class="text-6xl font-bold mb-4 flex justify-center">Publicaciones del foro</h1>
 
   <table class="w-full">
     <thead>
-    <tr>
+    <tr class="bg-gray-200">
       <th class="px-3 py-2">Título</th>
       <th class="px-3 py-2">Autor</th>
-      <th class="px-3 py-2">Categoría</th>
-      <th class="px-3 py-2">Fecha de creación</th>
+      <th class="px-3 py-2 hidden">Categoría</th>
+      <th class="px-3 py-2 hidden">Fecha de creación</th>
       <th class="px-3 py-2">Acciones</th>
     </tr>
     </thead>
@@ -16,8 +16,8 @@
     <tr v-for="post in posts" :key="post.id">
       <td class="border px-3 py-2">{{ post.title }}</td>
       <td class="border px-3 py-2">{{ post.author }}</td>
-      <td class="border px-3 py-2">{{ post.category }}</td>
-      <td class="border px-3 py-2">{{ post.dateCreated }}</td>
+      <td class="border px-3 py-2 hidden">{{ post.category }}</td>
+      <td class="border px-3 py-2 hidden">{{ post.dateCreated }}</td>
       <td class="border px-3 py-2">
         <button class="bg-red-500 text-white px-2 py-1 rounded-md"
                 @click="deletePost(post)">
@@ -33,10 +33,10 @@
     <confirm-message v-if="deletedPost !== null"
                      :message="'Estás seguro de que quieres borrar la publicación ' + deletedPost"
                      @close-error="deletedPost = null">
-      <button class=" text-white px-2 py-1 rounded-md mr-4" @click="deleteUserCommit">
+      <button class=" text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600 transition-colors duration-300" @click="deleteUserCommit">
         SI
       </button>
-      <button class="bg-gray-300 px-2 py-1 rounded-md" @click="deletedPost = null">
+      <button class=" bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300" @click="deletedPost = null">
         NO
       </button>
     </confirm-message>

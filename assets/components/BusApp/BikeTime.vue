@@ -1,90 +1,90 @@
 <template>
-  <div class="flex justify-center  ">
+
   <div class="grid-cols-3">
     <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl">
-      <span class="text-center ml-4 mr-2">Introduzca el codigo de su estacion biciMAD</span>
+     <svg-bike class="w-52 h-52"/>
     </h2>
-    <form  @submit.prevent="submitData">
-      <div class="flex flex-col items-center mt-5 ">
-        <label  class="text-gray-700 font-medium mb-2" for="bus">Codigo de la parada</label>
-        <div class="flex justify-center items-center">
-
-
-          <input id="bus" ref="busInput" v-model.number="bikeCode" class=" border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border "
-                 required type="number">
-          <button v-if="!isBusCodeNegative" class="flex-row">
-            <svg-search v-if="!loading"/>
+    <form  @submit.prevent="submitData" class="select-none max-w-xl mx-auto my-8">
+      <div class="flex flex-col items-center ">
+        <div class="flex  items-center justify-center w-full ml-8 ">
+          <input id="bus" ref="busInput" v-model.number="bikeCode"
+                 class="  h-24 text-5xl  place w-full h-18 border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border "     placeholder="Codigo de la parada"  required type="number">
+          <button v-if="!isBusCodeNegative"  class="flex items-center px-3 h-full bg-transparent rounded-r-md">
+            <svg-search v-if="!loading" class="w-14 h-14 text-gray-400 "/>
           </button>
-          <error-message v-else v-if="showErrorMessage" message="El numero debe ser mayor que 1"
+        </div>
+
+        <div class="flex justify-center items-center">
+          <error-message v-if="showErrorMessage" message="El numero debe ser mayor que 1"
                          @close-error="showErrorMessage=false"></error-message>
 
 
-            <div class="parent mt-4 ml-5">
-              <div v-if="loading">
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-75" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-25" fill="black" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                </svg>
-              </div>
-
+          <div class="parent mt-4 h-50 w-50">
+            <div v-if="loading" >
+              <svg class="animate-spin mt-20 -ml-1 mr-3 h-20 w-20 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-75" cx="12" cy="12" r="10" stroke="black" stroke-width="3"></circle>
+                <path class="opacity-25" fill="black" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </form>
-    <div v-if="dataRecovered && !stopDoesntExist" class="select-none">
+    <div v-if="dataRecovered && !stopDoesntExist" class="mt-14 " >
 
-      <div class="mt-5 flex justify-center items-center">
-        <table  class="w-full table-auto">
-          <tbody>
-          <tr>
-            <td class="py-2 px-3 border">Direccion de la parada</td>
-            <td class="py-2 px-3 border">{{ dataArray.address }}</td>
-          </tr>
-          <tr>
-            <td class="py-2 px-3 border">Nombre de la parada</td>
-            <td class="py-2 px-3 border">{{ dataArray.name }}</td>
-          </tr>
-          <tr>
-            <td class="py-2 px-3 border">Codigo de la parada</td>
-            <td class="py-2 px-3 border">{{ dataArray.id }}</td>
-          </tr>
-          <tr>
-            <td class="py-2 px-3 border">Numero de reservas</td>
-            <td class="py-2 px-3 border">{{ dataArray.reservations_count }}</td>
-          </tr>
-          <tr>
-            <td class="py-2 px-3 border">Nivel de ocupacion</td>
-            <td class="py-2 px-3 border">{{ this.stopStatus }}</td>
-          </tr>
-          <tr>
-            <td class="py-2 px-3 border">Total de bases</td>
-            <td class="py-2 px-3 border">{{ dataArray.total_bases }}</td>
-          </tr>
-          <tr>
-            <td class="py-2 px-3 border">Bicicletas disponibles</td>
-            <td class="py-2 px-3 border">{{ dataArray.dock_bikes }}</td>
-          </tr>
-          <tr>
-            <td class="py-2 px-3 border">Dockers libres</td>
-            <td class="py-2 px-3 border">{{ dataArray.free_bases }}</td>
-          </tr>
-          <tr>
-            <td class="py-2 px-3 border">Dockers reservados</td>
-            <td class="py-2 px-3 border">{{ dataArray.reservations_count }}</td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="flex justify-center items-center ">
+        <ul class="space-y-8">
+          <li class="text-4xl mb-5 flex items-center">
+            <span class="font-bold mr-5">Direccion:</span>
+            <span>{{ dataArray.address }}</span>
+          </li>
+          <li class="text-4xl mb-5 flex items-center">
+            <span class="font-bold mr-5">Nombre:</span>
+            <span>{{ dataArray.name }}</span>
+          </li>
+          <li class="text-4xl mb-5 flex items-center">
+            <span class="font-bold mr-5">Numero de reservas:</span>
+            <span>{{ dataArray.reservations_count }}</span>
+          </li>
+          <li class="text-4xl mb-5 flex items-center">
+            <span class="font-bold mr-5">Ocupacion:</span>
+            <span>{{ this.stopStatus }}</span>
+          </li>
+          <li class="text-4xl mb-5 flex items-center">
+            <span class="font-bold mr-5">Bases:</span>
+            <span>{{ dataArray.total_bases }}</span>
+          </li>
+          <li class="text-4xl mb-5 flex items-center">
+            <span class="font-bold mr-5">Bicicletas disponibles:</span>
+            <span>{{ dataArray.dock_bikes }}</span>
+          </li>
+          <li class="text-4xl mb-5 flex items-center">
+            <span class="font-bold mr-5">Dockers libres:</span>
+            <span>{{ dataArray.free_bases }}</span>
+          </li>
+          <li class="text-4xl mb-5 flex items-center">
+            <span class="font-bold mr-5">Dockers reservados:</span>
+            <span>{{ dataArray.reservations_count }}</span>
+          </li>
+        </ul>
+
+
+
       </div>
 
 
 
 
+
     </div>
-    <div v-if="stopDoesntExist" class="flex justify-center items-center">
-      <h3>La parada que ha introducido no existe</h3>
+    <div v-if="stopDoesntExist" class="flex justify-center items-center ">
+      <h3 class="text-6xl font-bold text-center text-red-600 p-8 bg-white shadow-lg rounded-lg">
+        La parada que ha introducido no existe
+      </h3>
     </div>
+
   </div>
-  </div>
+
 </template>
 
 <script>
@@ -93,6 +93,7 @@ import axios from 'axios';
 import SvgEyeOpened from "../SvgIcons/SvgEyeOpened.vue";
 import SvgEyeClosed from "../SvgIcons/SvgEyeClosed.vue";
 import ErrorMessage from "../Messages/ErrorMessage.vue";
+import SvgBike from "../SvgIcons/SvgBike.vue";
 
 
 export default {
@@ -126,7 +127,7 @@ export default {
 
         case 0:
 
-          return 'Ocupacion baja';
+          return 'Baja';
           break;
         case 2:
           return 'Mediana';
@@ -217,6 +218,6 @@ export default {
     }
 
   },
-  components: {ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
+  components: {SvgBike, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
 }
 </script>

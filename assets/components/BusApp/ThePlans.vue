@@ -1,14 +1,13 @@
 <template>
-  <div v-if="plans">
-    <h2 class="text-3xl font-bold text-center py-8">Planos de transporte</h2>
-    <ul class="flex flex-wrap justify-center md:flex-row">
+  <div v-if="plans" class="w-full h-full">
+    <h2 class="flex justify-center items-center mr-3 mb-12 text-gray-700 font-bold text-3xl">
+      <svg-map class="w-52 h-52"/> </h2>
+    <ul class="w-full">
       <li v-for="(plan, index) in plans" :key="index" class="m-4">
-        <div class="rounded border-2 border-red-400 w-80 h-80 flex flex-col justify-center items-center sm:mx-auto">
-          <h3 class="text-lg font-bold mb-4">{{index }}</h3>
-          <img :src="plan" class="h-48 object-contain mb-4">
-          <button @click="viewImage(plan)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-full">
-            View full size
-          </button>
+        <div class="  flex flex-col justify-center items-center ">
+          <h3 class="text-4xl font-bold my-4 uppercase">{{index }}</h3>
+          <img @click="viewImage(plan)" :src="plan" class="h-96 object-contain mb-4">
+
         </div>
       </li>
     </ul>
@@ -20,8 +19,10 @@
 
 <script>
 import axios from 'axios';
+import SvgMap from "../SvgIcons/SvgMap.vue";
 
 export default {
+  components: {SvgMap},
 
   mounted() {
     this.askForImages()

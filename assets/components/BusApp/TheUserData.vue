@@ -96,18 +96,18 @@
         <span >{{ postsPublished}}</span>
       </li>
 
-      <li class="mb-8 flex items-center ">
+      <li class="mb-20 flex items-center ">
         <span class="text-left  font-bold">Usuario desde: </span>
         <span >{{ dateCreated }}</span>
-      </li>
+      </li >
 
 
 
 
 
-      <li class="mb-12 mt-4 flex items-center justify-center">
+      <li class="mb-16 mt-4 flex items-center justify-center">
   <span>
-    <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full" for="picture">
+    <label class="bg-blue-500 text-white px-3 py-2 rounded-md" for="picture">
       Cambiar foto de perfil
     </label>
   </span>
@@ -118,7 +118,7 @@
 
       <li class="mb-4 flex items-center justify-center">
   <span>
-    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full" @click="changePassword">
+    <button class="bg-blue-500 text-white px-3 py-2 rounded-md" @click="changePassword">
       Cambiar contraseña
     </button>
   </span>
@@ -126,7 +126,7 @@
 
       <li class="mt-12 flex items-center justify-center">
   <span>
-    <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-3 rounded-full" @click="deleteAccountMethod">
+    <button class="bg-red-500 text-white px-3 py-2 rounded-md" @click="deleteAccountMethod">
       Borrar cuenta
     </button>
   </span>
@@ -137,10 +137,10 @@
     <h3 class="text-6xl mt-14 font-bold">Mis publicaciones</h3>
     <div class="flex justify-center items-center">
     <ul class=" w-full text-5xl mt-8">
-      <li v-for="post in this.posts" class="flex">
-        <span class="px-3 py-2">{{ post.title }}</span>
+      <li v-for="post in this.posts" class="flex mb-8">
+        <span class="px-3 py-2">{{ post.title.slice(0,20).toLowerCase()+'...' }}</span>
         <span >
-      <button @click="deletePost(post)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded-full">
+      <button @click="deletePost(post)" class="mr-5 bg-red-500 text-white px-3 py-2 rounded-md">
         Borrar
       </button>
     </span>
@@ -230,8 +230,8 @@
 
     <confirm-message v-if="deletedPost!==null" :message="'Estás seguro de que quieres borrar la publicacion ' +deletedPost"
                      @close-error="this.deletedPost=null">
-      <button @click="deleteUserCommit">SI</button>
-      <button class="ml-8" @click="this.deletedPost=null">NO</button>
+      <button @click="deleteUserCommit" class=" text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600 transition-colors duration-300">SI</button>
+      <button class=" bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300"  @click="this.deletedPost=null">NO</button>
     </confirm-message>
   </teleport>
 </div>

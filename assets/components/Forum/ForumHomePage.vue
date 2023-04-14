@@ -1,8 +1,8 @@
   <template>
-    <div class="w-max">
+    <div class="w-full">
 
-      <forum-menu @change-tab="changeTab" />
-      <component :is="selectedTab" :categories="categories" />
+      <forum-menu @change-tab="changeTab" class="w-full" />
+      <component class="w-full" :is="selectedTab" :categories="categories" />
 
     </div>
   </template>

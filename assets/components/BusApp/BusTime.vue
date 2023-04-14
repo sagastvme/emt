@@ -1,7 +1,7 @@
 <template>
   <div class="grid-cols-3">
     <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl">
-   <!--   <span class="text-center text-7xl">Consulta tu parada de autobus</span>-->
+      <!--   <span class="text-center text-7xl">Consulta tu parada de autobus</span>-->
       <svg-bus class="w-52 h-52"/>
     </h2>
 
@@ -9,27 +9,38 @@
       <div class="flex flex-col items-center ">
 
         <div class="flex  items-center justify-center w-full ml-8 ">
-          <input placeholder="Codigo de la parada" id="bus" ref="busInput" v-model.number="busCode" class="  h-24 text-5xl  place w-full h-18 border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border " required type="number">
+          <input id="bus" ref="busInput" v-model.number="busCode"
+                 class="  h-24 text-5xl  place w-full h-18 border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border "
+                 placeholder="Codigo de la parada"
+                 required type="number">
           <button v-if="!isBusCodeNegative" class="flex items-center px-3 h-full bg-transparent rounded-r-md">
-            <svg-search v-if="!loading" class="w-14 h-14 text-gray-400 " />
+            <svg-search v-if="!loading" class="w-14 h-14 text-gray-400 "/>
           </button>
 
 
-        <teleport v-if="askConfirm" to="body">
-            <confirm-message :message="'Estás seguro de que quieres borrar la parada ' +this.busCode"
-                             @close-error="this.askConfirm=false" v-if="this.askConfirm">
-              <button @click="removeFavourite" class="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition-colors duration-200">SI</button>
-              <button class="ml-4 bg-gray-200 text-gray-700 px-3 py-2 rounded-md hover:bg-gray-300 transition-colors duration-200" @click="this.askConfirm=false">NO</button>
+          <teleport v-if="askConfirm" to="body">
+            <confirm-message v-if="this.askConfirm"
+                             :message="'Estás seguro de que quieres borrar la parada ' +this.busCode"
+                             @close-error="this.askConfirm=false">
+              <button class=" text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600 transition-colors duration-300" @click="removeFavourite">
+                SI
+              </button>
+              <button
+                  class=" bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300"  @click="this.askConfirm=false">NO
+              </button>
             </confirm-message>
-            <error-message v-else v-if="showErrorMessage" message="El numero debe ser mayor que 1"
-                           @close-error="showErrorMessage=false" class="absolute top-full left-0 w-full -mt-2 px-3 py-2 bg-red-100 border border-red-500 rounded-md text-red-500 text-sm" />
+            <error-message v-else v-if="showErrorMessage"
+                           class="absolute top-full left-0 w-full -mt-2 px-3 py-2 bg-red-100 border border-red-500 rounded-md text-red-500 text-sm"
+                           message="El numero debe ser mayor que 1"
+                           @close-error="showErrorMessage=false"/>
           </teleport>
         </div>
         <div class="parent mt-4 h-50 w-50">
-          <div v-if="loading" >
-            <svg class="animate-spin mt-20 -ml-1 mr-3 h-20 w-20 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <div v-if="loading">
+            <svg class="animate-spin mt-20 -ml-1 mr-3 h-20 w-20 text-white" fill="none"
+                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <circle class="opacity-75" cx="12" cy="12" r="10" stroke="black" stroke-width="3"></circle>
-              <path class="opacity-25" fill="black" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              <path class="opacity-25" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" fill="black"></path>
             </svg>
           </div>
         </div>
@@ -37,17 +48,16 @@
       </div>
     </form>
 
-    <div v-if="dataRecovered && !stopDoesntExist" >
+    <div v-if="dataRecovered && !stopDoesntExist">
       <div class="flex items-center justify-center">
-        <button @click="showStopDetails" class="bg-white  rounded-md px-3 py-2 flex ">
+        <button class="bg-white  rounded-md px-3 py-2 flex " @click="showStopDetails">
           <h2 class="flex items-center justify-center text-center text-3xl">
             <span>Información de la parada</span>
-            <svg-eye-closed v-if="showStopDetailsVariable" class="w-6 h-6 ml-2 mt-1" />
-            <svg-eye-opened v-else class="w-6 h-6 ml-2 mt-1" />
+            <svg-eye-closed v-if="showStopDetailsVariable" class="w-6 h-6 ml-2 mt-1"/>
+            <svg-eye-opened v-else class="w-6 h-6 ml-2 mt-1"/>
           </h2>
         </button>
       </div>
-
 
 
       <div v-if="showStopDetailsVariable " id="busStopInfo" class="mt-4">
@@ -62,8 +72,12 @@
               </li>
               <li class="flex justify-center py-4 border-t bg-gray-100 border-gray-300">
                 <span class="w-1/3 text-center text-3xl text-gray-700">{{ this.busStopInfo.stops[0].name }}</span>
-                <span class="w-1/3 text-center text-3xl text-gray-700">{{ this.busStopInfo.stops[0].postalAddress }}</span>
-                <span class="w-1/3 text-center text-3xl text-gray-700">{{ this.busStopInfo.stops[0].dataLine.length }}</span>
+                <span class="w-1/3 text-center text-3xl text-gray-700">{{
+                    this.busStopInfo.stops[0].postalAddress
+                  }}</span>
+                <span class="w-1/3 text-center text-3xl text-gray-700">{{
+                    this.busStopInfo.stops[0].dataLine.length
+                  }}</span>
               </li>
             </ul>
 
@@ -84,8 +98,12 @@
               <template v-for="stop in this.busStopInfo.stops[0].dataLine">
                 <li class="flex justify-center py-4 border-t bg-gray-100 border-gray-300">
                   <span class="w-1/4 text-center text-3xl text-gray-700">{{ stop.label }}</span>
-                  <span class="w-1/4 text-center text-3xl text-gray-700">{{ stop.direction === 'A' ? stop.headerA : stop.headerB }}</span>
-                  <span class="w-1/4 text-center text-3xl text-gray-700">{{ (parseInt(stop.maxFreq) + parseInt(stop.minFreq)) / 2 }} min</span>
+                  <span class="w-1/4 text-center text-3xl text-gray-700">{{
+                      stop.direction === 'A' ? stop.headerA : stop.headerB
+                    }}</span>
+                  <span class="w-1/4 text-center text-3xl text-gray-700">{{
+                      (parseInt(stop.maxFreq) + parseInt(stop.minFreq)) / 2
+                    }} min</span>
                   <span class="w-1/4 text-center text-3xl text-gray-700">{{ stop.startTime }} {{ stop.stopTime }}</span>
                 </li>
               </template>
@@ -96,27 +114,33 @@
       </div>
       <div class="p-5">
         <div class="flex justify-center items-center">
-        <h2 class="text-6xl text-gray-700 font-bold mb-3">Buses en camino</h2>
+          <h2 class="text-6xl text-gray-700 font-bold mb-3">Buses en camino</h2>
         </div>
         <div v-if="loggedIn">
           <div v-if="wantsToAdd">
-            <form @submit.prevent="addFavourite" class="flex items-center mb-25">
-              <input required type="text" ref="customName" placeholder="Nombre personalizado" class="w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border mx-5">
-              <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded ml-3">Anadir a favoritos</button>
+            <form class="flex flex-col items-center mb-25" @submit.prevent="addFavourite">
+              <input ref="customName"
+                     class="text-5xl w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border mx-5 mb-3"
+                     placeholder="Nombre personalizado" required
+                     type="text">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded text-5xl"
+                      type="submit">Anadir a
+                favoritos
+              </button>
             </form>
           </div>
 
+
           <div v-if="!wantsToAdd" class="flex items-center justify-center mb-5">
-            <svg-star-empty v-if="!isFavourite" @click="this.wantsToAdd=true" class="w-6 h-6 cursor-pointer" />
-            <svg-star-full v-else @click="this.askConfirm=true" class="w-6 h-6 cursor-pointer" />
-            <span class="ml-2">{{ isFavourite ? 'Parada agregada a favoritos' : 'Agregar a favoritos' }}</span>
+            <svg-star-empty v-if="!isFavourite" class="w-16 h-16 cursor-pointer" @click="this.wantsToAdd=true"/>
+            <svg-star-full v-else class="w-16 h-16 cursor-pointer" @click="this.askConfirm=true"/>
+            <span class="ml-2 text-5xl">{{ isFavourite ? 'Parada agregada a favoritos' : 'Agregar a favoritos' }}</span>
           </div>
         </div>
 
 
-
         <div class="flex justify-center items-center mt-5 overflow-x-auto">
-          <ul >
+          <ul>
             <li v-for="buses in dataArray['Arrive']" :key="buses" class="text-3xl mb-3 flex items-center ">
               <span class=" rounded-full pb-1.5  px-3 mr-5  bg-blue-500">{{ buses.line }}</span>
               <div>
@@ -128,19 +152,18 @@
         </div>
 
 
-
-
-
-
-      </div>
-
-      <div v-if="stopDoesntExist" class="flex justify-center items-center">
-        <h3 class="text-lg font-bold">La parada que ha introducido no existe</h3>
       </div>
 
     </div>
 
   </div>
+  <teleport to="body">
+    <div v-if="stopDoesntExist" class="flex justify-center items-center ">
+      <h3 class="text-6xl font-bold text-center text-red-600 p-8 bg-white shadow-lg rounded-lg">
+        La parada que ha introducido no existe
+      </h3>
+    </div>
+  </teleport>
 </template>
 
 <script>
@@ -171,9 +194,9 @@ export default {
       showErrorMessage: false,
       stopDoesntExist: false,
       isFavourite: null,
-      loggedIn:null,
-      wantsToAdd:false,
-      askConfirm:false
+      loggedIn: null,
+      wantsToAdd: false,
+      askConfirm: false
 
     }
   },
@@ -191,7 +214,7 @@ export default {
   methods: {
 
     async login() {
-      this.stopDoesntExist = false
+
       this.dataRecovered = false
       this.loading = true
       const url = 'https://openapi.emtmadrid.es/v1/mobilitylabs/user/login/';
@@ -209,6 +232,7 @@ export default {
         // handle the response data here
       } catch (error) {
         // handle any errors here
+        return false;
       }
     },
     async getBusesArrival() {
@@ -236,21 +260,26 @@ export default {
 
 
         if (this.dataArray.StopInfo.length > 0) {
+          console.log('entro en el if de si')
           const stopInfo = await axios.get(`https://openapi.emtmadrid.es/v1/transport/busemtmad/stops/${stopId}/detail/`, {headers: headers});
           this.busStopInfo = stopInfo.data.data[0]
           console.log(stopInfo.data.data[0])
           console.log(stopInfo.data.data[0].stops.length)
 
-          this.stopDoesntExist = false
+
           this.loading = false
           this.dataRecovered = true
           this.stopDoesntExist = false
           this.loading = false
           this.dataRecovered = true
+          return true
         } else {
+          console.log('entro en el if false')
           this.stopDoesntExist = true
+          console.log(this.stopDoesntExist)
           this.busCode = null
           this.$refs.busInput.focus()
+          return false
         }
 
         console.log(this.dataArray)
@@ -262,13 +291,20 @@ export default {
       }
     },
     async submitData() {
+      console.log(this.login())
       if (await this.login()) {
         await this.getBusesArrival();
         await this.checkIsFavourite();
-        await axios.post('/addOneGlobalVisit', {
-          'busCode': this.busCode
-        })
+
+        if (!this.stopDoesntExist) {
+          await axios.post('/addOneGlobalVisit', {
+            'busCode': this.busCode
+          })
+        }
+
       }
+      this.loading = false
+
     },
     async checkIsFavourite() {
 
@@ -276,17 +312,21 @@ export default {
         'busCode': this.busCode
       })
       console.log(response)
-      if(response.data.isFavourite=='notLoggedIn'){
-        this.loggedIn=false
-      }else{
-        this.loggedIn=true
+      console.log(response.data.isFavourite)
+      console.log(this.stopDoesntExist)
+      if (response.data.isFavourite==='notLoggedIn') {
+        this.loggedIn = false
+      } else {
+        this.loggedIn = true
         this.isFavourite = response.data.isFavourite
-        if(this.isFavourite){
+     console.log('estoy viendo si es fav '+this.isFavourite)
+        if (this.isFavourite) {
           await axios.post('/addOneVisit', {
             'busCode': this.busCode
           })
 
         }
+
       }
 
     },
@@ -305,22 +345,22 @@ export default {
 
       const response = await axios.post('/saveFavourite', {
         'busCode': this.busCode,
-        'stopName':this.busStopInfo.stops[0].name,
-        'buses':this.busStopInfo.stops[0].dataLine,
-        'customName':this.$refs.customName.value
+        'stopName': this.busStopInfo.stops[0].name,
+        'buses': this.busStopInfo.stops[0].dataLine,
+        'customName': this.$refs.customName.value
       })
-      this.wantsToAdd=false
+      this.wantsToAdd = false
       console.log(response)
       this.isFavourite = true
 
       console.log(this.wantsToAdd)
     },
-   async removeFavourite(){
+    async removeFavourite() {
 
       const response = await axios.post('/removeFavourite', {
         'busCode': this.busCode
       })
-     this.isFavourite = false
+      this.isFavourite = false
       console.log(response)
 
     }
@@ -328,7 +368,8 @@ export default {
   },
   components: {
     SvgBus,
-    ConfirmMessage, SvgStarFull, SvgStarEmpty, SvgStar, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed}
+    ConfirmMessage, SvgStarFull, SvgStarEmpty, SvgStar, ErrorMessage, SvgEyeOpened, SvgSearch, SvgEyeClosed
+  }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
-<the-header/>
+  <the-header class="hidden"></the-header>
   <admin-menu @change-tab="changeTab"/>
-  <div class="flex justify-center  ">
+  <div class="flex justify-center mt-8 md:mt-16 ">
     <component :is="selectedTab"/>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
   components: {TheHeader, AdminMenu,DeleteUsers,ModifyMetroPlans, ErrorMessage, DeletePrice,DeletePosts},
   data(){
     return{
-      selectedTab:null
+      selectedTab:'delete-users'
     }
   },
   methods:{

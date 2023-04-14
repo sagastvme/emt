@@ -1,6 +1,10 @@
 <template>
   <div class="bg-gray-100 w-full mx-14 rounded-lg">
-    <h2 class="text-7xl font-bold text-center py-8">Tus paradas favoritas</h2>
+    <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl">
+      <svg-star-full class="w-52 h-52"/> </h2>
+    <!-- <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl">
+      <svg-trophy class="w-52 h-52"/>
+      </h2>-->
     <div v-if="dataExists" class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
       <div class="overflow-x-auto">
         <table class="table-auto border-collapse  w-full">
@@ -15,10 +19,10 @@
           <tbody class="">
           <tr v-for="stop in stopsArray" :key="stop.stopId">
             <teleport v-if="askConfirm" to="body">
-              <confirm-message :message="'Estás seguro de que quieres borrar la parada ' +confirmStopId"
+              <confirm-message class="text-3xl" :message="'Estás seguro de que quieres borrar la parada ' +confirmStopId"
                                @close-error="this.askConfirm=false">
-                <button @click="deleteStop(confirmStopId)" class="bg-red-500 text-white font-bold py-1 px-3 rounded hover:bg-red-600 transition-colors duration-300">SI</button>
-                <button class="bg-gray-300 text-gray-700 font-bold py-1 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300" @click="this.askConfirm=false">NO</button>
+                <button @click="deleteStop(confirmStopId)" class=" text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600 transition-colors duration-300">SI</button>
+                <button class=" bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300" @click="this.askConfirm=false">NO</button>
               </confirm-message>
             </teleport>
             <td class="border px-3 py-2 text-center text-3xl">{{ stop.stopId }}</td>
@@ -41,7 +45,7 @@
         </table>
       </div>
     </div>
-    <div v-else class="text-center py-8">
+    <div v-else class="text-center text-5xl py-8">
       <p>Aun no tienes paradas favoritas</p>
     </div>
   </div>
@@ -52,9 +56,10 @@
 import axios from "axios";
 import SvgDelete from "../SvgIcons/SvgDelete.vue";
 import ConfirmMessage from "../Messages/ConfirmMessage.vue";
+import SvgStarFull from "../SvgIcons/SvgStarFull.vue";
 
 export default {
-  components: {ConfirmMessage, SvgDelete},
+  components: {SvgStarFull, ConfirmMessage, SvgDelete},
   data() {
     return {
       dataExists: null,

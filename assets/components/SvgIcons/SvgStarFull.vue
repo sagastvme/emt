@@ -1,12 +1,11 @@
 <template>
-  <svg width="32px" height="32px" viewBox="0 -30 1235 1235" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M0 449h1235l-999 726L618 0l382 1175L0 449z" fill="#e4c31b"></path></g></svg>
+  <svg width="32px" height="32px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#030303" stroke-width="1.92"><path d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" fill="#ffce31"></path></g><g id="SVGRepo_iconCarrier"><path d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" fill="#ffce31"></path></g></svg>
 </template>
-
-<script>
-export default {
-  name: "SvgStarFull"
-}
-</script>
+  <script>
+    export default {
+      name: "SvgStarFull"
+    }
+  </script>
 
 <style scoped>
 
