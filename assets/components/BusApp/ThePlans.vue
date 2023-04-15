@@ -1,12 +1,12 @@
 <template>
   <div v-if="plans" class="w-full h-full">
-    <h2 class="flex justify-center items-center mr-3 mb-12 text-gray-700 font-bold text-3xl">
+    <h2 class="lg:hidden mt-8 flex justify-center items-center mr-3 mb-12 text-gray-700 font-bold text-3xl">
       <svg-map class="w-52 h-52"/> </h2>
-    <ul class="w-full">
+    <ul class="lg:flex lg:flex-row lg:flex-wrap lg:justify-center lg:flex-row w-full">
       <li v-for="(plan, index) in plans" :key="index" class="m-4">
         <div class="  flex flex-col justify-center items-center ">
-          <h3 class="text-4xl font-bold my-4 uppercase">{{index }}</h3>
-          <img @click="viewImage(plan)" :src="plan" class="h-96 object-contain mb-4">
+          <h3 class="text-5xl font-bold my-6 uppercase lg:text-xl">{{index }}</h3>
+          <img @click="viewImage(plan)" :src="plan" class="lg:h-96  h-full object-contain mb-4">
 
         </div>
       </li>

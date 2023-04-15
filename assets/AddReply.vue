@@ -1,7 +1,7 @@
 <template>
 
-  <div class="max-w-2xl mx-auto  rounded-lg shadow-lg">
-    <h1 class="text-3xl font-bold text-center py-4 text-white "> {{ this.post.title }}
+  <div class="max-w-2xl mx-auto  rounded-lg ">
+    <h1 class="text-3xl font-bold text-center py-4  "> {{ this.post.title }}
       <div v-if="this.post.loggedIn">
         <div v-if="this.isFavourite===null">
           <button @click="addToFavourites">
@@ -87,11 +87,11 @@
     </div>
 
 
-    <form v-if="this.post.loggedIn" class="px-6 py-4 bg-gray-100 rounded-md mt-6" @submit.prevent="addReply">
+    <form v-if="this.post.loggedIn" class="px-6 py-4 bg-gray-100 rounded-md my-6" @submit.prevent="addReply">
       <label class="font-bold mb-2 block" for="body">Escribe una respuesta:</label>
       <textarea id="body" ref="body" class="border border-gray-400 rounded-md py-2 px-3 w-full mb-4" required
                 rows="4"></textarea>
-      <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-full cursor-pointer"
+      <label class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-md mr-3 cursor-pointer"
              for="picture">
         Anadir imagenes a tu publicacion
       </label>

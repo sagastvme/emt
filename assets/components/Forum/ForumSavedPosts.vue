@@ -1,30 +1,31 @@
 <template>
-  <h3 v-if="posts.length==0 && dataRecovered"  class="text-6xl font-bold text-center p-8 bg-white shadow-lg rounded-lg">
+  <h3 v-if="posts.length==0 && dataRecovered"  class=" lg:text-xl text-6xl font-bold text-center p-8 bg-white shadow-lg rounded-lg">
     No se hay publicaciones guardadas
   </h3>
   <div v-else-if="dataRecovered">
-  <h2 class="bg-[#616163] text-white text-3xl font-bold text-center py-8 text-6xl" >Tus posts favoritos</h2>
-  <table class="table-auto border-collapse border border-gray-500 w-full text-4xl" >
-    <thead>
+  <h2 class="bg-[#616163] text-white text-3xl font-bold text-center py-8 text-6xl lg:text-xl lg:hidden" >Tus posts favoritos</h2>
+  <table class="table-auto border-collapse border border-gray-500 w-full text-4xl lg:text-xl" >
+    <thead class="bg-[#616163] text-white">
     <tr >
-      <th class="px-3 py-2 text-center hidden">Enlace</th>
-      <th class="px-3 py-2 text-center hidden">Publicaciones guardadas</th>
-      <th class="px-3 py-2 text-center hidden">Usuario</th>
-      <th class="px-3 py-2 text-center hidden">Categoria</th>
+      <th class="px-3 py-2 text-center hidden lg:table-cell">Enlace</th>
+
+      <th class="px-3 py-2 text-center hidden lg:table-cell">Usuario</th>
+      <th class="px-3 py-2 text-center hidden lg:table-cell">Categoria</th>
+      <th></th>
     </tr>
     </thead>
     <tbody class="divide-y divide-gray-200">
     <tr v-for="post in posts" :key="post.postId">
 
-      <td class="border px-3 py-2 bg-gray-300  ">
+      <td class=" px-3 py-2 bg-gray-300  ">
 
         <a  :href="'/read/'+post.category+'/'+post.title+'/'+post.postId" >{{post.title}}</a>
       </td>
-      <td class="border px-3 py-2 hidden">{{post.username}}</td>
-      <td class="border px-3 py-2 hidden lg:block">{{post.category}}</td>
-      <td class="border px-3 py-2 bg-gray-300 ">
-        <button @click="deletePost(post)" class="inline-flex items-center px-3 py-2 border border-transparent rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-          Quitar de favs
+      <td class=" px-3 py-2 hidden lg:table-cell bg-gray-300">{{post.username}}</td>
+      <td class=" px-3 py-2 hidden lg:table-cell bg-gray-300">{{post.category}}</td>
+      <td class=" px-3 py-2 bg-gray-300  ">
+        <button @click="deletePost(post)" class="inline-flex items-center px-3 py-2 rounded-md text-white bg-red-600 hover:bg-red-700 ">
+          Quitar
         </button>
       </td>
     </tr>
@@ -34,8 +35,10 @@
 
   <confirm-message v-if="deletedPost!==null" :message="'Estás seguro de que quieres borrar la publicacion ' +deletedPost"
                    @close-error="this.deletedPost=null">
-    <button class=" text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600 transition-colors duration-300" @click="deleteUserCommit">SI</button>
-    <button class=" bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300" @click="this.deletedPost=null">NO</button>
+    <button   class="lg:text-xl text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600
+                        transition-colors duration-300" @click="deleteUserCommit">SI</button>
+    <button class="lg:text-xl bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2
+                 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300" @click="this.deletedPost=null">NO</button>
   </confirm-message>
 </template>
 

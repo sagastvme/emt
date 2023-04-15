@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-center items-center py-6 ">
-    <form class="shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4  mx-auto px-3  w-full text-6xl"
+    <form class="shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4  mx-auto px-3  w-full text-6xl lg:text-xl"
           @submit.prevent="newPost">
       <div class="mb-4">
          <input id="title" ref="title"
@@ -12,22 +12,22 @@
         <textarea id="body" ref="body"
          placeholder="Cuerpo"         class="bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                   cols="30" name="body" required rows="10"></textarea>
-        <div class="my-14 flex items-center justify-center">
+        <div class="my-14 flex items-center justify-center lg:my-4">
         <label class="bg-blue-500 text-white px-3 py-2 rounded-md" for="picture">
-          Anadir imagenes a tu publicacion
+          Anadir imagenes
         </label>
         <input id="picture" ref="newPicture" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden"
                multiple="true" name="images[]" type="file" @change="print">
       </div>
       </div>
       <div class="mb-4">
-        <label class="text-5xl text-center block text-white font-bold mb-2" for="category">Categoría</label>
+        <label class="text-5xl text-center block  font-bold mb-2 lg:text-xl" for="category">Categoría</label>
         <select id="category" ref="selectedCategory"
-                class="text-4xl bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
+                class="lg:text-xl text-4xl bg-white bg-opacity-70 shadow border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                 name="category"
                 required>
 
-          <option class="text-sm mx-auto" v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+          <option class="lg:text-xl text-sm mx-auto" v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
       </div>
       <div class="flex items-center justify-center">

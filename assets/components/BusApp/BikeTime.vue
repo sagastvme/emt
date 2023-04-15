@@ -1,16 +1,16 @@
 <template>
 
-  <div class="grid-cols-3">
-    <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl">
+  <div class="grid-cols-3 lg:text-xl lg:w-3/4">
+    <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl lg:hidden">
      <svg-bike class="w-52 h-52"/>
     </h2>
-    <form  @submit.prevent="submitData" class="select-none max-w-xl mx-auto my-8">
+    <form  @submit.prevent="submitData" class="select-none max-w-xl mx-auto my-8 lg:mb-0">
       <div class="flex flex-col items-center ">
         <div class="flex  items-center justify-center w-full ml-8 ">
           <input id="bus" ref="busInput" v-model.number="bikeCode"
-                 class="  h-24 text-5xl  place w-full h-18 border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border "     placeholder="Codigo de la parada"  required type="number">
+                 class="lg:text-xl lg:h-14  h-24 text-5xl  place w-full h-18 border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border "     placeholder="Codigo de la parada"  required type="number">
           <button v-if="!isBusCodeNegative"  class="flex items-center px-3 h-full bg-transparent rounded-r-md">
-            <svg-search v-if="!loading" class="w-14 h-14 text-gray-400 "/>
+            <svg-search v-if="!loading" class="lg:w-8 lg:h-8 w-14 h-14 text-gray-400 "/>
           </button>
         </div>
 
@@ -21,7 +21,7 @@
 
           <div class="parent mt-4 h-50 w-50">
             <div v-if="loading" >
-              <svg class="animate-spin mt-20 -ml-1 mr-3 h-20 w-20 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg class="animate-spin mt-20 -ml-1 mr-3 h-20 w-20 text-white lg:h-10 lg:w-10 lg:mt-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-75" cx="12" cy="12" r="10" stroke="black" stroke-width="3"></circle>
                 <path class="opacity-25" fill="black" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
               </svg>
@@ -30,39 +30,39 @@
         </div>
       </div>
     </form>
-    <div v-if="dataRecovered && !stopDoesntExist" class="mt-14 " >
+    <div v-if="dataRecovered && !stopDoesntExist" class="mt-14 lg:mt-4 " >
 
-      <div class="flex justify-center items-center ">
-        <ul class="space-y-8">
-          <li class="text-4xl mb-5 flex items-center">
+      <div class="flex justify-center items-center lg:w-full ">
+        <ul class="space-y-8 lg:space-y-3">
+          <li class="text-4xl lg:text-xl mb-5 flex items-center lg:mb-0">
             <span class="font-bold mr-5">Direccion:</span>
             <span>{{ dataArray.address }}</span>
           </li>
-          <li class="text-4xl mb-5 flex items-center">
+          <li class="text-4xl lg:text-xl mb-5 flex items-center lg:mb-0">
             <span class="font-bold mr-5">Nombre:</span>
             <span>{{ dataArray.name }}</span>
           </li>
-          <li class="text-4xl mb-5 flex items-center">
+          <li class="text-4xl lg:text-xl mb-5 flex items-center lg:mb-0">
             <span class="font-bold mr-5">Numero de reservas:</span>
             <span>{{ dataArray.reservations_count }}</span>
           </li>
-          <li class="text-4xl mb-5 flex items-center">
+          <li class="text-4xl lg:text-xl mb-5 flex items-center lg:mb-0">
             <span class="font-bold mr-5">Ocupacion:</span>
             <span>{{ this.stopStatus }}</span>
           </li>
-          <li class="text-4xl mb-5 flex items-center">
+          <li class="text-4xl lg:text-xl mb-5 flex items-center lg:mb-0">
             <span class="font-bold mr-5">Bases:</span>
             <span>{{ dataArray.total_bases }}</span>
           </li>
-          <li class="text-4xl mb-5 flex items-center">
+          <li class="text-4xl lg:text-xl mb-5 flex items-center lg:mb-0">
             <span class="font-bold mr-5">Bicicletas disponibles:</span>
             <span>{{ dataArray.dock_bikes }}</span>
           </li>
-          <li class="text-4xl mb-5 flex items-center">
+          <li class="text-4xl lg:text-xl mb-5 flex items-center lg:mb-0">
             <span class="font-bold mr-5">Dockers libres:</span>
             <span>{{ dataArray.free_bases }}</span>
           </li>
-          <li class="text-4xl mb-5 flex items-center">
+          <li class="text-4xl lg:text-xl mb-5 flex items-center lg:mb-0">
             <span class="font-bold mr-5">Dockers reservados:</span>
             <span>{{ dataArray.reservations_count }}</span>
           </li>
@@ -78,7 +78,7 @@
 
     </div>
     <div v-if="stopDoesntExist" class="flex justify-center items-center ">
-      <h3 class="text-6xl font-bold text-center text-red-600 p-8 bg-white shadow-lg rounded-lg">
+      <h3 class="text-6xl font-bold text-center text-red-600 p-8 bg-white shadow-lg rounded-lg lg:text-xl">
         La parada que ha introducido no existe
       </h3>
     </div>
