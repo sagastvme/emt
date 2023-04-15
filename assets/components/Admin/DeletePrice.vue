@@ -1,6 +1,8 @@
 <template>
-  <div class="text-4xl">
-  <form @submit.prevent="searchPlan" class="mx-8">
+  <div class="text-4xl lg:text-xl">
+    <h1 class="text-6xl font-bold mb-8 flex justify-center lg:hidden">Actualizar tarifas</h1>
+
+    <form @submit.prevent="searchPlan" class="mx-8">
     <h2 class=" font-bold mb-4">Buscar</h2>
     <div class="flex items-center py-2 ">
       <input ref="searchedPlan"  required type="text" class="w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
@@ -26,7 +28,7 @@
             type="submit">Añadir tarifa</button>
   </form>
 
-  <table v-if="searchedPlan==null" class="text-4xl  mt-4">
+  <table v-if="searchedPlan==null" class="text-4xl  mt-4 lg:text-xl">
     <thead>
     <tr class="bg-gray-200">
       <th class="px-3 py-2">Título</th>
@@ -34,7 +36,7 @@
       <th class="px-3 py-2">Acción</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="bg-gray-300">
     <tr v-for="plan in plans" :key="plan.id" :class="{ focused: plan.title === searchedPlan }">
       <td class="border px-3 py-2">{{ plan.title }}</td>
       <td class="border px-3 py-2">{{ plan.price }}</td>
@@ -47,17 +49,17 @@
   </table>
 
 
-<div v-else class="text-4xl">
+<div v-else class="text-4xl lg:text-xl">
   <button class="bg-red-300 px-3 py-2 my-4 rounded-md" @click="this.searchedPlan=null">Ir atras</button>
   <table  class="table-auto w-full">
-    <thead>
+    <thead class="bg-gray-200">
     <tr>
       <th class="px-3 py-2">Titulo</th>
       <th class="px-3 py-2">Precio</th>
       <th class="px-3 py-2">Acciones</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="bg-gray-300">
     <tr v-for="results in searchedPlan" :key="results.id" :class="{ 'bg-gray-100': results.title === searchedPlan }">
       <td class="border px-3 py-2">{{ results.title }}</td>
       <td class="border px-3 py-2">{{ results.price }}</td>
@@ -73,8 +75,12 @@
   <teleport v-if="deletedPlan!==null" to="body">
     <confirm-message :message="'Estás seguro de que quieres borrar la tarifa ' +deletedPlan"
                      @close-error="this.deletedPlan=null">
-      <button class=" text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600 transition-colors duration-300" @click="deleteUserCommit">SI</button>
-      <button class=" bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300" @click="this.deletedPlan=null">NO</button>
+      <button class="lg:text-xl text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600
+                        transition-colors duration-300" @click="deleteUserCommit">SI</button>
+      <button class="lg:text-xl bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2
+                 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300"
+
+              @click="this.deletedPlan=null">NO</button>
     </confirm-message>
 
 
@@ -88,8 +94,12 @@
   <teleport v-if="newPlanTitle!==null" to="body">
     <confirm-message :message="'Esta seguro de que quiere crear una nueva tarifa '+this.$refs.newPlanTitle.value"
                      @close-error="this.newPlanTitle=null">
-      <button @click="addPriceCommit">SI</button>
-      <button class="ml-8" @click="this.newPlanTitle=null">NO</button>
+      <button class="lg:text-xl text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600
+                        transition-colors duration-300" @click="addPriceCommit">SI</button>
+      <button class="lg:text-xl bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2
+                 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300"
+
+              @click="this.newPlanTitle=null">NO</button>
     </confirm-message>
   </teleport>
   </div>

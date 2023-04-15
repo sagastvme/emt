@@ -20,20 +20,20 @@
       <div class="px-10 py-10 shadow-lg ">
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
-            @click="changeTab('delete-users')">Borrar usuarios
+            @click="changeTab('delete-users')">Borrar usuarios <svg-admin-delete class="ml-2 mt-4 h-16 w-16"/>
         </button>
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
-            @click="changeTab('modify-metro-plans')">Manejar planos de metro
+            @click="changeTab('modify-metro-plans')">Manejar planos <svg-admin-manage class="ml-2 mt-4 h-16 w-16"/>
         </button>
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
-            @click="changeTab('delete-price')">Actualizar tarifas
+            @click="changeTab('delete-price')">Actualizar tarifas  <svg-price class="ml-2 mt-4 h-16 w-16"/>
         </button>
 
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
-            @click="changeTab('delete-posts')">Borrar posts
+            @click="changeTab('delete-posts')">Borrar posts <svg-menu-user class="ml-2 mt-4 h-16 w-16"/>
         </button>
         <a   class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
              href="/logout">Cerrar
@@ -58,7 +58,7 @@
             @click="changeTabMobile('delete-users')"
         >
           <span class="pr-3">Borrar usuarios</span>
-          <svg-admin-delete class="h-16 w-16 mx-auto"/>
+          <svg-admin-delete class=" h-10 w-10 mx-auto"/>
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('modify-metro-plans'), 'bg-[#1d70a2]': !isTabActive('modify-metro-plans') }"
@@ -66,19 +66,34 @@
             @click="changeTabMobile('modify-metro-plans')"
         >
           <span class="pr-3">Manejar planos</span>
-        <svg-admin-manage class="h-16 w-16 mx-auto"/>
+        <svg-admin-manage class= "h-10 w-10 mx-auto"/>
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('delete-price'), 'bg-[#1d70a2]': !isTabActive('delete-price') }"
-            class="text-4xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class="text-3xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2  transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('delete-price')"
         >
           <span class="pr-3">Actualizar tarifas</span>
-          <svg-price class="h-16 w-16 mx-auto"/>
+          <svg-price class=" h-10 w-10 mx-auto mt-1"/>
         </button>
-        <a href="/logout" class="bg-[#1d70a2] text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-1 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center">
-          <span class="mx-auto">Salir</span>
-          <svg-logout class="mt-6 h-12 w-12 mx-auto" />
+
+
+        <button
+            :class="{ 'bg-[#173753]': isTabActive('delete-posts'), 'bg-[#1d70a2]': !isTabActive('delete-posts') }"
+            class="text-4xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            @click="changeTabMobile('delete-posts')">
+          <span class="pr-3">Borrar posts</span>
+          <svg-menu-user class=" h-10 w-10 mx-auto"/>
+        </button>
+
+
+        <a href="/logout"
+
+
+           class="bg-[#1d70a2] text-center text-4xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+        >
+          <span class="pr-3 ">Cerrar sesion</span>
+          <svg-logout class=" h-10 w-10 mx-auto " />
         </a>
       </div>
 
@@ -95,10 +110,11 @@ import TheHeader from "../BusApp/TheHeader.vue";
 import SvgAdminDelete from "../SvgIcons/SvgAdminDelete.vue";
 import SvgAdminManage from "../SvgIcons/SvgAdminManage.vue";
 import SvgPrice from "../SvgIcons/SvgPrice.vue";
+import SvgMenuUser from "../SvgIcons/SvgMenuUser.vue";
 
 export default {
   name: "AdminMenu",
-  components: {SvgPrice, SvgAdminManage, SvgAdminDelete, TheHeader, SvgLogout},
+  components: {SvgMenuUser, SvgPrice, SvgAdminManage, SvgAdminDelete, TheHeader, SvgLogout},
   methods: {
     changeTab(tab) {
       this.showMobileMenu = !this.showMobileMenu
