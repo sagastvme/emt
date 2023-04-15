@@ -1,45 +1,33 @@
 <template>
-  <div class="flex flex-col items-center justify-center ">
-    <h2 class="flex justify-center items-center mt-5"> <svg-login class="w-52 h-52"/> </h2>
+  <div class="flex flex-col items-center justify-center lg:w-3/6">
+    <h2 class="flex justify-center items-center mt-5 lg:hidden"> <svg-login class="w-52 h-52 "/> </h2>
 
 
-    <div v-if="!forgotPassword" class="mt-8 shadow-lg rounded-lg p-4 bg-white h-full text-4xl">
-   <!--   <form action="/home" class="grid grid-cols-1 gap-14" method="post">
-        <label class="flex items-center text-gray-700 font-bold hidden" for="_username">Email</label>
-        <input id="_username" v-model="username" class="border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500" name="_username" type="text">
-        <label class="hidden flex items-center text-gray-700 font-bold" ref="password" htmlFor="_password">Password</label>
-        <input id="_password" v-model="password" :type="showPassword ? 'text' : 'password'"
-               class="border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500"
-               name="_password">
-        <label class="flex hidden items-center text-gray-700 font-bold" for="remember">Remember Me</label>
-        <input id="remember" v-model="rememberMe" type="checkbox" class="form-checkbox border-gray-300 rounded focus:outline-none focus:border-blue-500">
-        <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded hover:cursor-pointer col-span-2"
-               type="submit" value="Iniciar sesión" @click="remember">
-      </form>-->
+    <div v-if="!forgotPassword" class="mt-8 shadow-lg rounded-lg p-4 bg-white h-full text-4xl lg:text-xl lg:mt-14 lg:w-full">
 
-      <form action="/home" class="flex flex-col gap-8" method="post">
-       <input placeholder="Correo electrónico" id="_username" v-model="username" class=" h-24 border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500 mb-4" name="_username" type="text">
+      <form action="/home" class="flex flex-col gap-8  lg:gap-0" method="post">
+       <input placeholder="Correo electrónico" id="_username" v-model="username" class="lg:h-14 lg:w-full h-24 border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500 mb-4" name="_username" type="text">
 
       <input id="_password" v-model="password" type="password"
-          placeholder="Contraseña"     class="h-24 border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500 mb-4"
+          placeholder="Contraseña"     class="h-24 lg:h-14 border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500 mb-4"
                name="_password">
 
-        <div class="flex items-center">
+        <div class="flex items-center lg:mb-4">
           <label class="ml-2 text-gray-700 font-bold" for="remember">Recuérdame</label>
-          <input id="remember" v-model="rememberMe" type="checkbox" class="mt-1.5 w-7 h-24 text-2xl font form-checkbox border-gray-300 rounded focus:outline-none focus:border-blue-500 ml-2">
+          <input id="remember" v-model="rememberMe" type="checkbox" class="lg:h-4 lg:w-4 mt-1.5 w-7 h-24 text-2xl font form-checkbox border-gray-300 rounded focus:outline-none focus:border-blue-500 ml-2">
 
         </div>
 
-        <input class="h-24 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded hover:cursor-pointer"
+        <input class="lg:h-14 h-24 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded hover:cursor-pointer"
                type="submit" value="Iniciar sesión" @click="remember">
       </form>
 
 
-      <button class="h-24 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mt-3"
+      <button class="lg:h-14 h-24 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mt-3 lg:w-full"
               @click="forgotPassword=true">¿Olvidaste tu contraseña?</button>
     </div>
 
-    <div v-else class="mt-8 shadow-lg rounded-lg p-4 bg-white h-full text-4xl">
+    <div v-else class="mt-8 shadow-lg rounded-lg p-4 bg-white h-full text-4xl lg:mt-14 lg:w-full lg:text-xl">
       <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded mb-5"
               @click="forgotPassword=false">Cancelar</button>
       <form @submit.prevent="sendForgotPassword" class="mt-3">
@@ -47,7 +35,7 @@
               placeholder="Correo electrónico" class=" border border-gray-300 py-2 px-3 rounded focus:outline-none focus:border-blue-500 w-full mb-5  h-16">
 
        <div class="flex justify-center">
-          <button v-if="!emailSending" class="h-24 mb-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mt-3"
+          <button v-if="!emailSending" class="lg:h-14 h-24 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded hover:cursor-pointer"
                   @click="sendForgotPassword">
             Enviar correo de confirmación
           </button>

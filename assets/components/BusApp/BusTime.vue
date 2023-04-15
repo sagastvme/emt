@@ -1,20 +1,20 @@
 <template>
-  <div class="grid-cols-3">
-    <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl">
+  <div class="grid-cols-3 lg:text-xl lg:w-3/4">
+    <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl lg:hidden">
       <!--   <span class="text-center text-7xl">Consulta tu parada de autobus</span>-->
       <svg-bus class="w-52 h-52"/>
     </h2>
 
-    <form class="select-none max-w-xl mx-auto my-8" @submit.prevent="submitData">
+    <form class="select-none max-w-xl mx-auto my-8 lg:mb-0" @submit.prevent="submitData">
       <div class="flex flex-col items-center ">
 
         <div class="flex  items-center justify-center w-full ml-8 ">
           <input id="bus" ref="busInput" v-model.number="busCode"
-                 class="  h-24 text-5xl  place w-full h-18 border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border "
+                 class="lg:text-xl lg:h-14  h-24 text-5xl  place w-full h-18 border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border "
                  placeholder="Codigo de la parada"
                  required type="number">
           <button v-if="!isBusCodeNegative" class="flex items-center px-3 h-full bg-transparent rounded-r-md">
-            <svg-search v-if="!loading" class="w-14 h-14 text-gray-400 "/>
+            <svg-search v-if="!loading" class="lg:w-8 lg:h-8 w-14 h-14 text-gray-400 "/>
           </button>
 
 
@@ -22,11 +22,11 @@
             <confirm-message v-if="this.askConfirm"
                              :message="'Estás seguro de que quieres borrar la parada ' +this.busCode"
                              @close-error="this.askConfirm=false">
-              <button class=" text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-600 transition-colors duration-300" @click="removeFavourite">
+              <button class="lg:text-xl text-center text-4xl bg-red-500 text-white font-bold py-2 px-3 ml-4  rounded hover:bg-red-600 transition-colors duration-300" @click="removeFavourite">
                 SI
               </button>
               <button
-                  class=" bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300"  @click="this.askConfirm=false">NO
+                  class="lg:text-xl bg-gray-300 text-gray-700 font-bold text-4xl text-center py-2 px-3 ml-4 rounded hover:bg-gray-400 transition-colors duration-300"  @click="this.askConfirm=false">NO
               </button>
             </confirm-message>
             <error-message v-else v-if="showErrorMessage"
@@ -37,7 +37,7 @@
         </div>
         <div class="parent mt-4 h-50 w-50">
           <div v-if="loading">
-            <svg class="animate-spin mt-20 -ml-1 mr-3 h-20 w-20 text-white" fill="none"
+            <svg class="animate-spin mt-20 -ml-1 mr-3 h-20 w-20 text-white lg:h-10 lg:w-10 lg:mt-12" fill="none"
                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <circle class="opacity-75" cx="12" cy="12" r="10" stroke="black" stroke-width="3"></circle>
               <path class="opacity-25" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" fill="black"></path>
@@ -51,10 +51,10 @@
     <div v-if="dataRecovered && !stopDoesntExist">
       <div class="flex items-center justify-center">
         <button class="bg-white  rounded-md px-3 py-2 flex " @click="showStopDetails">
-          <h2 class="flex items-center justify-center text-center text-3xl">
-            <span>Información de la parada</span>
-            <svg-eye-closed v-if="showStopDetailsVariable" class="w-6 h-6 ml-2 mt-1"/>
-            <svg-eye-opened v-else class="w-6 h-6 ml-2 mt-1"/>
+          <h2 class="flex items-center justify-center text-center text-3xl lg:text-sm">
+            <span class="lg:text-sm lg:mt-0">Información de la parada</span>
+            <svg-eye-closed v-if="showStopDetailsVariable" class="w-6 h-6 ml-2 mt-1 lg:w-4 lg:w-4"/>
+            <svg-eye-opened v-else class="w-6 h-6 ml-2 mt-1 lg:w-4 lg:w-4"/>
           </h2>
         </button>
       </div>
@@ -66,16 +66,16 @@
 
             <ul class="border border-gray-300 divide-y divide-gray-300 rounded">
               <li class="flex justify-center py-4 bg-gray-100">
-                <span class="w-1/3 text-center text-3xl font-semibold text-gray-700">Nombre</span>
-                <span class="w-1/3 text-center text-3xl font-semibold text-gray-700">Direccion</span>
-                <span class="w-1/3 text-center text-3xl font-semibold text-gray-700">Numero de lineas</span>
+                <span class="w-1/3 text-center text-3xl font-semibold text-gray-700 lg:text-sm">Nombre</span>
+                <span class="w-1/3 text-center text-3xl font-semibold text-gray-700 lg:text-sm">Direccion</span>
+                <span class="w-1/3 text-center text-3xl font-semibold text-gray-700 lg:text-sm">Numero de lineas</span>
               </li>
               <li class="flex justify-center py-4 border-t bg-gray-100 border-gray-300">
-                <span class="w-1/3 text-center text-3xl text-gray-700">{{ this.busStopInfo.stops[0].name }}</span>
-                <span class="w-1/3 text-center text-3xl text-gray-700">{{
+                <span class="w-1/3 text-center text-3xl text-gray-700 lg:text-sm">{{ this.busStopInfo.stops[0].name }}</span>
+                <span class="w-1/3 text-center text-3xl text-gray-700 lg:text-sm">{{
                     this.busStopInfo.stops[0].postalAddress
                   }}</span>
-                <span class="w-1/3 text-center text-3xl text-gray-700">{{
+                <span class="w-1/3 text-center text-3xl text-gray-700 lg:text-sm">{{
                     this.busStopInfo.stops[0].dataLine.length
                   }}</span>
               </li>
@@ -90,21 +90,21 @@
           <div class="overflow-x-auto ">
             <ul class="border border-gray-300 divide-y divide-gray-300 w-full ">
               <li class="flex justify-center py-4 bg-gray-100">
-                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700">Lineas</span>
-                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700">Direccion</span>
-                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700">Pasa cada</span>
-                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700">Horario</span>
+                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700 lg:text-sm">Lineas</span>
+                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700 lg:text-sm">Direccion</span>
+                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700 lg:text-sm">Pasa cada</span>
+                <span class="w-1/4 text-center text-3xl font-semibold text-gray-700 lg:text-sm">Horario</span>
               </li>
               <template v-for="stop in this.busStopInfo.stops[0].dataLine">
                 <li class="flex justify-center py-4 border-t bg-gray-100 border-gray-300">
-                  <span class="w-1/4 text-center text-3xl text-gray-700">{{ stop.label }}</span>
-                  <span class="w-1/4 text-center text-3xl text-gray-700">{{
+                  <span class="w-1/4 text-center text-3xl text-gray-700 lg:text-sm">{{ stop.label }}</span>
+                  <span class="w-1/4 text-center text-3xl text-gray-700 lg:text-sm">{{
                       stop.direction === 'A' ? stop.headerA : stop.headerB
                     }}</span>
-                  <span class="w-1/4 text-center text-3xl text-gray-700">{{
+                  <span class="w-1/4 text-center text-3xl text-gray-700 lg:text-sm">{{
                       (parseInt(stop.maxFreq) + parseInt(stop.minFreq)) / 2
                     }} min</span>
-                  <span class="w-1/4 text-center text-3xl text-gray-700">{{ stop.startTime }} {{ stop.stopTime }}</span>
+                  <span class="w-1/4 text-center text-3xl text-gray-700 lg:text-sm">{{ stop.startTime }} {{ stop.stopTime }}</span>
                 </li>
               </template>
             </ul>
@@ -114,16 +114,16 @@
       </div>
       <div class="p-5">
         <div class="flex justify-center items-center">
-          <h2 class="text-6xl text-gray-700 font-bold mb-3">Buses en camino</h2>
+          <h2 class="text-6xl text-gray-700 font-bold mb-3 lg:text-2xl">Buses en camino</h2>
         </div>
         <div v-if="loggedIn">
           <div v-if="wantsToAdd">
             <form class="flex flex-col items-center mb-25" @submit.prevent="addFavourite">
               <input ref="customName"
-                     class="text-5xl w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border mx-5 mb-3"
+                     class="lg:text-xl text-5xl w-full border-2 border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 box-border mx-5 mb-3"
                      placeholder="Nombre personalizado" required
                      type="text">
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded text-5xl"
+              <button class="lg:text-xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded text-5xl "
                       type="submit">Anadir a
                 favoritos
               </button>
@@ -132,17 +132,17 @@
 
 
           <div v-if="!wantsToAdd" class="flex items-center justify-center mb-5">
-            <svg-star-empty v-if="!isFavourite" class="w-16 h-16 cursor-pointer" @click="this.wantsToAdd=true"/>
-            <svg-star-full v-else class="w-16 h-16 cursor-pointer" @click="this.askConfirm=true"/>
-            <span class="ml-2 text-5xl">{{ isFavourite ? 'Parada agregada a favoritos' : 'Agregar a favoritos' }}</span>
+            <svg-star-empty v-if="!isFavourite" class="lg:w-8 lg:h-8 w-16 h-16 cursor-pointer" @click="this.wantsToAdd=true"/>
+            <svg-star-full v-else class= "lg:w-8 lg:h-8 w-16 h-16 cursor-pointer" @click="this.askConfirm=true"/>
+            <span class="ml-2 text-5xl lg:text-xl">{{ isFavourite ? 'Parada agregada a favoritos' : 'Agregar a favoritos' }}</span>
           </div>
         </div>
 
 
         <div class="flex justify-center items-center mt-5 overflow-x-auto">
-          <ul>
-            <li v-for="buses in dataArray['Arrive']" :key="buses" class="text-3xl mb-3 flex items-center ">
-              <span class=" rounded-full pb-1.5  px-3 mr-5  bg-blue-500">{{ buses.line }}</span>
+          <ul class="flex flex-row flex-wrap justify-center lg:flex-row">
+            <li v-for="buses in dataArray['Arrive']" :key="buses" class="text-3xl mb-3 flex items-center lg:text-xl ">
+              <span class=" rounded-full pb-1.5  px-3 mr-5  bg-blue-500 text-white">{{ buses.line }}</span>
               <div>
                 <div>{{ buses.destination }}</div>
                 <div class="mr-5">Tiempo estimado: {{ displayArrivingTime(buses.estimateArrive) }}</div>
@@ -158,8 +158,8 @@
 
   </div>
   <teleport to="body">
-    <div v-if="stopDoesntExist" class="flex justify-center items-center ">
-      <h3 class="text-6xl font-bold text-center text-red-600 p-8 bg-white shadow-lg rounded-lg">
+    <div v-if="stopDoesntExist && !loading" class="flex justify-center items-center ">
+      <h3 class="text-6xl font-bold text-center text-red-600 p-8 bg-white shadow-lg rounded-lg lg:text-xl">
         La parada que ha introducido no existe
       </h3>
     </div>

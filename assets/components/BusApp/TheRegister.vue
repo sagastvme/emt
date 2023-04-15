@@ -1,23 +1,23 @@
 <template>
-  <div class="flex flex-col items-center justify-center ">
-    <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl"> <svg-user class="w-52 h-52"/> </h2>
+  <div class="flex flex-col items-center justify-center lg:w-3/6 ">
+    <h2 class="flex justify-center items-center mr-3 text-gray-700 font-bold text-3xl lg:hidden"> <svg-user class="w-52 h-52"/> </h2>
 
-    <form class="mt-8 shadow-lg rounded-lg p-4 bg-white h-full text-4xl w-full max-w-screen-lg mx-auto" @submit.prevent="register">
+    <form class="mt-8 shadow-lg rounded-lg p-4 bg-white h-full text-4xl w-full max-w-screen-lg mx-auto lg:text-xl lg:mt-14 lg:w-full" @submit.prevent="register">
       <ul >
         <li class="flex items-center mb-8">
-          <input placeholder="Correo electrónico" id="username" v-model="username" class="h-24 text-left flex-1 border border-gray-300 rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" name="username" type="email">
+          <input placeholder="Correo electrónico" id="username" v-model="username" class="lg:h-14 lg:w-full h-24 text-left flex-1 border border-gray-300 rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" name="username" type="email">
         </li>
 
         <li class="flex items-center mb-8">
-          <input placeholder="Contraseña" type="password" id="password" v-model="password" class="  h-24  text-left flex-1 border border-gray-300 rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" name="password">
+          <input placeholder="Contraseña" type="password" id="password" v-model="password" class="lg:h-14 lg:w-full  h-24  text-left flex-1 border border-gray-300 rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" name="password">
         </li>
 
         <li class="flex items-center mb-8" >
-          <input placeholder="Repita su contraseña" type="password" id="passwordRepeat" ref="passwordRepeat" v-model="passwordRepeat"  class="h-24  flex-1 border border-gray-300 rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" name="passwordRepeat">
+          <input placeholder="Repita su contraseña" type="password" id="passwordRepeat" ref="passwordRepeat" v-model="passwordRepeat"  class="lg:h-14 lg:w-full h-24  flex-1 border border-gray-300 rounded py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500" name="passwordRepeat">
         </li>
 
         <li class="flex items-center justify-center">
-          <button v-if="samePassword && !registering" class="bg-blue-500 hover:cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-3 rounded col-span-2 relative h-24 ">
+          <button v-if="samePassword && !registering" class="lg:h-14 h-24 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded hover:cursor-pointer">
             Registrarse
           </button>
           <transition name="fade">

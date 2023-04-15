@@ -18,32 +18,32 @@
 
 
     <!--Desktop Menu-->
-    <div v-show="!showMobileMenu" class="hidden lg:block">
+    <div v-show="!showMobileMenu" class="hidden lg:block text-lg">
 
       <div class="flex flex-col lg:flex-row items-center w-full">
         <button
             :class="{ 'bg-[#173753]': isTabActive('bus-time'), 'bg-[#1d70a2]': !isTabActive('bus-time') }"
-            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class=" ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('bus-time')"
         >
           <span class="pr-3">Tu parada de autobus</span>
-          <svg-bus class="h-24 w-24 mx-auto"/>
+          <svg-bus class="h-14 w-14 mx-auto"/>
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('the-login'), 'bg-[#1d70a2]': !isTabActive('the-login') }"
-            class="text-4xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class=" mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('the-login')"
         >
           <span class="pr-3">Iniciar sesion</span>
-          <svg-login class="h-24 w-24 mx-auto"/>
+          <svg-login class="h-14 w-14 mx-auto"/>
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('the-register'), 'bg-[#1d70a2]': !isTabActive('the-register') }"
-            class="text-4xl mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class=" mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('the-register')"
         >
           <span class="pr-3">Registrate</span>
-          <svg-user class="h-24 w-24 mx-auto"/>
+          <svg-user class="h-14 w-14 mx-auto"/>
         </button>
       </div>
 

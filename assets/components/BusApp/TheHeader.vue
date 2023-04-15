@@ -1,7 +1,7 @@
 <template>
   <header class="flex items-center justify-center ">
-    <svg-madrid class="h-24 w-24" />
-    <h1 class="hidden text-6xl lg:block">El rastro</h1>
+    <svg-madrid class="h-14 w-14" />
+    <h1 class="hidden text-4xl lg:block font-thin font-serif">El rastro</h1>
   </header>
 </template>
 

@@ -4,7 +4,7 @@
   </div>
 
   <the-before-menu @change-tab="changeTab"></the-before-menu>
-  <div class="flex justify-center mt-8 md:mt-16 ">
+  <div class="flex justify-center mt-8 lg:mt-0 ">
     <component :is="selectedTab"></component>
   </div>
 
