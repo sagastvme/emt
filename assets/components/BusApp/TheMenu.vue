@@ -1,46 +1,5 @@
 <template>
- <!--
-    Desktop menu
-    <div v-show="!showMobileMenu" class="hidden lg:block">
-      <div class="flex w-full">
 
-
-        <button
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
-            :class="{ 'bg-gray-500': isTabActive('the-plans'), 'bg-gray-400': !isTabActive('the-plans') }"
-            @click="changeTabMobile('the-plans')"
-        >Planos de metro<svg-map/>
-        </button>
-          <button
-              class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
-              :class="{ 'bg-gray-500': isTabActive('transport-prices'), 'bg-gray-400': !isTabActive('transport-prices') }"
-              @click="changeTabMobile('transport-prices')"
-          >Precios y tarifas<svg-price/>
-          </button>
-        <button
-            class="mr-2  hover:bg-gray-500 flex-1 text-white font-bold rounded-md px-3 py-2 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
-            :class="{ 'bg-gray-500': isTabActive('bike-time'), 'bg-gray-400': !isTabActive('bike-time') }"
-            @click="changeTabMobile('bike-time')"
-        >Consulta tu parada de biciMAD<svg-bike/>
-        </button>
-
-
-        <button
-            class="mr-2  hover:bg-gray-500 flex-1 text-white
-            font-bold rounded-md px-3 py-2 transition duration-200
-            focus:outline-none focus:shadow-outline relative hover:text-white transition-colors"
-            :class="{ 'bg-gray-500': isTabActive('most-visited'), 'bg-gray-400': !isTabActive('most-visited') }"
-            @click="changeTabMobile('most-visited')"
-        >Paradas mas visitadas <svg-trophy/>
-        </button>
-        <a href="/logout" class="mr-2  hover:bg-gray-500 flex-1 text-white
-            font-bold rounded-md px-3 py-2 transition duration-200
-            focus:outline-none focus:shadow-outline relative hover:text-white transition-colors bg-gray-400">
-          Cerrar sesión<svg-logout/></a>
-      </div>
-    </div>
-
-  </nav>-->
   <nav class="rounded-lg overflow-hidden shadow-lg lg:shadow-none">
 
     <div class="bg-[#1d70a2]  rounded">
@@ -62,86 +21,77 @@
       <div class="flex flex-col lg:flex-row items-center w-full">
         <button
             :class="{ 'bg-[#173753]': isTabActive('bus-time'), 'bg-[#1d70a2]': !isTabActive('bus-time') }"
-            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class="text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('bus-time')"
         >
-          <span class="pr-3">Autobus</span>
-          <svg-bus class="h-14 w-14 mx-auto"/>
+          <span class="pr-3 text-2xl">Autobus</span>
+          <svg-bus class="h-10 w-10 mx-auto mt-2"/>
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('favourite-stops'), 'bg-[#1d70a2]': !isTabActive('favourite-stops') }"
-            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class="text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-8 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('favourite-stops')"
         >
-          <span class="pr-3">Mis sitios</span><svg-star-full class="h-14 w-14 mx-auto"/>
+          <span class="pr-3 lg:text-xl ">Mis sitios</span><svg-star-full class="h-10 w-10 mx-auto mt-1"/>
         </button>
 
 
         <button
             :class="{ 'bg-[#173753]': isTabActive('forum-home-page'), 'bg-[#1d70a2]': !isTabActive('forum-home-page') }"
-            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class="text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('forum-home-page')"
         >
-          <span class="pr-3">Foro</span>
-          <svg-forum class="h-14 w-14 mx-auto"/>
+          <span class="pr-3 text-2xl">Foro</span>
+          <svg-forum class="h-10 w-10 mx-auto mt-2"/>
         </button>
 
         <button
             :class="{ 'bg-[#173753]': isTabActive('the-user-data'), 'bg-[#1d70a2]': !isTabActive('the-user-data') }"
-            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class="text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('the-user-data')"
         >
-          <span class="pr-3">Mi perfil</span>
-          <svg-menu-user class="h-14 w-14 mx-auto"/>
+          <span class="pr-3 text-2xl">Cuenta</span>
+          <svg-menu-user  class="h-10 w-10 mx-auto mt-2"/>
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('the-plans'), 'bg-[#1d70a2]': !isTabActive('the-plans') }"
-            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class="text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('the-plans')"
         >
-          <span class="pr-3">Planos</span>
-         <svg-map  class="h-14 w-14 mx-auto"/>
+          <span class="pr-3 text-2xl">Planos</span>
+         <svg-map  class="h-8 w-8 mx-auto mt-4"/>
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('transport-prices'), 'bg-[#1d70a2]': !isTabActive('transport-prices') }"
-            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-6 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class="bg-[#1d70a2] text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-2 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center"
             @click="changeTabMobile('transport-prices')"
         >
-          <span class="pr-3">Precios</span>
-          <svg-price  class="h-16 w-16 mx-auto"/>
+          <span  class="ml-2 pr-2 text-2xl">Precios</span>
+          <svg-price  class="h-8 w-8 mx-auto mt-4"/>
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('bike-time'), 'bg-[#1d70a2]': !isTabActive('bike-time') }"
-            class="mb-6 mt-0 text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-6 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-0"
-            @click="changeTabMobile('bike-time')"
+            class="bg-[#1d70a2] text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-1 py-6 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center"
+        @click="changeTabMobile('bike-time')"
         >
 
-          <span > BiciMAD</span>
-          <svg-bike  class="-my-4 h-24 w-24 mx-auto"/>
+          <span class="ml-3 pr-3 py-2  text-2xl"> BiciMAD</span>
+          <svg-bike  class="h-10 w-10 mx-auto"/>
         </button>
 
 
         <button
             :class="{ 'bg-[#173753]': isTabActive('most-visited'), 'bg-[#1d70a2]': !isTabActive('most-visited') }"
-            class="text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-1 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
+            class="text-lg ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-2 py-1 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0"
             @click="changeTabMobile('most-visited')"
         >
-          <span class="pr-3 text-2xl">Paradas mas visitadas</span>
+          <span class="pr-3 text-2xl">Paradas populares</span>
            <svg-trophy  class="h-16 w-16 mx-auto"/>
         </button>
-        <a href="/logout" class="bg-[#1d70a2] text-4xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-3 py-5 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center">
-          <span class="mx-auto">Salir</span>
-          <svg-logout class="mt-6 h-12 w-12 mx-auto" />
+        <a href="/logout" class="bg-[#1d70a2] text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-2 py-6 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center">
+          <span class="mx-auto text-2xl">Salir</span>
+          <svg-logout class="mt-4 h-10 w-10 mx-auto" />
         </a>
-
-
-
-
-
-
-
-
-
 
       </div>
 
@@ -155,7 +105,7 @@
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('bus-time')"
         >
-          <span>Tu parada de autobus</span>
+          <span>Autobus</span>
           <svg-bus class="ml-2 h-16 w-16"/>
         </button>
 
@@ -192,17 +142,17 @@
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('the-plans')"
-        >Planos de metro<svg-map class="ml-2 h-16 w-16"/>
+        >Planos<svg-map class="ml-2 h-16 w-16"/>
         </button>
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('transport-prices')"
-        >Precios y tarifas<svg-price class="ml-2 h-16 w-16"/>
+        >Precios<svg-price class="ml-2 h-16 w-16"/>
         </button>
         <button
             class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
             @click="changeTab('bike-time')"
-        >Tu parada de biciMAD<svg-bike class="ml-2 h-24 w-24"/>
+        >BiciMAD<svg-bike class="ml-2 h-24 w-24"/>
         </button>
 
         <a href="/logout"       class="mb-5  flex text-5xl items-center w-full text-center py-2 px-3 rounded-md text-gray-800 font-bold hover:bg-gray-400 focus:outline-none focus:bg-gray-400"
@@ -256,7 +206,7 @@ export default {
   data() {
     return {
       showMobileMenu: false,
-      activeTab: null,
+      activeTab: 'bus-time',
     }
   },
   computed: {

@@ -2,7 +2,7 @@
   <div class="hidden lg:block">
     <the-header></the-header>
   </div>
-  <the-menu @change-tab="changeTab"></the-menu>
+  <the-menu class="lg:mt-2" @change-tab="changeTab"></the-menu>
   <div class="flex justify-center">
     <component :is="selectedTab" ></component>
 
