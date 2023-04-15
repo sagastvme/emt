@@ -4,8 +4,8 @@
   </h3>
   <div v-else-if="dataRecovered">
   <h2 class="bg-[#616163] text-white text-3xl font-bold text-center py-8 text-6xl lg:text-xl lg:hidden" >Tus posts favoritos</h2>
-  <table class="table-auto border-collapse border border-gray-500 w-full text-4xl lg:text-xl" >
-    <thead class="bg-[#616163] text-white">
+  <table class="table-auto border-collapse  w-full text-4xl lg:text-xl" >
+    <thead class="bg-gray-200 ">
     <tr >
       <th class="px-3 py-2 text-center hidden lg:table-cell">Enlace</th>
 
@@ -14,7 +14,7 @@
       <th></th>
     </tr>
     </thead>
-    <tbody class="divide-y divide-gray-200">
+    <tbody class="divide-y divide-gray-300">
     <tr v-for="post in posts" :key="post.postId">
 
       <td class=" px-3 py-2 bg-gray-300  ">

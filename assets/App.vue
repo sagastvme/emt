@@ -27,7 +27,7 @@ export default {
 
   data() {
     return {
-      selectedTab: 'forum-home-page'
+      selectedTab: 'bus-time'
     }
   },
   methods:{

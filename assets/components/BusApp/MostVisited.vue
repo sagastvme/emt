@@ -11,14 +11,14 @@
         <table class="w-full mt-4 table-auto lg:mt-0">
           <thead class="bg-gray-200 rounded">
           <tr>
-            <th class="text-white px-3 py-2 lg:py-0 border border-black text-5xl bg-[#616163] lg:text-xl ">Parada</th>
-            <th class="text-white px-3 py-2 border border-black text-5xl bg-[#616163] lg:text-xl">Veces visitada</th>
+            <th class=" px-3 py-2 lg:py-0 border   lg:text-xl ">Parada</th>
+            <th class=" px-3 py-2  text-5xl  lg:text-xl">Veces visitada</th>
           </tr>
           </thead>
           <tbody >
           <tr   v-for="stop in stopsArray" :key="stop.stopId" class="bg-gray-300  ">
-            <td class=" py-6 font-semibold border border-black  text-center text-5xl lg:py-1 lg:text-xl">{{ stop.stopId }}</td>
-            <td class="py-6 lg:py-0 font-semibold border border-black  text-center text-5xl lg:py-1 lg:text-xl">{{ stop.timesVisited }}</td>
+            <td class=" py-6 font-semibold   text-center text-5xl lg:py-1 lg:text-xl">{{ stop.stopId }}</td>
+            <td class="py-6 lg:py-0 font-semibold  text-center text-5xl lg:py-1 lg:text-xl">{{ stop.timesVisited }}</td>
           </tr>
           </tbody>
         </table>

@@ -6,16 +6,16 @@
         <svg-price class="w-52 h-52"/> </h2>
       <div class="overflow-x-auto w-full mt-20 lg:mt-8">
         <table class="w-full mt-4 table-auto ">
-          <thead class="bg-[#616163] text-white ">
+          <thead class="bg-gray-200  ">
           <tr>
-            <th class="border border-black px-3 py-2   text-4xl lg:text-xl">Abono</th>
-            <th class="border border-black px-3 py-2   text-4xl  lg:text-xl">Precio</th>
+            <th class=" px-3 py-2   text-4xl lg:text-xl">Abono</th>
+            <th class=" px-3 py-2   text-4xl  lg:text-xl">Precio</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="plan in plans" :key="plan.id" class="bg-gray-300">
-            <td class="py-6 font-semibold border border-black  text-center text-4xl lg:text-xl">{{plan.title}}</td>
-            <td class="py-6 font-semibold border border-black  text-center text-4xl lg:text-xl">{{plan.price}}</td>
+            <td class="py-6 font-semibold  text-center text-4xl lg:text-xl">{{plan.title}}</td>
+            <td class="py-6 font-semibold  text-center text-4xl lg:text-xl">{{plan.price}}</td>
           </tr>
           </tbody>
         </table>

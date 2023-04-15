@@ -13,7 +13,7 @@
     <div v-if="results.length>0 && dataReceived" class="mt-8">
       <table class="w-full border-collapse table-auto text-4xl lg:text-xl">
         <thead>
-        <tr class="text-white px-3 py-2 border border-black text-5xl lg:text-xl bg-[#616163]">
+        <tr class=" px-3 py-2  text-5xl lg:text-xl bg-gray-200">
           <th class="py-2 px-3">Titulo</th>
           <th class="py-2 px-3 hidden lg:table-cell">Fecha de creacion</th>
           <th class="py-2 px-3 hidden lg:table-cell">Autor</th>
@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody class="bg-gray-300 font-light">
-        <tr v-for="result in results" :key="result.id" class="font-semibold border border-black">
+        <tr v-for="result in results" :key="result.id" class="font-semibold ">
           <td class="py-2 px-3"><a :href="'/read/'+result.category+'/'+result.title+'/'+result.id">{{ result.title }}</a></td>
           <td class="py-2 px-3 hidden lg:table-cell">{{ result.date_created }}</td>
           <td class="py-2 px-3 hidden lg:table-cell">{{ result.author }}</td>
