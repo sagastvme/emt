@@ -63,7 +63,7 @@
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('transport-prices'), 'bg-[#1d70a2]': !isTabActive('transport-prices') }"
-            class="bg-[#1d70a2] text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-2 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center"
+            class=" text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-2 py-7 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center"
             @click="changeTabMobile('transport-prices')"
         >
           <span  class="ml-2 pr-2 text-2xl">Precios</span>
@@ -71,7 +71,7 @@
         </button>
         <button
             :class="{ 'bg-[#173753]': isTabActive('bike-time'), 'bg-[#1d70a2]': !isTabActive('bike-time') }"
-            class="bg-[#1d70a2] text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-1 py-6 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center"
+            class="text-xl ml-1 mr-2 hover:bg-[#173753] text-white font-bold rounded-md px-1 py-6 transition duration-200 focus:outline-none focus:shadow-outline relative hover:text-white transition-colors flex-1 mb-2 sm:mb-0 flex flex-col justify-center items-center"
         @click="changeTabMobile('bike-time')"
         >
 
@@ -201,6 +201,7 @@ export default {
     changeTabMobile(tab) {
       this.$emit('change-tab', tab)
       this.activeTab = tab;
+      console.log('el nombre de la pestana es '+tab)
     }
   },
   data() {
