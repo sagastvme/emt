@@ -12,26 +12,76 @@ return [[
     'entrypoints' => [
         'app' => [
             'js' => [
-                '/build/runtime.js',
-                '/build/vendors-node_modules_vue-loader_dist_exportHelper_js-node_modules_vue_dist_vue_esm-bundler_js-6e5ad1.js',
-                '/build/assets_styles_app_css-assets_components_BikeTime_vue-assets_components_BusTime_vue-assets_com-5a3d61.js',
-                '/build/app.js',
+                'http://localhost:8080/build/runtime.js',
+                'http://localhost:8080/build/vendors-node_modules_mini-css-extract-plugin_dist_hmr_hotModuleReplacement_js-node_modules_vu-87a1ca.js',
+                'http://localhost:8080/build/vendors-node_modules_axios_lib_axios_js.js',
+                'http://localhost:8080/build/assets_styles_app_css-assets_components_BusApp_TheHeader_vue-assets_components_Messages_Confi-a04abb.js',
+                'http://localhost:8080/build/assets_components_BusApp_BikeTime_vue-assets_components_BusApp_BusTime_vue-assets_components_-c91fbb.js',
+                'http://localhost:8080/build/assets_components_SvgIcons_SvgLogout_vue-assets_components_SvgIcons_SvgMenuUser_vue-assets_co-496ae7.js',
+                'http://localhost:8080/build/app.js',
             ],
             'css' => [
-                '/build/assets_styles_app_css-assets_components_BikeTime_vue-assets_components_BusTime_vue-assets_com-5a3d61.css',
-                '/build/app.css',
+                'http://localhost:8080/build/assets_styles_app_css.css',
+                'http://localhost:8080/build/app.css',
+            ],
+        ],
+        'admin' => [
+            'js' => [
+                'http://localhost:8080/build/runtime.js',
+                'http://localhost:8080/build/vendors-node_modules_mini-css-extract-plugin_dist_hmr_hotModuleReplacement_js-node_modules_vu-87a1ca.js',
+                'http://localhost:8080/build/vendors-node_modules_axios_lib_axios_js.js',
+                'http://localhost:8080/build/assets_styles_app_css-assets_components_BusApp_TheHeader_vue-assets_components_Messages_Confi-a04abb.js',
+                'http://localhost:8080/build/assets_components_SvgIcons_SvgLogout_vue-assets_components_SvgIcons_SvgMenuUser_vue-assets_co-496ae7.js',
+                'http://localhost:8080/build/admin.js',
+            ],
+            'css' => [
+                'http://localhost:8080/build/assets_styles_app_css.css',
+                'http://localhost:8080/build/admin.css',
             ],
         ],
         'appTwo' => [
             'js' => [
-                '/build/runtime.js',
-                '/build/vendors-node_modules_vue-loader_dist_exportHelper_js-node_modules_vue_dist_vue_esm-bundler_js-6e5ad1.js',
-                '/build/assets_styles_app_css-assets_components_BikeTime_vue-assets_components_BusTime_vue-assets_com-5a3d61.js',
-                '/build/appTwo.js',
+                'http://localhost:8080/build/runtime.js',
+                'http://localhost:8080/build/vendors-node_modules_mini-css-extract-plugin_dist_hmr_hotModuleReplacement_js-node_modules_vu-87a1ca.js',
+                'http://localhost:8080/build/vendors-node_modules_axios_lib_axios_js.js',
+                'http://localhost:8080/build/assets_styles_app_css-assets_components_BusApp_TheHeader_vue-assets_components_Messages_Confi-a04abb.js',
+                'http://localhost:8080/build/assets_components_BusApp_BikeTime_vue-assets_components_BusApp_BusTime_vue-assets_components_-c91fbb.js',
+                'http://localhost:8080/build/appTwo.js',
             ],
             'css' => [
-                '/build/assets_styles_app_css-assets_components_BikeTime_vue-assets_components_BusTime_vue-assets_com-5a3d61.css',
-                '/build/appTwo.css',
+                'http://localhost:8080/build/assets_styles_app_css.css',
+                'http://localhost:8080/build/appTwo.css',
+            ],
+        ],
+        'addReply' => [
+            'js' => [
+                'http://localhost:8080/build/runtime.js',
+                'http://localhost:8080/build/vendors-node_modules_mini-css-extract-plugin_dist_hmr_hotModuleReplacement_js-node_modules_vu-87a1ca.js',
+                'http://localhost:8080/build/vendors-node_modules_axios_lib_axios_js.js',
+                'http://localhost:8080/build/addReply.js',
+            ],
+            'css' => [
+                'http://localhost:8080/build/assets_styles_app_css.css',
+            ],
+        ],
+        'userDetails' => [
+            'js' => [
+                'http://localhost:8080/build/runtime.js',
+                'http://localhost:8080/build/vendors-node_modules_mini-css-extract-plugin_dist_hmr_hotModuleReplacement_js-node_modules_vu-87a1ca.js',
+                'http://localhost:8080/build/userDetails.js',
+            ],
+            'css' => [
+                'http://localhost:8080/build/assets_styles_app_css.css',
+            ],
+        ],
+        'byCategories' => [
+            'js' => [
+                'http://localhost:8080/build/runtime.js',
+                'http://localhost:8080/build/vendors-node_modules_mini-css-extract-plugin_dist_hmr_hotModuleReplacement_js-node_modules_vu-87a1ca.js',
+                'http://localhost:8080/build/byCategories.js',
+            ],
+            'css' => [
+                'http://localhost:8080/build/assets_styles_app_css.css',
             ],
         ],
     ],
